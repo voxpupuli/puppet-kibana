@@ -11,4 +11,5 @@ end
 
 guard :rspec, :cmd => 'rspec' do
   watch(%r{^spec\/(classes|templates)\/(.+)\_spec.rb$})
+  watch(%r{^templates\/.*\/(.*)$}) { |m| "spec/templates/#{m[1]}_spec.rb" }
 end
