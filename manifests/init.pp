@@ -25,7 +25,19 @@ class kibana (
   Enum['5.x'] $repo_version                      = $::kibana::params::repo_version,
 ) inherits ::kibana::params {
 
-  class { '::kibana::install': } ->
-  class { '::kibana::config': } ~>
-  class { '::kibana::service': }
+  case $ensure {
+    'present': {
+      class { '::kibana::install': } ->
+      class { '::kibana::config': } ~>
+      class { '::kibana::service': }
+    }
+    'absent': {
+      class { '::kibana::service': } ->
+      class { '::kibana::config': } ->
+      class { '::kibana::install': }
+    }
+    default: {
+      fail("unknown \$ensure value '${ensure}'")
+    }
+  }
 }

@@ -124,6 +124,36 @@ describe 'kibana', :type => 'class' do
           end
 
           it { should compile.with_all_deps }
+          it 'sets expected defaults' do
+            is_expected.to contain_class('kibana').with(
+              :ensure => 'absent'
+            )
+          end
+          it { is_expected.to contain_class('kibana::params') }
+          it 'manages service before config' do
+            is_expected.to contain_class('kibana::service')
+              .that_comes_before('Class[kibana::config]')
+          end
+          it 'manages config before install' do
+            is_expected.to contain_class('kibana::config')
+              .that_comes_before('Class[kibana::install]')
+          end
+          it { is_expected.to contain_class('kibana::install') }
+
+          it 'stops and disables the service' do
+            is_expected.to contain_service('kibana')
+              .with(
+                :ensure => false,
+                :enable => false
+              )
+          end
+
+          it 'removes the kibana config file' do
+            is_expected.to contain_file('/etc/kibana/kibana.yml')
+              .with(:ensure => 'absent')
+          end
+
+          it { is_expected.to contain_package('kibana').with_ensure('absent') }
         end
 
         describe 'parameter validation' do

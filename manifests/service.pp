@@ -5,8 +5,11 @@
 #
 class kibana::service {
 
+  $_ensure = $::kibana::ensure == 'present'
+  $_enable = $::kibana::ensure == 'present'
+
   service { 'kibana':
-    ensure => true,
-    enable => true,
+    ensure => $_ensure,
+    enable => $_enable,
   }
 }
