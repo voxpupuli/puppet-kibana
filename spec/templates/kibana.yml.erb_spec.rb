@@ -19,7 +19,7 @@ describe 'kibana.yml.erb' do
     h.run
   end
 
-  describe 'normal hashes' do
+  describe 'normal, sorted hashes' do
     let :config do
       {
         'server.host' => 'localhost',
@@ -29,8 +29,8 @@ describe 'kibana.yml.erb' do
 
     let :yaml do
       <<-EOS
-        server.host: localhost
         kibana.index: ".kibana"
+        server.host: localhost
       EOS
     end
 
