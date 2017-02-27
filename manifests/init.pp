@@ -5,7 +5,8 @@
 # @example Basic installation
 #   class { 'kibana' : }
 #
-# @param ensure Whether kibana should be present or absent.
+# @param ensure State of Kibana on the system (simple present/absent/latest
+#   or version number).
 # @param config Hash of key-value pairs for Kibana's configuration file
 # @param manage_repo Whether to manage the package manager repository
 # @param repo_key_id Trusted GPG Key ID for package repository
@@ -15,7 +16,7 @@
 # @param repo_version Repository major version to use
 #
 class kibana (
-  Enum['present', 'absent'] $ensure              = $::kibana::params::ensure,
+  Variant[Enum['present', 'absent', 'latest'], Pattern[/^\d([.]\d+)*$/]] $ensure = $::kibana::params::ensure,
   Hash[String, Variant[String, Integer]] $config = {},
   Boolean $manage_repo                           = $::kibana::params::manage_repo,
   String $repo_key_id                            = $::kibana::params::repo_key_id,
@@ -25,19 +26,21 @@ class kibana (
   Enum['5.x'] $repo_version                      = $::kibana::params::repo_version,
 ) inherits ::kibana::params {
 
+  class { '::kibana::install': }
+  class { '::kibana::config': }
+  class { '::kibana::service': }
+
+  # Catch absent values, otherwise default to present/installed ordering
   case $ensure {
-    'present': {
-      class { '::kibana::install': } ->
-      class { '::kibana::config': } ~>
-      class { '::kibana::service': }
-    }
     'absent': {
-      class { '::kibana::service': } ->
-      class { '::kibana::config': } ->
-      class { '::kibana::install': }
+      Class['::kibana::service']
+        -> Class['::kibana::config']
+        -> Class['::kibana::install']
     }
     default: {
-      fail("unknown \$ensure value '${ensure}'")
+      Class['::kibana::install']
+        -> Class['::kibana::config']
+        ~> Class['::kibana::service']
     }
   }
 }

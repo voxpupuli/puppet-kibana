@@ -5,8 +5,8 @@
 #
 class kibana::service {
 
-  $_ensure = $::kibana::ensure == 'present'
-  $_enable = $::kibana::ensure == 'present'
+  $_ensure = $::kibana::ensure != 'absent'
+  $_enable = $::kibana::ensure != 'absent'
 
   service { 'kibana':
     ensure => $_ensure,

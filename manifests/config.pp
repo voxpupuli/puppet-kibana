@@ -5,8 +5,8 @@
 class kibana::config {
 
   $_ensure = $::kibana::ensure ? {
-    'present' => 'file',
-    default   => $::kibana::ensure,
+    'absent' => $::kibana::ensure,
+    default  => 'file',
   }
   $config = $::kibana::config
 

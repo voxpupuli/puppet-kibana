@@ -4,6 +4,10 @@
 #
 class kibana::install {
 
+  $_ensure = $::kibana::ensure ? {
+    'absent' => $::kibana::ensure,
+    default  => 'present',
+  }
   $_repo_baseurl = "https://artifacts.elastic.co/packages/${::kibana::repo_version}"
 
   case $::osfamily {
@@ -15,7 +19,7 @@ class kibana::install {
       Class['apt::update'] -> Package['kibana']
 
       apt::source { 'kibana':
-        ensure   => $::kibana::ensure,
+        ensure   => $_ensure,
         location => "${_repo_baseurl}/apt",
         release  => 'stable',
         repos    => 'main',
@@ -33,7 +37,7 @@ class kibana::install {
     }
     'RedHat', 'Amazon': {
       yumrepo { 'kibana':
-        ensure   => $::kibana::ensure,
+        ensure   => $_ensure,
         descr    => "Elastic ${::kibana::repo_version} repository",
         baseurl  => "${_repo_baseurl}/yum",
         gpgcheck => 1,

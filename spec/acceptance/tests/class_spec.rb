@@ -1,15 +1,17 @@
 require 'spec_helper_acceptance'
 
 describe 'kibana class' do
-  before(:all) { @port = 5602 }
-
   context 'example manifest' do
+    let(:port) { 5602 }
+    let(:version) { '5.2.0' }
+
     let(:manifest) do
       <<-EOS
         class { 'kibana':
+          ensure => '#{version}',
           config => {
             'server.host' => '0.0.0.0',
-            'server.port' => #{@port},
+            'server.port' => #{port},
           }
         }
       EOS
@@ -29,12 +31,15 @@ describe 'kibana class' do
       it { is_expected.to be_running }
     end
 
-    describe port(@port) { it { should be_listening } }
+    describe port(port) { it { should be_listening } }
 
     describe server :container do
       describe http('http://localhost:5602') do
         it('returns OK', :api) { expect(response.status).to eq(200) }
         it('is live', :api) { expect(response['kbn-name']).to eq('kibana') }
+        it 'installs the correct version', :api do
+          expect(response['kbn-version']).to eq(version)
+        end
       end
     end
   end

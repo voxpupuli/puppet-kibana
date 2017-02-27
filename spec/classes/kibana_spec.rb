@@ -157,6 +157,24 @@ describe 'kibana', :type => 'class' do
         end
 
         describe 'parameter validation' do
+          describe 'ensure' do
+            context 'valid parameter' do
+              %w(present absent latest 5.2.1).each do |param|
+                context param do
+                  let(:params) { { :ensure => param } }
+                  it { should compile.with_all_deps }
+                  it { is_expected.to contain_package('kibana')
+                    .with_ensure(param) }
+                end
+              end
+            end
+
+            context 'bad parameters' do
+              let(:params) { { :ensure => 'foo' } }
+              it { should_not compile.with_all_deps }
+            end
+          end
+
           context 'repo_version' do
             let(:params) { { :repo_version => 'foo' } }
             it { should_not compile.with_all_deps }
