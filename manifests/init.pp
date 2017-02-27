@@ -22,7 +22,7 @@ class kibana (
   String $repo_key_source                        = $::kibana::params::repo_key_source,
   Optional[Integer] $repo_priority               = undef,
   Optional[String] $repo_proxy                   = undef,
-  String $repo_version                           = $::kibana::params::repo_version,
+  Enum['5.x'] $repo_version                      = $::kibana::params::repo_version,
 ) inherits ::kibana::params {
 
   class { '::kibana::install': } ->
