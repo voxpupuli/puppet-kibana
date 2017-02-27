@@ -428,6 +428,15 @@ Style/ParenthesesAroundCondition:
 Style/PercentLiteralDelimiters:
   Enabled: false
 
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/MultilineBlockLayout:
+  Enabled: false
+
+Style/BlockEndNewline:
+  Enabled: false
+
 Style/PerlBackrefs:
   Enabled: false
 
