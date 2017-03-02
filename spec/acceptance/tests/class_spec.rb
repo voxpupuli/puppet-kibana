@@ -1,22 +1,29 @@
 require 'spec_helper_acceptance'
 
 describe 'kibana class' do
-  context 'example manifest' do
-    let(:port) { 5602 }
-    let(:version) { '5.2.0' }
+  let(:version) { '5.2.0' }
+  let(:plugin_version) { '0.3.4' }
+  let(:port) { 5602 }
 
-    let(:manifest) do
-      <<-EOS
-        class { 'kibana':
-          ensure => '#{version}',
-          config => {
-            'server.host' => '0.0.0.0',
-            'server.port' => #{port},
-          }
+  let(:manifest) do
+    <<-EOS
+      class { 'kibana':
+        ensure => '#{version}',
+        config => {
+          'server.host' => '0.0.0.0',
+          'server.port' => #{port},
         }
-      EOS
-    end
+      }
 
+      kibana_plugin { 'health_metric_vis':
+        ensure  => 'present',
+        url     => 'https://github.com/DeanF/health_metric_vis/releases/download/v#{plugin_version}/health_metric_vis-5.2.0.zip',
+        version => '#{plugin_version}',
+      }
+    EOS
+  end
+
+  context 'example manifest' do
     it 'should work idempotently with no errors' do
       apply_manifest(manifest, :catch_failures => true)
       apply_manifest(manifest, :catch_changes  => true)
@@ -44,18 +51,39 @@ describe 'kibana class' do
     end
   end
 
-  context 'removal' do
-    let(:manifest) do
-      <<-EOS
-        class { 'kibana':
-          ensure => absent,
-        }
-      EOS
-    end
+  context 'plugin upgrades' do
+    let(:plugin_version) { '0.3.5' }
 
     it 'should work idempotently with no errors' do
       apply_manifest(manifest, :catch_failures => true)
       apply_manifest(manifest, :catch_changes  => true)
+    end
+
+    describe file('/usr/share/kibana/plugins/health_metric_vis/package.json') do
+      its(:content_as_json) { should include('version' => plugin_version) }
+    end
+  end
+
+  context 'removal' do
+    it 'should apply cleanly' do
+      manifest = <<-EOS
+        kibana_plugin { 'health_metric_vis': ensure => absent } ->
+        class { 'kibana':
+          ensure => absent,
+        }
+      EOS
+
+      apply_manifest(manifest, :catch_failures => true)
+    end
+
+    it 'is idempotent' do
+      manifest = <<-EOS
+        class { 'kibana':
+          ensure => absent,
+        }
+      EOS
+
+      apply_manifest(manifest, :catch_changes => true)
     end
 
     describe package('kibana') do
