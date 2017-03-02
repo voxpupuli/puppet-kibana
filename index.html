@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.8
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-Kibana+Puppet+Module">Kibana Puppet Module</h1>
+
+<h4 id="label-Table+of+Contents">Table of Contents</h4>
+<ol><li>
+<p><a href="#overview">Overview</a></p>
+</li><li>
+<p><a href="#module-description">Module Description - What the module does and
+why it is useful</a></p>
+</li><li>
+<p><a href="#setup">Setup - The basics of getting started with Kibana</a></p>
+<ul><li>
+<p><a href="#what-kibana-affects">What Kibana affects</a></p>
+</li><li>
+<p><a href="#setup-requirements">Setup requirements</a></p>
+</li><li>
+<p><a href="#beginning-with-kibana">Beginning with Kibana</a></p>
+</li></ul>
+</li><li>
+<p><a href="#usage">Usage - Configuration options and additional
+functionality</a></p>
+</li><li>
+<p><a href="#reference">Reference - An under-the-hood peek at what the module
+is doing and how</a></p>
+</li><li>
+<p><a href="#limitations">Limitations - OS compatibility, etc.</a></p>
+</li><li>
+<p><a href="#development">Development - Guide for contributing to the
+module</a></p>
+</li></ol>
+
+<h2 id="label-Overview">Overview</h2>
+
+<p>This module manages Kibana for use with Elasticsearch.</p>
+
+<h2 id="label-Module+Description">Module Description</h2>
+
+<p>In addition to managing the Kibana system package and service, this module
+also exposes options to control the configuration file for Kibana. Kibana
+plugins are also supported via a native type and provider.</p>
+
+<p>Dependencies are fairly standard (stdlib and apt for Debian-based
+distributions).</p>
+
+<h2 id="label-Setup">Setup</h2>
+
+<h3 id="label-What+Kibana+affects">What Kibana affects</h3>
+<ul><li>
+<p>The <code>kibana</code> system package and service</p>
+</li><li>
+<p><code>/etc/kibana/kibana.yml</code></p>
+</li><li>
+<p><code>/usr/share/kibana/plugins/*</code></p>
+</li></ul>
+
+<h3 id="label-Setup+Requirements">Setup Requirements</h3>
+
+<p>In addition to basic puppet settings (such as pluginsync), ensure that the
+required dependencies for the module are met (these are listed in
+<code>metadata.json</code> and listed in the Puppet Forge).</p>
+
+<h3 id="label-Beginning+with+kibana">Beginning with kibana</h3>
+
+<p>Quick start:</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;kibana&#39; : }</code></pre>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>In order to control Kibana&#39;s configuration file, use the
+<code>config</code> parameter:</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;kibana&#39;:
+  config =&gt; {
+    &#39;server.port&#39; =&gt; &#39;8080&#39;,
+  }
+}</code></pre>
+
+<p>The <code>kibana</code> class also supports additional values for the
+<code>ensure</code> parameter that will be passed along to the
+<code>package</code> resource for Kibana. For example, to ensure the latest
+version of Kibana is always installed:</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;kibana&#39;: ensure =&gt; latest }</code></pre>
+
+<p>In order to explicitly ensure that version 5.2.0 of Kibana is installed:</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;kibana&#39;: ensure =&gt; &#39;5.2.0&#39; }</code></pre>
+
+<p>The <code>kibana</code> class also supports removal through use of
+<code>ensure =&gt; absent</code>:</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;kibana&#39;: ensure =&gt; absent }</code></pre>
+
+<h3 id="label-Plugins">Plugins</h3>
+
+<p>Kibana plugins can be managed by this module. In the most basic form,
+official plugins (provided by Elastic) can simply be specified by name
+alone:</p>
+
+<pre class="code ruby"><code class="ruby">kibana_plugin { &#39;x-pack&#39;: }</code></pre>
+
+<p>The type also supports installing third-party plugins from a remote URL:</p>
+
+<pre class="code ruby"><code class="ruby">kibana_plugin { &#39;health_metric_vis&#39;:
+  url =&gt; &#39;https://github.com/DeanF/health_metric_vis/releases/download/v0.3.4/health_metric_vis-5.2.0.zip&#39;,
+}</code></pre>
+
+<p>When updating plugins, it is important to specify the version of the plugin
+that should be installed. For example, the preceding block of code
+installed version 0.3.4 of the <code>health_metric_vis</code> plugin. In
+order to update that plugin to version 0.3.5, you could use a resource such
+as the following:</p>
+
+<pre class="code ruby"><code class="ruby">kibana_plugin { &#39;health_metric_vis&#39;:
+  url =&gt; &#39;https://github.com/DeanF/health_metric_vis/releases/download/v0.3.5/health_metric_vis-5.2.0.zip&#39;,
+  version =&gt; &#39;0.3.5&#39;,
+}</code></pre>
+
+<p>Plugins can also be removed:</p>
+
+<pre class="code ruby"><code class="ruby">kibana_plugin { &#39;x-pack&#39;: ensure =&gt; absent }</code></pre>
+
+<h2 id="label-Reference">Reference</h2>
+
+<p>Class parameters are available in <a
+href="https://elastic.github.io/puppet-kibana">the auto-generated
+documentation pages</a>.</p>
+
+<h2 id="label-Limitations">Limitations</h2>
+
+<p>This module is actively tested against the versions and distributions
+listed in <code>metadata.json</code>.</p>
+
+<h2 id="label-Development">Development</h2>
+
+<p>See CONTRIBUTING.md with help to get started.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Thu Mar  2 17:40:14 2017 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.8 (ruby-2.3.3).
+</div>
+
+    </div>
+  </body>
+</html>
