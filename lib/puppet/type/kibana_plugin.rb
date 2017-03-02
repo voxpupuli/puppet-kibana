@@ -17,10 +17,4 @@ Puppet::Type.newtype(:kibana_plugin) do
   newproperty(:version) do
     desc 'Installed plugin version.'
   end
-
-  # Issue install commands with kibana uid/gid once user and commands are
-  # present
-  autorequire(:package) do
-    'kibana'
-  end
 end
