@@ -30,7 +30,7 @@ Puppet::Type.type(:kibana_plugin).provide(:ruby) do
       run_plugin ['remove', resource[:name]]
     else
       unless @property_flush[:version].nil?
-        run_plugin ['remove'], reosurce[:name]
+        run_plugin ['remove', resource[:name]]
       end
       run_plugin ['install', plugin_url]
     end
@@ -51,6 +51,10 @@ Puppet::Type.type(:kibana_plugin).provide(:ruby) do
   # The rest is normal provider boilerplate.
 
   mk_resource_methods
+
+  def version=(new_version)
+    @property_flush[:version] = new_version
+  end
 
   def create
     @property_flush[:ensure] = :present
