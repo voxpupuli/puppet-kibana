@@ -21,6 +21,7 @@ This module manages Kibana for use with Elasticsearch.
 
 In addition to managing the Kibana system package and service, this module also
 exposes options to control the configuration file for Kibana.
+Kibana plugins are also supported via a native type and provider.
 
 Dependencies are fairly standard (stdlib and apt for Debian-based
 distributions).
@@ -29,10 +30,11 @@ distributions).
 
 ### What Kibana affects
 
-* The `kibana` system package
-* `/etc/kibana`
+* The `kibana` system package and service
+* `/etc/kibana/kibana.yml`
+* `/usr/share/kibana/plugins/*`
 
-### Setup Requirements **OPTIONAL**
+### Setup Requirements
 
 In addition to basic puppet settings (such as pluginsync), ensure that the
 required dependencies for the module are met (these are listed in
@@ -56,6 +58,63 @@ class { 'kibana':
     'server.port' => '8080',
   }
 }
+```
+
+The `kibana` class also supports additional values for the `ensure` parameter
+that will be passed along to the `package` resource for Kibana.
+For example, to ensure the latest version of Kibana is always installed:
+
+```puppet
+class { 'kibana': ensure => latest }
+```
+
+In order to explicitly ensure that version 5.2.0 of Kibana is installed:
+
+```puppet
+class { 'kibana': ensure => '5.2.0' }
+```
+
+The `kibana` class also supports removal through use of `ensure => absent`:
+
+```puppet
+class { 'kibana': ensure => absent }
+```
+
+### Plugins
+
+Kibana plugins can be managed by this module.
+In the most basic form, official plugins (provided by Elastic) can simply be
+specified by name alone:
+
+```puppet
+kibana_plugin { 'x-pack': }
+```
+
+The type also supports installing third-party plugins from a remote URL:
+
+```puppet
+kibana_plugin { 'health_metric_vis':
+  url => 'https://github.com/DeanF/health_metric_vis/releases/download/v0.3.4/health_metric_vis-5.2.0.zip',
+}
+```
+
+When updating plugins, it is important to specify the version of the plugin
+that should be installed.
+For example, the preceding block of code installed version 0.3.4 of the
+`health_metric_vis` plugin. In order to update that plugin to version 0.3.5,
+you could use a resource such as the following:
+
+```puppet
+kibana_plugin { 'health_metric_vis':
+  url => 'https://github.com/DeanF/health_metric_vis/releases/download/v0.3.5/health_metric_vis-5.2.0.zip',
+  version => '0.3.5',
+}
+```
+
+Plugins can also be removed:
+
+```puppet
+kibana_plugin { 'x-pack': ensure => absent }
 ```
 
 ## Reference
