@@ -1,4 +1,6 @@
+# Custom extensions namespace
 module Puppet_X
+  # Elastic helpers
   module Elastic
     # Utility extension for consistent to_yaml behavior.
     module SortedHash

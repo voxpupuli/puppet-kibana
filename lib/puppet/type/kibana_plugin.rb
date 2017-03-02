@@ -2,6 +2,8 @@ Puppet::Type.newtype(:kibana_plugin) do
   @doc = 'Manages Kibana plugins.'
 
   ensurable do
+    desc 'Whether the plugin should be present or absent.'
+
     defaultvalues
     defaultto :present
   end

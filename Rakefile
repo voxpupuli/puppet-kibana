@@ -8,6 +8,8 @@ require 'puppet-lint/tasks/puppet-lint'
 require 'puppet-syntax/tasks/puppet-syntax'
 require 'metadata-json-lint/rake_task'
 require 'rubocop/rake_task'
+require 'puppet-strings'
+require 'puppet-strings/tasks'
 
 if Puppet.version.to_f >= 4.9
   require 'semantic_puppet'
@@ -54,7 +56,6 @@ task :spec_standalone => :spec_prep
 namespace :docs do
   desc 'Evaluation documentation coverage'
   task :coverage do
-    require 'puppet-strings'
     require 'puppet-strings/yard'
 
     PuppetStrings::Yard.setup!

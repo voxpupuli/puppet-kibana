@@ -5,6 +5,18 @@
 # @example Basic installation
 #   class { 'kibana' : }
 #
+# @example Module removal
+#   class { 'kibana' : ensure => absent }
+#
+# @example Installing a specific version
+#   class { 'kibana' : ensure => '5.2.1' }
+#
+# @example Keep latest version of Kibana installed
+#   class { 'kibana' : ensure => 'latest' }
+#
+# @example Setting a configuration file value
+#   class { 'kibana' : config => { 'server.port' => 5602 } }
+#
 # @param ensure State of Kibana on the system (simple present/absent/latest
 #   or version number).
 # @param config Hash of key-value pairs for Kibana's configuration file
