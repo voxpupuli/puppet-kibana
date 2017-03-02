@@ -24,7 +24,6 @@ describe 'kibana', :type => 'class' do
                 :manage_repo => true
               )
             end
-            it { is_expected.to contain_class('kibana::params') }
             it 'declares install before config' do
               is_expected.to contain_class('kibana::install')
                 .that_comes_before('Class[kibana::config]')
@@ -129,7 +128,6 @@ describe 'kibana', :type => 'class' do
               :ensure => 'absent'
             )
           end
-          it { is_expected.to contain_class('kibana::params') }
           it 'manages service before config' do
             is_expected.to contain_class('kibana::service')
               .that_comes_before('Class[kibana::config]')
@@ -180,22 +178,6 @@ describe 'kibana', :type => 'class' do
             it { should_not compile.with_all_deps }
           end
         end
-      end
-    end
-  end
-
-  context 'unsupported operating system' do
-    describe 'kibana class without any parameters on Solaris/Nexenta' do
-      let(:facts) do
-        {
-          :osfamily        => 'Solaris',
-          :operatingsystem => 'Nexenta'
-        }
-      end
-
-      it 'fails to compile' do
-        expect { is_expected.to contain_package('kibana') }
-          .to raise_error(Puppet::Error, /Nexenta not supported/)
       end
     end
   end
