@@ -1,5 +1,9 @@
 # Kibana Puppet Module
 
+[![Puppet Forge Version](https://img.shields.io/puppetforge/v/elastic/kibana.svg)](https://forge.puppetlabs.com/elastic/kibana)
+[![Puppet Forge Downloads](https://img.shields.io/puppetforge/dt/elastic/kibana.svg)](https://forge.puppetlabs.com/elastic/kibana)
+[![Build Status](https://travis-ci.org/elastic/puppet-kibana.svg?branch=master)](https://travis-ci.org/elastic/puppet-kibana)
+
 #### Table of Contents
 
 1. [Overview](#overview)
