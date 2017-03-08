@@ -7,7 +7,6 @@ bundler_args: --without development
 before_install: rm Gemfile.lock || true
 script: bundle exec rake $RAKE_TASK
 env:
-  global:
-  - RAKE_TASK=test
   matrix:
+  - RAKE_TASK=test
   - RAKE_TASK=beaker
