@@ -173,9 +173,45 @@ describe 'kibana', :type => 'class' do
             end
           end
 
-          context 'repo_version' do
-            let(:params) { { :repo_version => 'foo' } }
-            it { should_not compile.with_all_deps }
+          describe 'repo_version' do
+            context 'valid parameter' do
+              %w(5.x 4.1 4.4 4.5 4.6).each do |param|
+                let(:params) { { :repo_version => param } }
+                it { should compile.with_all_deps }
+              end
+            end
+
+            context 'invalid parameter' do
+              %w(foo 6.x 4.x 3.x 4.2 4.3).each do |param|
+                let(:params) { { :repo_version => param } }
+                it { should_not compile.with_all_deps }
+              end
+            end
+
+            context '4.x repo URLs' do
+              let(:repo_version) { '4.6' }
+              let(:params) { { :repo_version => repo_version } }
+              let(:repo_baseurl) { 'https://packages.elastic.co/kibana' }
+
+              it { should contain_file('/opt/kibana/config/kibana.yml') }
+
+              case facts[:osfamily]
+              when 'Debian'
+                it 'installs the 4.x repo apt source' do
+                  is_expected
+                    .to contain_apt__source('kibana')
+                    .with(:location => "#{repo_baseurl}/#{repo_version}/debian")
+                end
+              when 'RedHat'
+                it 'installs the 4.x yum repository' do
+                  is_expected
+                    .to contain_yumrepo('kibana')
+                    .with(:baseurl => "#{repo_baseurl}/#{repo_version}/centos")
+                end
+              else
+                pending "no 4.x repo tests for #{facts[:osfamily]}"
+              end
+            end
           end
         end
       end

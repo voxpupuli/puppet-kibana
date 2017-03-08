@@ -8,7 +8,20 @@ class kibana::install {
     'absent' => $::kibana::ensure,
     default  => 'present',
   }
-  $_repo_baseurl = "https://artifacts.elastic.co/packages/${::kibana::repo_version}"
+
+  if $::kibana::repo_version =~ /^4[.]/ {
+    $_repo_baseurl = "https://packages.elastic.co/kibana/${::kibana::repo_version}"
+    $_repo_path = $::osfamily ? {
+      'Debian'          => 'debian',
+      /(RedHat|Amazon)/ => 'centos'
+    }
+  } else {
+    $_repo_baseurl = "https://artifacts.elastic.co/packages/${::kibana::repo_version}"
+    $_repo_path = $::osfamily ? {
+      'Debian'          => 'apt',
+      /(RedHat|Amazon)/ => 'yum'
+    }
+  }
 
   case $::osfamily {
     'Debian': {
@@ -20,7 +33,7 @@ class kibana::install {
 
       apt::source { 'kibana':
         ensure   => $_ensure,
-        location => "${_repo_baseurl}/apt",
+        location => "${_repo_baseurl}/${_repo_path}",
         release  => 'stable',
         repos    => 'main',
         key      => {
@@ -39,7 +52,7 @@ class kibana::install {
       yumrepo { 'kibana':
         ensure   => $_ensure,
         descr    => "Elastic ${::kibana::repo_version} repository",
-        baseurl  => "${_repo_baseurl}/yum",
+        baseurl  => "${_repo_baseurl}/${_repo_path}",
         gpgcheck => 1,
         gpgkey   => $::kibana::repo_key_source,
         enabled  => 1,
