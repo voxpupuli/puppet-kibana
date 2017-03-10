@@ -24,8 +24,6 @@ begin
 rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
 
-ENV['PUPPET_INSTALL_TYPE'] = 'agent' if ENV['PUPPET_INSTALL_TYPE'].nil?
-
 RuboCop::RakeTask.new
 
 exclude_paths = [

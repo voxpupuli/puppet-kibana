@@ -4,6 +4,8 @@ require 'beaker/puppet_install_helper'
 require 'infrataster/rspec'
 require 'rspec/retry'
 
+ENV['PUPPET_INSTALL_TYPE'] = 'agent' if ENV['PUPPET_INSTALL_TYPE'].nil?
+
 run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'
 
 # Define server names for API tests
