@@ -1,10 +1,10 @@
-## x.x.x (Month Day, Year)
+## 0.1.1 (March 11, 2017)
 
 ### Summary
-
-#### Features
+Small bugfix release.
 
 #### Fixes
+* Actually aknowledge and use the manage_repo class flag.
 
 ## 0.1.0 (March 8, 2017)
 
