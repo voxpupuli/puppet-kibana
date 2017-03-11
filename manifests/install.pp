@@ -4,12 +4,12 @@
 #
 class kibana::install {
 
-  $_ensure = $::kibana::ensure ? {
-    'absent' => $::kibana::ensure,
-    default  => 'present',
-  }
-
   if $::kibana::manage_repo {
+    $_ensure = $::kibana::ensure ? {
+      'absent' => $::kibana::ensure,
+      default  => 'present',
+    }
+
     if $::kibana::repo_version =~ /^4[.]/ {
       $_repo_baseurl = "https://packages.elastic.co/kibana/${::kibana::repo_version}"
       $_repo_path = $::osfamily ? {
