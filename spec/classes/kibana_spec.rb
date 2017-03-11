@@ -213,6 +213,21 @@ describe 'kibana', :type => 'class' do
               end
             end
           end
+
+          describe 'manage_repo' do
+            let(:params) { { :manage_repo => false } }
+            case facts[:osfamily]
+            when 'Debian'
+              it { is_expected.not_to contain_class('apt') }
+              it { is_expected.not_to contain_package('apt-transport-https') }
+              it { is_expected.not_to contain_apt__source('kibana') }
+            when 'RedHat'
+              it { is_expected.not_to contain_yumrepo('kibana') }
+              it { is_expected.not_to contain_exec('kibana_yumrepo_yum_clean') }
+            else
+              pending "no tests for #{facts[:osfamily]}"
+            end
+          end
         end
       end
     end
