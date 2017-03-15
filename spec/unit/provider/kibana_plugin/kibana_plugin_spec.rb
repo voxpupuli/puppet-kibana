@@ -8,7 +8,7 @@ def plug_path(path)
   )
 end
 
-describe Puppet::Type.type(:kibana_plugin).provider(:ruby) do
+describe Puppet::Type.type(:kibana_plugin).provider(:kibana_plugin) do
   describe 'instances' do
     it 'should have an instance method' do
       expect(described_class).to respond_to :instances
@@ -41,7 +41,7 @@ describe Puppet::Type.type(:kibana_plugin).provider(:ruby) do
           .to eq(
             :ensure => :present,
             :name => 'x-pack',
-            :provider => :ruby,
+            :provider => :kibana_plugin,
             :version => '5.2.1'
           )
       end

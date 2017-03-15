@@ -1,16 +1,16 @@
 require 'json'
 
 # rubocop:disable Metrics/AbcSize
-Puppet::Type.type(:kibana_plugin).provide(:ruby) do
-  desc 'Native command-line provider for Kibana plugins.'
-
-  @home_dir = File.absolute_path(File.join(%w(/ usr share kibana)))
-  @plugin_dir = File.join(@home_dir, 'plugins')
-
-  commands :plugin => File.join(@home_dir, 'bin', 'kibana-plugin')
+class Puppet::Provider::ElasticKibana < Puppet::Provider
+  class << self
+    attr_accessor :home_path
+    attr_accessor :install_args
+    attr_accessor :plugin_directory
+    attr_accessor :remove_args
+  end
 
   def self.present_plugins
-    Dir[File.join(@plugin_dir, '*')].select do |directory|
+    Dir[File.join(home_path, plugin_directory, '*')].select do |directory|
       not File.basename(directory).start_with? '.' \
         and File.exist? File.join(directory, 'package.json')
     end.map do |plugin|
@@ -27,12 +27,12 @@ Puppet::Type.type(:kibana_plugin).provide(:ruby) do
   def flush
     if @property_flush[:ensure] == :absent
       # Simply remove the plugin if it should be gone
-      run_plugin ['remove', resource[:name]]
+      run_plugin self.class.remove_args + [resource[:name]]
     else
       unless @property_flush[:version].nil?
-        run_plugin ['remove', resource[:name]]
+        run_plugin self.class.remove_args + [resource[:name]]
       end
-      run_plugin ['install', plugin_url]
+      run_plugin self.class.install_args + [plugin_url]
     end
 
     set_property_hash
@@ -49,8 +49,6 @@ Puppet::Type.type(:kibana_plugin).provide(:ruby) do
   end
 
   # The rest is normal provider boilerplate.
-
-  mk_resource_methods
 
   def version=(new_version)
     @property_flush[:version] = new_version
