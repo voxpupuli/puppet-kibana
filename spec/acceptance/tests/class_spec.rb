@@ -1,7 +1,7 @@
 require 'spec_helper_acceptance'
 require 'helpers/acceptance/tests/class_shared_examples.rb'
 
-describe 'kibana class' do
+describe 'kibana class v5' do
   let(:plugin)         { 'health_metric_vis' }
   let(:plugin_version) { '0.3.4' }
   let(:port)           { 5602 }
