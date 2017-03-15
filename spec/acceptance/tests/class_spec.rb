@@ -5,7 +5,6 @@ describe 'kibana class v5' do
   let(:plugin)         { 'health_metric_vis' }
   let(:plugin_version) { '0.3.4' }
   let(:port)           { 5602 }
-  let(:repo_version)   { '5.x' }
   let(:version)        { '5.2.0' }
 
   let(:manifest) do
@@ -16,7 +15,7 @@ describe 'kibana class v5' do
             'server.host' => '0.0.0.0',
             'server.port' => #{port},
           },
-          repo_version => '#{repo_version}',
+          repo_version => '5.x',
         } ->
         kibana_plugin { '#{plugin}':
           ensure  => 'present',
@@ -31,7 +30,6 @@ describe 'kibana class v5' do
   end
 
   include_examples 'class manifests',
-                   '5',
                    '/usr/share/kibana/plugins/health_metric_vis/package.json',
                    '0.3.5'
 end
