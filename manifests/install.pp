@@ -27,10 +27,6 @@ class kibana::install {
     case $::osfamily {
       'Debian': {
         include ::apt
-        package { 'apt-transport-https' :
-          before => Class['apt::update'],
-        }
-        Class['apt::update'] -> Package['kibana']
 
         apt::source { 'kibana':
           ensure   => $_ensure,
