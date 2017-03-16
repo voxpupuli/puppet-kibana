@@ -54,6 +54,10 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
     @property_flush[:version] = new_version
   end
 
+  def version
+    @property_hash[:version]
+  end
+
   def create
     @property_flush[:ensure] = :present
   end

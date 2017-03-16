@@ -11,6 +11,4 @@ Puppet::Type.type(:kibana_plugin).provide(
   desc 'Native command-line provider for Kibana v5 plugins.'
 
   commands :plugin => File.join(home_path, 'bin', 'kibana-plugin')
-
-  mk_resource_methods
 end
