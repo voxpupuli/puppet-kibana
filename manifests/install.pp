@@ -27,6 +27,7 @@ class kibana::install {
     case $::osfamily {
       'Debian': {
         include ::apt
+        Class['apt::update'] -> Package['kibana']
 
         apt::source { 'kibana':
           ensure   => $_ensure,
