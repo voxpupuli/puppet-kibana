@@ -53,11 +53,6 @@ describe 'kibana', :type => 'class' do
             describe "#{facts[:osfamily]} resources" do
               case facts[:osfamily]
               when 'Debian'
-                it { is_expected.to contain_class('apt') }
-                it 'installs TLS support before updating the package cache' do
-                  is_expected.to contain_package('apt-transport-https')
-                    .that_comes_before('Class[apt::update]')
-                end
                 it 'updates package cache before installing kibana' do
                   is_expected.to contain_class('apt::update')
                     .that_comes_before('Package[kibana]')
