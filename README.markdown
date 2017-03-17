@@ -37,6 +37,7 @@ distributions).
 * The `kibana` system package and service
 * `/etc/kibana/kibana.yml`
 * `/usr/share/kibana/plugins/*`
+* `/opt/kibana` (if using Kibana 4.x)
 
 ### Setup Requirements
 
