@@ -65,13 +65,18 @@ shared_examples 'kibana plugin provider' do
       described_class
         .stubs(:command).with(:plugin)
         .returns executable
+      @install_name = if resource[:organization].nil?
+                        resource[:name]
+                      else
+                        [resource[:organization], resource[:name], resource[:version]].join('/')
+                      end
     end
 
     it 'installs plugins' do
       provider
         .expects(:execute)
         .with(
-          [executable] + install_args + [plugin_one[:name]],
+          [executable] + install_args + [@install_name],
           :uid => 'kibana', :gid => 'kibana'
         )
       resource[:ensure] = :present
@@ -83,7 +88,7 @@ shared_examples 'kibana plugin provider' do
       provider
         .expects(:execute)
         .with(
-          [executable] + remove_args + [plugin_one[:name]],
+          [executable] + remove_args + [resource[:name]],
           :uid => 'kibana', :gid => 'kibana'
         )
       resource[:ensure] = :absent
@@ -92,14 +97,18 @@ shared_examples 'kibana plugin provider' do
     end
 
     it 'updates plugins' do
-      [install_args, remove_args].each do |action|
-        provider
-          .expects(:execute)
-          .with(
-            [executable] + action + [plugin_one[:name]],
-            :uid => 'kibana', :gid => 'kibana'
-          )
-      end
+      provider
+        .expects(:execute)
+        .with(
+          [executable] + install_args + [@install_name],
+          :uid => 'kibana', :gid => 'kibana'
+        )
+      provider
+        .expects(:execute)
+        .with(
+          [executable] + remove_args + [resource[:name]],
+          :uid => 'kibana', :gid => 'kibana'
+        )
       resource[:ensure] = :present
       provider.version = plugin_one[:version]
       provider.flush

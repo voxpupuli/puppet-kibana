@@ -12,6 +12,13 @@ Puppet::Type.newtype(:kibana_plugin) do
     desc 'Simple name of the Kibana plugin (not a URL or file path).'
   end
 
+  newparam(
+    :organization,
+    :required_features => :organization_installer
+  ) do
+    desc 'Plugin organization to use when installing 4.x-style plugins.'
+  end
+
   newparam(:url) do
     desc 'URL to use when fetching plugin for installation.'
   end
@@ -21,6 +28,16 @@ Puppet::Type.newtype(:kibana_plugin) do
   end
 
   autorequire(:package) do
-    'kibana'
+    self[:ensure] != :absent ? 'kibana' : []
+  end
+
+  autobefore(:package) do
+    self[:ensure] == :absent ? 'kibana' : []
+  end
+
+  validate do
+    if !self[:organization].nil? and self[:version].nil?
+      fail('version must be set if organization is set')
+    end
   end
 end

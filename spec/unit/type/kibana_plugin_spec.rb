@@ -10,6 +10,10 @@ describe Puppet::Type.type(:kibana_plugin) do
     end
 
     describe 'when validating attributes' do
+      it 'should have an organization parameter' do
+        expect(described_class.attrtype(:organization)).to eq(:param)
+      end
+
       it 'should have a url parameter' do
         expect(described_class.attrtype(:url)).to eq(:param)
       end
@@ -20,6 +24,13 @@ describe Puppet::Type.type(:kibana_plugin) do
 
       it 'should have a version property' do
         expect(described_class.attrtype(:version)).to eq(:property)
+      end
+    end
+
+    describe 'validate' do
+      it 'should require version when organization is set' do
+        expect{described_class.new(:name => 'marvel', :organization => 'elasticsearch')}
+          .to raise_error(Puppet::Error, /version must be set if organization is set/)
       end
     end
   end
