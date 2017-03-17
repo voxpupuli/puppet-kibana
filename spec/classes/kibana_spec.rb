@@ -149,7 +149,7 @@ describe 'kibana', :type => 'class' do
           it { is_expected.to contain_package('kibana').with_ensure('absent') }
         end
 
-        describe 'parameter validation' do
+        describe 'parameter validation for' do
           describe 'ensure' do
             context 'valid parameter' do
               %w(present absent latest 5.2.1).each do |param|
@@ -165,6 +165,35 @@ describe 'kibana', :type => 'class' do
             context 'bad parameters' do
               let(:params) { { :ensure => 'foo' } }
               it { should_not compile.with_all_deps }
+            end
+          end
+
+          describe 'config' do
+            context 'with valid parameters' do
+              {
+                'server.host' => 'localhost',
+                'server.port' => 5601,
+                'elasticsearch.ssl.verify' => true,
+                'elasticsearch.requestHeadersWhitelist' => [ 'authorization' ]
+              }.each do |key, val|
+                context val do
+                  let(:params) { { :config => { key => val } } }
+                  it { should compile.with_all_deps }
+                end
+              end
+            end
+
+            context 'with bad parameters' do
+              {
+                'server.host' => { 'foo' => 'bar' },
+                'server.basePath' => '',
+                5601 => nil
+              }.each do |key, val|
+                context val do
+                  let(:params) { { :config => { key => val } } }
+                  it { should_not compile.with_all_deps }
+                end
+              end
             end
           end
 
