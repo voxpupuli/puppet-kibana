@@ -35,16 +35,11 @@ describe Puppet::Type.type(:kibana_plugin).provider(:kibana_plugin) do
           .and_return true
       end
 
-      it 'should return one resource' do
-        expect(described_class.instances[0]
-          .instance_variable_get('@property_hash'))
-          .to eq(
-            :ensure => :present,
-            :name => 'x-pack',
-            :provider => :kibana_plugin,
-            :version => '5.2.1'
-          )
-      end
+      subject { described_class.instances.first }
+
+      it { expect(subject.exists?).to be_truthy }
+      it { expect(subject.name).to eq('x-pack') }
+      it { expect(subject.version).to eq('5.2.1') }
     end
 
     context 'with multiple plugins' do
