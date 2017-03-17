@@ -176,7 +176,7 @@ describe 'kibana', :type => 'class' do
                 'elasticsearch.ssl.verify' => true,
                 'elasticsearch.requestHeadersWhitelist' => [ 'authorization' ]
               }.each do |key, val|
-                context val do
+                context "'#{val}'" do
                   let(:params) { { :config => { key => val } } }
                   it { should compile.with_all_deps }
                 end
@@ -187,9 +187,10 @@ describe 'kibana', :type => 'class' do
               {
                 'server.host' => { 'foo' => 'bar' },
                 'server.basePath' => '',
-                5601 => nil
+                5601 => nil,
+                '' => nil
               }.each do |key, val|
-                context val do
+                context "'#{val}'" do
                   let(:params) { { :config => { key => val } } }
                   it { should_not compile.with_all_deps }
                 end
