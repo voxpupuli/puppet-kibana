@@ -19,4 +19,8 @@ Puppet::Type.newtype(:kibana_plugin) do
   newproperty(:version) do
     desc 'Installed plugin version.'
   end
+
+  autorequire(:package) do
+    'kibana'
+  end
 end

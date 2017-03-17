@@ -16,7 +16,8 @@ describe 'kibana class v5' do
             'server.port' => #{port},
           },
           repo_version => '5.x',
-        } ->
+        }
+
         kibana_plugin { '#{plugin}':
           ensure  => 'present',
           url     => '#{plugin_url}',
