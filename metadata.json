@@ -1,6 +1,6 @@
 {
   "name": "elastic-kibana",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "elastic",
   "summary": "Module for installing, configuring, and managing Kibana.",
   "license": "Apache-2.0",

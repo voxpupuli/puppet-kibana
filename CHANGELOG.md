@@ -1,6 +1,7 @@
-## x.x.x (Month Day, Year)
+## 0.2.0 (March 20, 2017)
 
 ### Summary
+Minor fixes and full 4.x support.
 
 #### Features
 * Feature parity when managing plugins on Kibana 4.x.
