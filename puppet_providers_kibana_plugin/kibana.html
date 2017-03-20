@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Puppet Class: kibana::config
+  Provider: kibana
   
     &mdash; Documentation by YARD 0.9.8
   
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  pathId = "puppet_classes::kibana::config";
+  pathId = "puppet_providers_kibana_plugin::kibana";
   relpath = '../';
 </script>
 
@@ -28,7 +28,7 @@
   </head>
   <body>
     <div class="nav_wrap">
-      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <iframe id="nav" src="../puppet_provider_list.html?1"></iframe>
       <div id="resizer"></div>
     </div>
 
@@ -37,9 +37,9 @@
         <div id="menu">
   
     <a href="../_index.html">Index (k)</a> &raquo;
-    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+    <span class='title'><span class='object_link'>Providers</span></span>
      &raquo; 
-    <span class="title">kibana::config</span>
+    <span class="title">kibana</span>
   
 </div>
 
@@ -59,79 +59,46 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><h1>Puppet Class: kibana::config</h1>
+      <div id="content"><h1>Provider: kibana</h1>
 <div class="box_info">
-  
-  
   <dl>
     <dt>Defined in:</dt>
     <dd>
-      manifests/config.pp
+      lib/puppet/provider/kibana_plugin/kibana.rb
     </dd>
+  </dl>
+  <dl>
+    <dt>Resource type:</dt>
+    <dd><span class='object_link'><a href="../puppet_types/kibana_plugin.html" title="puppet_types::kibana_plugin (puppet_type)">kibana_plugin</a></span></dd>
   </dl>
 </div>
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
     
-<p>Class: kibana::config</p>
-
-<p>This class is called from kibana for service config.</p>
+<p>Native command-line provider for Kibana v4 plugins.</p>
 
   </div>
 </div>
 <div class="tags">
   
 
-</div><div class="method_details_list">
-  <table class="source_code">
-    <tr>
-      <td>
-        <pre class="lines">
-
-
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21</pre>
-      </td>
-      <td>
-        <pre class="code"><span class="info file"># File 'manifests/config.pp', line 5</span>
-
-class kibana::config {
-
-  $_config_dir = $::kibana::repo_version ? {
-    /^4[.]/ =&gt; &#39;/opt/kibana/config&#39;,
-    default =&gt; &#39;/etc/kibana&#39;
-  }
-  $_ensure = $::kibana::ensure ? {
-    &#39;absent&#39; =&gt; $::kibana::ensure,
-    default  =&gt; &#39;file&#39;,
-  }
-  $config = $::kibana::config
-
-  file { &quot;${_config_dir}/kibana.yml&quot;:
-    ensure  =&gt; $_ensure,
-    content =&gt; template(&quot;${module_name}/etc/kibana/kibana.yml.erb&quot;),
-  }
-}</pre>
-      </td>
-    </tr>
-  </table>
 </div>
+
+
+
+<div class="tags">
+  <p class="tag_title">Commands</p>
+  <ul>
+
+  
+    
+      <li><tt>plugin &mdash; File.join(home_path, 'bin', 'kibana')</tt></li>
+    
+  
+  </ul>
+</div>
+
 </div>
 
       <div id="footer">
