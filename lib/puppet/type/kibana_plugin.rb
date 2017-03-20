@@ -12,10 +12,7 @@ Puppet::Type.newtype(:kibana_plugin) do
     desc 'Simple name of the Kibana plugin (not a URL or file path).'
   end
 
-  newparam(
-    :organization,
-    :required_features => :organization_installer
-  ) do
+  newparam(:organization) do
     desc 'Plugin organization to use when installing 4.x-style plugins.'
   end
 

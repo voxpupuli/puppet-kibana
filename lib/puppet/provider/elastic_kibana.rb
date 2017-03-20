@@ -32,7 +32,7 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
       unless @property_flush[:version].nil?
         run_plugin self.class.remove_args + [resource[:name]]
       end
-      run_plugin self.class.install_args + plugin_url
+      run_plugin self.class.install_args + [plugin_url]
     end
 
     set_property_hash
@@ -46,11 +46,11 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
 
   def plugin_url
     if not resource[:url].nil?
-      [resource[:url]]
+      resource[:url]
     elsif not resource[:organization].nil?
-      [[resource[:organization], resource[:name], resource[:version]].join('/')]
+      [resource[:organization], resource[:name], resource[:version]].join('/')
     else
-      [resource[:name]]
+      resource[:name]
     end
   end
 
