@@ -88,6 +88,9 @@ class { 'kibana': ensure => absent }
 ### Plugins
 
 Kibana plugins can be managed by this module.
+
+#### Kibana 5.x
+
 In the most basic form, official plugins (provided by Elastic) can simply be
 specified by name alone:
 
@@ -121,6 +124,30 @@ Plugins can also be removed:
 ```puppet
 kibana_plugin { 'x-pack': ensure => absent }
 ```
+
+#### Kibana 4.x
+
+Plugin operations are similar to 5.x resources, but in keeping with the
+`kibana` command-line utility, an organization and version _must_ be specified:
+
+```puppet
+kibana_plugin { 'marvel':
+  version => '2.4.4',
+  organization => 'elasticsearch',
+}
+```
+
+The `version` and `organization` parameters correspond to the same values for a
+given plugin in the plugin's documentation, and the provider assembles the
+correct name on the backend on your behalf.
+For instance, the previous example will be translated to
+
+```shell
+kibana plugin --install elasticsearch/marvel/2.4.4
+```
+
+For you.
+Removal through the use of `ensure => absent` is the same as for 5.x plugins.
 
 ## Reference
 

@@ -3,8 +3,11 @@
 ### Summary
 
 #### Features
+* Feature parity when managing plugins on Kibana 4.x.
 
 #### Fixes
+* Removed potential conflict with previously-defined apt-transport-https packages.
+* Permit boolean values in configuration hashes.
 
 ## 0.1.1 (March 11, 2017)
 
