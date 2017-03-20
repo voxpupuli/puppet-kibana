@@ -10,7 +10,5 @@ Puppet::Type.type(:kibana_plugin).provide(
 ) do
   desc 'Native command-line provider for Kibana v4 plugins.'
 
-  has_feature :organization_installer
-
   commands :plugin => File.join(home_path, 'bin', 'kibana')
 end
