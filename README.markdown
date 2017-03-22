@@ -164,3 +164,23 @@ This module is actively tested against the versions and distributions listed in
 ## Development
 
 See CONTRIBUTING.md with help to get started.
+
+### Quickstart
+
+Install gem dependencies:
+
+```shell
+$ bundle install
+```
+
+Run the test suite (without acceptance tests):
+
+```shell
+$ bundle exec rake test
+```
+
+Run acceptance tests against a platform (requires Docker):
+
+```shell
+$ bundle exec rake beaker:centos-7-x64
+```
