@@ -57,8 +57,8 @@ class kibana::install {
           proxy    => $::kibana::repo_proxy,
           priority => $::kibana::repo_priority,
           before   => Package['kibana'],
-        } ~>
-        exec { 'kibana_yumrepo_yum_clean':
+        }
+        ~> exec { 'kibana_yumrepo_yum_clean':
           command     => 'yum clean metadata expire-cache --disablerepo="*" --enablerepo="kibana"',
           path        => [ '/bin', '/usr/bin' ],
           refreshonly => true,
