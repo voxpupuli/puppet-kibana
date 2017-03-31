@@ -28,14 +28,14 @@
 # @param repo_version Repository major version to use
 #
 class kibana (
-  Variant[Enum['present', 'absent', 'latest'], Pattern[/^\d([.]\d+)*(-[\d\w]+)?$/]] $ensure          = 'present',
-  Hash[String[1], Variant[String[1], Integer, Boolean, Array]]           $config          = {},
-  Boolean                                                                $manage_repo     = true,
-  String                                                                 $repo_key_id     = '46095ACC8548582C1A2699A9D27D666CD88E42B4',
-  String                                                                 $repo_key_source = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
-  Optional[Integer]                                                      $repo_priority   = undef,
-  Optional[String]                                                       $repo_proxy      = undef,
-  Variant[Enum['5.x'], Pattern[/^4\.(1|[4-6])$/]]                        $repo_version    = '5.x',
+  Variant[Enum['present', 'absent', 'latest'], Pattern[/^\d([.]\d+)*(-[\d\w]+)?$/]] $ensure = 'present',
+  Hash[String[1], Variant[String[1], Integer, Boolean, Array]]           $config            = {},
+  Boolean                                                                $manage_repo       = true,
+  String                                                                 $repo_key_id       = '46095ACC8548582C1A2699A9D27D666CD88E42B4',
+  String                                                                 $repo_key_source   = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
+  Optional[Integer]                                                      $repo_priority     = undef,
+  Optional[String]                                                       $repo_proxy        = undef,
+  Variant[Enum['5.x'], Pattern[/^4\.(1|[4-6])$/]]                        $repo_version      = '5.x',
 ) {
   class { '::kibana::install': }
   class { '::kibana::config': }
