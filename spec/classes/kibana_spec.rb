@@ -36,6 +36,12 @@ describe 'kibana', :type => 'class' do
 
             it 'installs the kibana config file' do
               is_expected.to contain_file('/etc/kibana/kibana.yml')
+                .with(
+                  :ensure => 'file',
+                  :owner  => 'kibana',
+                  :group  => 'kibana',
+                  :mode   => '0660'
+                )
                 .with_content(/
                 # Managed by Puppet..
                 ---.
