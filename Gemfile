@@ -4,6 +4,7 @@ source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 group :test do
   gem 'rake'
   gem 'puppet', ENV['PUPPET_GEM_VERSION'] || '3.8.7'
+  gem 'safe_yaml', '~> 1.0.4'
   gem 'rspec', '~> 3.5'
   gem 'rspec-retry'
   gem 'rspec-puppet'
