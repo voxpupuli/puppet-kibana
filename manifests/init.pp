@@ -17,15 +17,15 @@
 # @example Setting a configuration file value
 #   class { 'kibana' : config => { 'server.port' => 5602 } }
 #
-# @param ensure State of Kibana on the system (simple present/absent/latest
+# @param ensure [String] State of Kibana on the system (simple present/absent/latest
 #   or version number).
-# @param config Hash of key-value pairs for Kibana's configuration file
-# @param manage_repo Whether to manage the package manager repository
-# @param repo_key_id Trusted GPG Key ID for package repository
-# @param repo_key_source Source for repo_key_id
-# @param repo_priority Optional repository priority
-# @param repo_proxy Proxy to use for repository access (yum only)
-# @param repo_version Repository major version to use
+# @param config [Hash] Hash of key-value pairs for Kibana's configuration file
+# @param manage_repo [Boolean] Whether to manage the package manager repository
+# @param repo_key_id [String] Trusted GPG Key ID for package repository
+# @param repo_key_source [String] Source for repo_key_id
+# @param repo_priority [Integer] Optional repository priority
+# @param repo_proxy [String] Proxy to use for repository access (yum only)
+# @param repo_version [String] Repository major version to use
 #
 class kibana (
   $ensure          = 'present',

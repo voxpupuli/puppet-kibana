@@ -1,7 +1,15 @@
-# Define: kibana::validate_config
+# Defined Type: kibana::validate_config
 #
 # Validate that the config hash is a valid data type
-
+#
+# @example Usage:
+#   $config_keys = keys($config)
+#   kibana::validate_config{ $config_keys:
+#     config => $config,
+#   }
+#
+# @param config [Hash] The config hash
+#
 define kibana::validate_config(
   $config
 ) {
