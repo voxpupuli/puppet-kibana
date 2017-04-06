@@ -37,6 +37,24 @@ class kibana (
   $repo_proxy      = undef,
   $repo_version    = '5.x',
 ) {
+
+  validate_string($ensure,
+                  $repo_key_id,
+                  $repo_key_source,
+                  $repo_proxy,
+                  $repo_version)
+  validate_hash($config)
+
+  validate_bool($manage_repo)
+
+  if $repo_priority != undef {
+    validate_integer($repo_priority)
+  }
+
+  if !($ensure in ['present', 'absent', 'latest']) and $ensure !~ /^\d([.]\d+)*(-[\d\w]+)?$/ {
+    fail("Invalid value for ensure.")
+  }
+
   class { '::kibana::install': }
   class { '::kibana::config': }
   class { '::kibana::service': }
