@@ -57,7 +57,7 @@ class kibana (
 
   $config_keys = keys($config)
   validate_config{ $config_keys:
-  config => $config
+    config => $config,
   }
 
   if !($repo_version in ['5.x']) and $repo_version !~ /^4\.(1|[4-6])$/ {
