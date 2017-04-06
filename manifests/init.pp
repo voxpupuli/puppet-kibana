@@ -52,7 +52,7 @@ class kibana (
   }
 
   if !($ensure in ['present', 'absent', 'latest']) and $ensure !~ /^\d([.]\d+)*(-[\d\w]+)?$/ {
-    fail("Invalid value for ensure.")
+    fail('Invalid value for ensure')
   }
 
   class { '::kibana::install': }
