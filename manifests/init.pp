@@ -56,7 +56,7 @@ class kibana (
   }
 
   $config_keys = keys($config)
-  validate_config{ $config_keys:
+  kibana::validate_config{ $config_keys:
     config => $config,
   }
 
