@@ -54,6 +54,15 @@ class kibana (
   if !($ensure in ['present', 'absent', 'latest']) and $ensure !~ /^\d([.]\d+)*(-[\d\w]+)?$/ {
     fail('Invalid value for ensure')
   }
+  
+  $config_keys = keys($config)
+  validate_config{ $config_keys:
+    config => $config
+  }
+  
+  if !($repo_version in ['5.x']) and $repo_version !~ /^4\.(1|[4-6])$/ {
+    fail('Invalid value for repo_version')
+  }
 
   class { '::kibana::install': }
   class { '::kibana::config': }
