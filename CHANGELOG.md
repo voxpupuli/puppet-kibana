@@ -6,6 +6,7 @@
 * Package revisions now supported for ensure values.
 
 #### Fixes
+* The `url` parameter for 4.x plugins is now properly passed to the plugin install command.
 
 ## 0.2.0 (March 20, 2017)
 
