@@ -44,9 +44,8 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
   end
 
   def run_plugin(args)
-    debug(
-      execute([command(:plugin)] + args, :uid => 'kibana', :gid => 'kibana')
-    )
+    stdout = execute([command(:plugin)] + args, :uid => 'kibana', :gid => 'kibana')
+    stdout.exitstatus.zero? ? debug(stdout) : raise(Puppet::Error, stdout)
   end
 
   def plugin_url

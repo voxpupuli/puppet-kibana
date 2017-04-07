@@ -37,12 +37,16 @@ describe Puppet::Type.type(:kibana_plugin).provider(:kibana) do
   describe 'url' do
     it 'causes --url to be passed to install' do
       url = 'https://some.sample.url/directory'
-      provider
-        .expects(:execute)
-        .with(
-          [executable] + install_args + [resource[:name], '--url', url],
-          :uid => 'kibana', :gid => 'kibana'
-        )
+      expect(provider).to(
+        receive(:execute)
+          .with(
+            [executable] + install_args + [resource[:name], '--url', url],
+            :uid => 'kibana', :gid => 'kibana'
+          )
+          .and_return(
+            Puppet::Util::Execution::ProcessOutput.new('success', 0)
+          )
+      )
       resource[:url] = url
       provider.create
       provider.flush
