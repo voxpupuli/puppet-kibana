@@ -1,12 +1,16 @@
-## x.x.x (Month Day, Year)
+## 0.2.1 (April 10, 2017)
 
 ### Summary
+Bugfix release resolving several minor issues.
 
 #### Features
 * Package revisions now supported for ensure values.
 
 #### Fixes
 * The `url` parameter for 4.x plugins is now properly passed to the plugin install command.
+* Nonzero plugin commmands now properly raise errors during catalog runs.
+* Boolean values allowed in config hash.
+* apt-transport-https package no longer managed by this module.
 
 ## 0.2.0 (March 20, 2017)
 
