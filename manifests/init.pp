@@ -43,7 +43,8 @@ class kibana (
                   $repo_key_source,
                   $repo_proxy,
                   $repo_version)
-  validate_hash($config)
+
+  validate_kibana_config($config)
 
   validate_bool($manage_repo)
 
@@ -53,11 +54,6 @@ class kibana (
 
   if !($ensure in ['present', 'absent', 'latest']) and $ensure !~ /^\d([.]\d+)*(-[\d\w]+)?$/ {
     fail('Invalid value for ensure')
-  }
-
-  $config_keys = keys($config)
-  kibana::validate_config{ $config_keys:
-    config => $config,
   }
 
   if !($repo_version in ['5.x']) and $repo_version !~ /^4\.(1|[4-6])$/ {
