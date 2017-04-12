@@ -24,7 +24,7 @@ module Puppet::Parser::Functions
         raise Puppet::ParseError, "validate_kibana_config(): config key of '#{key}' is not a String or zero length"
       end
 
-      unless value.is_a?(Integer) || value.is_a?(TrueClass) || value.is_a?(FalseClass) || value.is_a?(Array) || (value.is_a?(String) && !value.empty?  && !value.nil?)
+      unless value.is_a?(Integer) || value.is_a?(TrueClass) || value.is_a?(FalseClass) || value.is_a?(Array) || (value.is_a?(String) && !value.empty? && !value.nil?)
         raise Puppet::ParseError, "validate_kibana_config(): Value of config key '#{key}' is not an Integer, Boolean, Array of String greater than zero length"
       end
     end
