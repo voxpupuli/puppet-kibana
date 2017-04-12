@@ -19,3 +19,5 @@ env:
   - RAKE_TASK=beaker:ubuntu-1204-x64
   - RAKE_TASK=beaker:ubuntu-1404-x64
   - RAKE_TASK=beaker:ubuntu-1604-x64
+  - PUPPET_GEM_VERSION=3.6.7
+  - PUPPET_GEM_VERSION=4.0
