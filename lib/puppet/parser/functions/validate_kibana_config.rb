@@ -21,7 +21,7 @@ module Puppet::Parser::Functions
     # check each key => value pair is valid
     config.each do |key, value|
       unless key.is_a?(String) && key.length.positive?
-        raise Puppet::ParseError, ("validate_kibana_config(): config key of '#{key}' is not a String or zero length")
+        raise Puppet::ParseError, "validate_kibana_config(): config key of '#{key}' is not a String or zero length"
       end
 
       unless value.is_a?(Integer) || value.is_a?(TrueClass) || value.is_a?(FalseClass) || value.is_a?(Array) || (value.is_a?(String) && value.length.positive?)
