@@ -45,6 +45,6 @@ RSpec.configure do |c|
   end
 
   c.around :each, :api do |example|
-    example.run_with_retry retry: 3
+    example.run_with_retry retry: 3, retry_wait: 5
   end
 end
