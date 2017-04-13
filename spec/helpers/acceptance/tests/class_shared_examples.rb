@@ -12,7 +12,7 @@ shared_examples 'class manifests' do |plugin_json_file, plugin_upgrade|
       it { is_expected.to be_running }
     end
 
-    describe port(port) { it { should be_listening } }
+    describe port(5602) { it { should be_listening } }
 
     describe server :container do
       describe http('http://localhost:5602') do
@@ -65,6 +65,6 @@ shared_examples 'class manifests' do |plugin_json_file, plugin_upgrade|
       it { should_not be_running }
     end
 
-    describe port(port) { it { should_not be_listening } }
+    describe port(5602) { it { should_not be_listening } }
   end
 end
