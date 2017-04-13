@@ -5,7 +5,7 @@ describe 'kibana class v4' do
   let(:plugin)         { 'marvel' }
   let(:plugin_version) { '2.4.1' }
   let(:port)           { 5602 }
-  let(:version)        { '4.6.4' }
+  let(:version)        { '4.6.4-1' }
 
   let(:manifest) do
     <<-EOS

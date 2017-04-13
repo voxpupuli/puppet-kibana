@@ -19,7 +19,7 @@ shared_examples 'class manifests' do |plugin_json_file, plugin_upgrade|
         it('returns OK', :api) { expect(response.status).to eq(200) }
         it('is live', :api) { expect(response['kbn-name']).to eq('kibana') }
         it 'installs the correct version', :api do
-          expect(response['kbn-version']).to eq(version)
+          expect(response['kbn-version']).to eq(version.split('-').first)
         end
       end
     end
