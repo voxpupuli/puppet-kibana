@@ -22,9 +22,7 @@ env:
   - RAKE_TASK=test PUPPET_GEM_VERSION=3.8.7
   - RAKE_TASK=beaker:amazonlinux-2016.09-x64 PUPPET_INSTALL_TYPE=foss
   - RAKE_TASK=beaker:centos-6-x64 PUPPET_INSTALL_TYPE=foss
-  - RAKE_TASK=beaker:centos-7-x64 PUPPET_INSTALL_TYPE=foss
-  - RAKE_TASK=beaker:debian-7-x64 PUPPET_INSTALL_TYPE=foss
-  - RAKE_TASK=beaker:debian-8-x64 PUPPET_INSTALL_TYPE=foss
-  - RAKE_TASK=beaker:fedora-24-x64 PUPPET_INSTALL_TYPE=foss
-  - RAKE_TASK=beaker:ubuntu-1204-x64 PUPPET_INSTALL_TYPE=foss
-  - RAKE_TASK=beaker:ubuntu-1404-x64 PUPPET_INSTALL_TYPE=foss
+  - RAKE_TASK=beaker:centos-7-x64 PUPPET_INSTALL_TYPE=gem
+  - RAKE_TASK=beaker:debian-8-x64 PUPPET_INSTALL_TYPE=gem
+  - RAKE_TASK=beaker:ubuntu-1204-x64 PUPPET_INSTALL_TYPE=gem
+  - RAKE_TASK=beaker:ubuntu-1404-x64 PUPPET_INSTALL_TYPE=gem
