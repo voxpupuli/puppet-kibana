@@ -5,7 +5,7 @@ describe 'kibana class v5' do
   let(:plugin)         { 'health_metric_vis' }
   let(:plugin_version) { '0.3.4' }
   let(:port)           { 5602 }
-  let(:version)        { '5.2.0-1' }
+  let(:version)        { fact('osfamily') == 'RedHat' ? '5.2.0-1' : '5.2.0' }
 
   let(:manifest) do
     <<-EOS
