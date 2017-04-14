@@ -6,7 +6,14 @@ require 'rspec/retry'
 
 ENV['PUPPET_INSTALL_TYPE'] = 'agent' if ENV['PUPPET_INSTALL_TYPE'].nil?
 
-run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'
+# Otherwise puppet defaults to /etc/puppetlabs/code
+configure_defaults_on hosts, 'foss' unless ENV['PUPPET_INSTALL_TYPE'] == 'agent'
+
+unless ENV['PUPPET_INSTALL_TYPE'] == 'gem'
+  run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'
+else
+  install_puppet_from_gem_on hosts, version: (ENV['PUPPET_INSTALL_VERSION'] || '~> 3')
+end
 
 # Define server names for API tests
 Infrataster::Server.define(:docker) do |server|
@@ -42,6 +49,6 @@ RSpec.configure do |c|
   end
 
   c.around :each, :api do |example|
-    example.run_with_retry retry: 3
+    example.run_with_retry retry: 3, retry_wait: 5
   end
 end

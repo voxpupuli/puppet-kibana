@@ -49,7 +49,12 @@ end
 PuppetSyntax.exclude_paths = exclude_paths
 
 task :beaker => :spec_prep
-task :spec_standalone => :spec_prep
+
+desc 'Run all non-acceptance rspec tests.'
+RSpec::Core::RakeTask.new(:spec_unit) do |t|
+  t.pattern = 'spec/{classes,templates,unit}/**/*_spec.rb'
+end
+task :spec_unit => :spec_prep
 
 namespace :docs do
   desc 'Evaluation documentation coverage'
@@ -71,7 +76,7 @@ task :test => [
   :syntax,
   :lint,
   :rubocop,
-  :spec_standalone,
+  :spec_unit,
   'docs:coverage'
 ]
 
