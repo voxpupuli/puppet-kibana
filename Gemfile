@@ -40,6 +40,6 @@ end
 
 group :system_tests do
   gem 'beaker'
+  gem 'beaker-puppet_install_helper', '0.6.0'
   gem 'beaker-rspec'
-  gem 'beaker-puppet_install_helper'
 end

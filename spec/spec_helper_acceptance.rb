@@ -9,11 +9,7 @@ ENV['PUPPET_INSTALL_TYPE'] = 'agent' if ENV['PUPPET_INSTALL_TYPE'].nil?
 # Otherwise puppet defaults to /etc/puppetlabs/code
 configure_defaults_on hosts, 'foss' unless ENV['PUPPET_INSTALL_TYPE'] == 'agent'
 
-unless ENV['PUPPET_INSTALL_TYPE'] == 'gem'
-  run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'
-else
-  install_puppet_from_gem_on hosts, version: (ENV['PUPPET_INSTALL_VERSION'] || '~> 3')
-end
+run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'
 
 # Define server names for API tests
 Infrataster::Server.define(:docker) do |server|
