@@ -11,20 +11,21 @@ env:
   - RAKE_TASK=test
   - RAKE_TASK=test PUPPET_GEM_VERSION=3.8.7
 
-  - RAKE_TASK=beaker:amazonlinux-2016.09-x64
+  # Puppet 4.x tests
+  - RAKE_TASK=beaker:amazonlinux-x64
   - RAKE_TASK=beaker:centos-6-x64
   - RAKE_TASK=beaker:centos-7-x64
   - RAKE_TASK=beaker:debian-7-x64
   - RAKE_TASK=beaker:debian-8-x64
   - RAKE_TASK=beaker:fedora-24-x64
   - RAKE_TASK=beaker:fedora-25-x64
-  - RAKE_TASK=beaker:ubuntu-1204-x64
   - RAKE_TASK=beaker:ubuntu-1404-x64
   - RAKE_TASK=beaker:ubuntu-1604-x64
 
   # 3.x is not tested on newer distros that have no 3.x upstream repositories.
-  - RAKE_TASK=beaker:amazonlinux-2016.09-x64 PUPPET_INSTALL_TYPE=foss
+  - RAKE_TASK=beaker:amazonlinux-x64 PUPPET_INSTALL_TYPE=gem PUPPET_INSTALL_VERSION='~> 3.8'
   - RAKE_TASK=beaker:centos-6-x64 PUPPET_INSTALL_TYPE=foss
   - RAKE_TASK=beaker:centos-7-x64 PUPPET_INSTALL_TYPE=foss
   - RAKE_TASK=beaker:debian-8-x64 PUPPET_INSTALL_TYPE=foss
   - RAKE_TASK=beaker:ubuntu-1404-x64 PUPPET_INSTALL_TYPE=foss
+  - RAKE_TASK=beaker:ubuntu-1604-x64 PUPPET_INSTALL_TYPE=gem PUPPET_INSTALL_VERSION='~> 3.8'
