@@ -1,10 +1,16 @@
+# Extra third-party functions.
 module Puppet::Parser::Functions
   newfunction(:validate_kibana_config, :doc => <<-'ENDHEREDOC') do |args|
-    Validate that the Kibana config hash contains keys and values that are valid data types. Keys must be strings at least 1 character long and values must be either integers, booleans, arrays or strings at least 1 character long.
+    Validate that the Kibana config hash contains keys and values that are valid data types.
+    Keys must be strings at least 1 character long and values must be either integers, booleans, arrays or strings at least 1 character long.
+
     @param config [Hash] The config hash
+
     @example
         $config = { 'server.host' => '0.0.0.0' }
         validate_kibana_config($config)
+
+    @return nil
     ENDHEREDOC
 
     unless args.length == 1 then
