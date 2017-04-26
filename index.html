@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.8
+    &mdash; Documentation by YARD 0.9.9
   
 </title>
 
@@ -155,6 +155,10 @@ version of Kibana is always installed:</p>
 
 <pre class="code ruby"><code class="ruby">class { &#39;kibana&#39;: ensure =&gt; &#39;5.2.0&#39; }</code></pre>
 
+<p>Package revisions are supported too:</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;kibana&#39;: ensure =&gt; &#39;5.2.2-1&#39; }</code></pre>
+
 <p>The <code>kibana</code> class also supports removal through use of
 <code>ensure =&gt; absent</code>:</p>
 
@@ -229,12 +233,26 @@ listed in <code>metadata.json</code>.</p>
 <h2 id="label-Development">Development</h2>
 
 <p>See CONTRIBUTING.md with help to get started.</p>
+
+<h3 id="label-Quickstart">Quickstart</h3>
+
+<p>Install gem dependencies:</p>
+
+<pre class="code ruby"><code class="ruby">$ bundle install</code></pre>
+
+<p>Run the test suite (without acceptance tests):</p>
+
+<pre class="code ruby"><code class="ruby">$ bundle exec rake test</code></pre>
+
+<p>Run acceptance tests against a platform (requires Docker):</p>
+
+<pre class="code ruby"><code class="ruby">$ bundle exec rake beaker:centos-7-x64</code></pre>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Mar 20 15:37:59 2017 by
+  Generated on Wed Apr 26 12:58:06 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.8 (ruby-2.3.3).
+  0.9.9 (ruby-2.3.3).
 </div>
 
     </div>
