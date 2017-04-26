@@ -1,10 +1,7 @@
-## x.x.x (Month Day, Year)
+## 0.3.0 (April 26, 2017)
 
 ### Summary
-
-#### Features
-
-#### Fixes
+This release backports support for Puppet 3.8.
 
 ## 0.2.1 (April 10, 2017)
 
