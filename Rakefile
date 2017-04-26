@@ -12,9 +12,11 @@ require 'rubocop/rake_task'
 require 'puppet-strings'
 require 'puppet-strings/tasks'
 
-if Puppet.version.to_f >= 4.9
+def v(ver) ; Gem::Version.new(ver) ; end
+
+if v(Puppet.version) >= v('4.9')
   require 'semantic_puppet'
-elsif Puppet.version.to_f >= 3.6 && Puppet.version.to_f < 4.9
+elsif v(Puppet.version) >= v('3.6') && v(Puppet.version) < v('4.9')
   require 'puppet/vendor/semantic/lib/semantic'
 end
 
