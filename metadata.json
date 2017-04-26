@@ -42,14 +42,13 @@
     {
       "operatingsystem": "Fedora",
       "operatingsystemrelease": [
-        "25",
-        "24"
+        "24",
+        "25"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "12.04",
         "14.04",
         "16.04"
       ]
@@ -57,14 +56,14 @@
     {
       "operatingsystem": "Amazon",
       "operatingsystemrelease": [
-        "2016.09"
+        "2017.03"
       ]
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": "> 3.8.7 < 5.0.0"
+      "version_requirement": ">= 3.8.0 < 5.0.0"
     }
   ]
 }
