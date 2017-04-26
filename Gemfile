@@ -4,9 +4,10 @@ source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 group :test do
   gem 'rake'
   gem 'puppet', ENV['PUPPET_GEM_VERSION'] || '~> 4.0'
+  gem 'safe_yaml', '~> 1.0.4'
   gem 'rspec', '~> 3.5'
   gem 'rspec-retry'
-  gem 'rspec-puppet'
+  gem 'rspec-puppet', '>=2.3.0'
   gem 'rspec-puppet-utils'
   gem 'puppetlabs_spec_helper'
   gem 'metadata-json-lint'
@@ -39,6 +40,6 @@ end
 
 group :system_tests do
   gem 'beaker'
+  gem 'beaker-puppet_install_helper', '0.6.0'
   gem 'beaker-rspec'
-  gem 'beaker-puppet_install_helper'
 end
