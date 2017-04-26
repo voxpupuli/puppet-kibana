@@ -7,7 +7,7 @@ group :test do
   gem 'safe_yaml', '~> 1.0.4'
   gem 'rspec', '~> 3.5'
   gem 'rspec-retry'
-  gem 'rspec-puppet'
+  gem 'rspec-puppet', '>=2.3.0'
   gem 'rspec-puppet-utils'
   gem 'puppetlabs_spec_helper'
   gem 'metadata-json-lint'

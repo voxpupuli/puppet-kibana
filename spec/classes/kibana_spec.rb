@@ -193,8 +193,8 @@ describe 'kibana', :type => 'class' do
               {
                 'server.host' => { 'foo' => 'bar' },
                 'server.basePath' => '',
-                5601 => nil,
-                '' => nil
+                5601 => :undef,
+                '' => :undef
               }.each do |key, val|
                 context "'#{val}'" do
                   let(:params) { { :config => { key => val } } }
