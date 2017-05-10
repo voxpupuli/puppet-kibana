@@ -9,11 +9,11 @@
   "issues_url": "https://github.com/elastic/puppet-kibana/issues",
   "dependencies": [
     {
-      "name": "puppetlabs-apt",
+      "name": "puppetlabs/apt",
       "version_requirement": ">= 2.0.0 < 3.0.0"
     },
     {
-      "name": "puppetlabs-stdlib",
+      "name": "puppetlabs/stdlib",
       "version_requirement": ">= 4.5.0 < 5.0.0"
     }
   ],

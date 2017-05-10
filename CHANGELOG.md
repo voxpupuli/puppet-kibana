@@ -5,6 +5,7 @@
 #### Features
 
 #### Fixes
+* metadata.json dependencies now compatible with Puppet 3.x.
 
 ## 0.3.0 (April 26, 2017)
 
