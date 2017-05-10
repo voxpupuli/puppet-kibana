@@ -1,8 +1,7 @@
-## x.x.x (Month Day, Year)
+## 5.0.0 (May 10, 2017)
 
 ### Summary
-
-#### Features
+Formally release major version 5.0 of the module.
 
 #### Fixes
 * metadata.json dependencies now compatible with Puppet 3.x.
