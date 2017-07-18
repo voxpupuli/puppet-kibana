@@ -2,7 +2,6 @@
 source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
 group :test do
-
   puppetversion = ENV['PUPPET_GEM_VERSION'] || '~> 4.9'
 
   gem 'rake'
