@@ -2,8 +2,16 @@
 source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
 group :test do
+
+  puppetversion = ENV['PUPPET_GEM_VERSION'] || '~> 4.9'
+
   gem 'rake'
-  gem 'puppet', ENV['PUPPET_GEM_VERSION'] || '~> 4.0'
+  gem 'puppet', puppetversion
+
+  install_if(Gem::Version.new(puppetversion.split(' ').last) < Gem::Version.new(4.9)) do
+    gem 'semantic_puppet'
+  end
+
   gem 'safe_yaml', '~> 1.0.4'
   gem 'rspec', '~> 3.5'
   gem 'rspec-retry'
