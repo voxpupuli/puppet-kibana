@@ -14,6 +14,8 @@ describe 'kibana', :type => 'class' do
           facts
         end
 
+        it { should contain_anchor('kibana::begin') }
+
         describe 'installation' do
           context 'kibana class without any parameters' do
             it { is_expected.to compile.with_all_deps }
@@ -23,6 +25,10 @@ describe 'kibana', :type => 'class' do
                 :ensure => 'present',
                 :manage_repo => true
               )
+            end
+            it 'has anchor before install' do
+              is_expected.to contain_class('kibana::install')
+                .that_requires('Anchor[kibana::begin]')
             end
             it 'declares install before config' do
               is_expected.to contain_class('kibana::install')
@@ -128,6 +134,10 @@ describe 'kibana', :type => 'class' do
             is_expected.to contain_class('kibana').with(
               :ensure => 'absent'
             )
+          end
+          it 'has anchor before managing service' do
+            is_expected.to contain_class('kibana::service')
+              .that_requires('Anchor[kibana::begin]')
           end
           it 'manages service before config' do
             is_expected.to contain_class('kibana::service')
