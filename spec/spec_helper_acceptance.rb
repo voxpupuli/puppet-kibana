@@ -3,6 +3,7 @@ require 'beaker-rspec/helpers/serverspec'
 require 'beaker/puppet_install_helper'
 require 'infrataster/rspec'
 require 'rspec/retry'
+require 'spec_utilities'
 
 ENV['PUPPET_INSTALL_TYPE'] = 'agent' if ENV['PUPPET_INSTALL_TYPE'].nil?
 
@@ -53,6 +54,16 @@ RSpec.configure do |c|
         :module_name => mod,
         :source      => "spec/fixtures/modules/#{mod}"
       )
+    end
+
+    # Copy over the snapshot package if we're running snapshot tests
+    if c.files_to_run.any? { |fn| fn.include? 'snapshot' } and !c.pkg_ext.nil?
+      filename = "kibana-snapshot.#{c.pkg_ext}"
+      hosts.each do |host|
+        scp_to host, artifact(filename), "/tmp/#{filename}"
+      end
+      c.add_setting :snapshot_version
+      c.snapshot_version = File.readlink(artifact(filename)).match(/kibana-(?<v>.*)-[^.]+[.][a-z]+/)[:v]
     end
   end
 

@@ -11,6 +11,9 @@ require 'metadata-json-lint/rake_task'
 require 'rubocop/rake_task'
 require 'puppet-strings'
 require 'puppet-strings/tasks'
+require_relative 'spec/spec_utilities'
+require 'nokogiri'
+require 'open-uri'
 
 def v(ver) ; Gem::Version.new(ver) ; end
 
@@ -81,3 +84,46 @@ task :spec_prune do
   end
 end
 task :spec_prep => [:spec_prune]
+
+# Plumbing for snapshot tests
+desc 'Run the snapshot tests'
+RSpec::Core::RakeTask.new("beaker:snapshot") do |task|
+  task.rspec_opts = ['--color']
+  task.pattern = 'spec/acceptance/tests/snapshot.rb'
+end
+
+beaker_node_sets.each do |node|
+  desc "Run the snapshot tests against the #{node} nodeset"
+  task "beaker:#{node}:snapshot" => %w[
+    artifact:snapshot:deb
+    artifact:snapshot:rpm
+  ] do
+    ENV['BEAKER_set'] = node
+    Rake::Task['beaker:snapshot'].reenable
+    Rake::Task['beaker:snapshot'].invoke
+  end
+end
+
+namespace :artifact do
+  namespace :snapshot do
+    readme = Nokogiri::HTML(open('https://github.com/elastic/kibana'))
+    readme
+      .at_css('#readme')
+      .xpath('//h3[contains(text(), "Snapshot")]/following-sibling::table[1]/tbody/tr[td//text()[contains(., "Linux")]]/td[2]/a')
+      .each do |anchor|
+        filename = artifact(anchor.attr('href'))
+        link = artifact("kibana-snapshot.#{anchor.text}")
+        task anchor.text => link
+        file link => filename do
+          unless File.exist?(link) and File.symlink?(link) \
+              and File.readlink(link) == filename
+            File.delete link if File.exist? link
+            File.symlink File.basename(filename), link
+          end
+        end
+        file filename do
+          get anchor.attr('href'), filename
+        end
+    end
+  end
+end
