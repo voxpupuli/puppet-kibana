@@ -38,6 +38,8 @@ class kibana (
   $repo_version    = '5.x',
 ) {
 
+  anchor {'kibana::begin': }
+
   validate_string($ensure,
                   $repo_key_id,
                   $repo_key_source,
@@ -67,12 +69,14 @@ class kibana (
   # Catch absent values, otherwise default to present/installed ordering
   case $ensure {
     'absent': {
-      Class['::kibana::service']
+      Anchor['kibana::begin']
+        -> Class['::kibana::service']
         -> Class['::kibana::config']
         -> Class['::kibana::install']
     }
     default: {
-      Class['::kibana::install']
+      Anchor['kibana::begin']
+        -> Class['::kibana::install']
         -> Class['::kibana::config']
         ~> Class['::kibana::service']
     }
