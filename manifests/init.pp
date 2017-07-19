@@ -20,6 +20,7 @@
 # @param ensure [String] State of Kibana on the system (simple present/absent/latest
 #   or version number).
 # @param config [Hash] Hash of key-value pairs for Kibana's configuration file
+# @param package_source [String] Local path to package file for file (not repo) based installation
 # @param manage_repo [Boolean] Whether to manage the package manager repository
 # @param repo_key_id [String] Trusted GPG Key ID for package repository
 # @param repo_key_source [String] Source for repo_key_id
@@ -31,6 +32,7 @@ class kibana (
   $ensure          = 'present',
   $config          = {},
   $manage_repo     = true,
+  $package_source  = undef,
   $repo_key_id     = '46095ACC8548582C1A2699A9D27D666CD88E42B4',
   $repo_key_source = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
   $repo_priority   = undef,
@@ -49,6 +51,10 @@ class kibana (
   validate_kibana_config($config)
 
   validate_bool($manage_repo)
+
+  if $package_source != undef {
+    validate_string($package_source)
+  }
 
   if $repo_priority != undef {
     validate_integer($repo_priority)
