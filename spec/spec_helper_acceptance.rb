@@ -37,15 +37,18 @@ RSpec.configure do |c|
   # Readable test descriptions
   c.formatter = :documentation
 
+  c.add_setting :pkg_ext
+  c.pkg_ext = case fact('osfamily')
+              when 'Debian'
+                'deb'
+              when 'RedHat'
+                'rpm'
+              end
+
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module and dependencies
-    %w(kibana stdlib).tap do |modules|
-      case fact('osfamily')
-      when 'Debian'
-        modules << 'apt'
-      end
-    end.each do |mod|
+    ['kibana', 'stdlib', ('apt' if c.pkg_ext == 'deb')].compact.each do |mod|
       install_dev_puppet_module(
         :module_name => mod,
         :source      => "spec/fixtures/modules/#{mod}"
