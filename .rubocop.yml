@@ -66,6 +66,10 @@ Metrics/MethodLength:
   Enabled: false
 
 # DISABLED - not useful
+Metrics/AbcSize:
+  Enabled: false
+
+# DISABLED - not useful
 Style/WhileUntilModifier:
   Enabled: false
 
