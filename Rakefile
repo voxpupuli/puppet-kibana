@@ -59,28 +59,12 @@ RSpec::Core::RakeTask.new(:spec_unit) do |t|
 end
 task :spec_unit => :spec_prep
 
-namespace :docs do
-  desc 'Evaluation documentation coverage'
-  task :coverage do
-    require 'puppet-strings/yard'
-
-    PuppetStrings::Yard.setup!
-    YARD::CLI::Yardoc.run(
-      %w(
-        manifests/**/*.pp
-      )
-    )
-  end
-end
-
 desc 'Run syntax, lint, and spec tests.'
-task :test => [
-  :metadata_lint,
-  :syntax,
-  :lint,
-  :rubocop,
-  :spec_unit,
-  'docs:coverage'
+task :test => %i[
+  lint
+  rubocop
+  validate
+  spec_unit
 ]
 
 desc 'remove outdated module fixtures'
