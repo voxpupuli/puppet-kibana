@@ -1,6 +1,5 @@
 require 'json'
 
-# rubocop:disable Metrics/AbcSize
 class Puppet::Provider::ElasticKibana < Puppet::Provider
   class << self
     attr_accessor :home_path
