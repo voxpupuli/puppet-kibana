@@ -72,7 +72,16 @@ class kibana::install {
     }
   }
 
+  if $::kibana::package_source != undef {
+    case $::osfamily {
+      'Debian': { Package['kibana'] { provider => 'dpkg' } }
+      'RedHat': { Package['kibana'] { provider => 'rpm' } }
+      default: { fail("unsupported parameter 'source' set for osfamily ${::osfamily}") }
+    }
+  }
+
   package { 'kibana':
     ensure => $::kibana::ensure,
+    source => $::kibana::package_source,
   }
 }

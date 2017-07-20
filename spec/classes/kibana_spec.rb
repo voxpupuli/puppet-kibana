@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'kibana', :type => 'class' do
@@ -267,6 +268,36 @@ describe 'kibana', :type => 'class' do
               it { is_expected.not_to contain_exec('kibana_yumrepo_yum_clean') }
             else
               pending "no tests for #{facts[:osfamily]}"
+            end
+          end
+
+          describe 'package_source' do
+            describe 'validation' do
+              [{'foo' => 'bar'}, true, 1, []].each do |param|
+                context "against #{param.class}" do
+                  let(:params) { { :package_source => param } }
+                  it { should_not compile.with_all_deps }
+                end
+              end
+            end
+
+            describe "on #{facts[:osfamily]}" do
+              let(:package_source) { '/tmp/kibana-5.0.0-linux-x86_64.rpm' }
+              let(:params) { { :package_source => package_source } }
+
+              it { is_expected.to contain_package('kibana')
+                .with_source(package_source) }
+
+              case facts[:osfamily]
+              when 'Debian'
+                it { is_expected.to contain_package('kibana')
+                  .with_provider('dpkg') }
+              when 'RedHat'
+                it { is_expected.to contain_package('kibana')
+                  .with_provider('rpm') }
+              else
+                it { should_not compile.with_all_deps }
+              end
             end
           end
         end

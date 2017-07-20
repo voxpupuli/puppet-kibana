@@ -1,3 +1,8 @@
+## x.x.x (Month Day, 2017)
+
+#### Features
+* Installation via package files (`.deb`/`.rpm`) now supported. See documentation for the `package_source` parameter for usage.
+
 ## 5.0.1 (July 19, 2017)
 
 This is a bugfix release to properly contain classes within the `kibana` class so that relationship ordering is respected correctly.
