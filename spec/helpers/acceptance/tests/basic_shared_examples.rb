@@ -19,8 +19,7 @@ shared_examples 'basic acceptance' do
         it('returns OK', :api) { expect(response.status).to eq(200) }
         it('is live', :api) { expect(response['kbn-name']).to eq('kibana') }
         it 'installs the correct version', :api do
-          ver = version.count('-') == 1 ? version.split('-').first : version
-          expect(response['kbn-version']).to eq(ver)
+          expect(response['kbn-version']).to eq(version)
         end
       end
     end

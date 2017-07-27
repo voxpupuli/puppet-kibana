@@ -107,14 +107,15 @@ end
 
 namespace :artifact do
   namespace :snapshot do
-    readme = Nokogiri::HTML(open('https://github.com/elastic/kibana'))
-    readme
-      .at_css('#readme')
-      .xpath('//h3[contains(text(), "Snapshot")]/following-sibling::table[1]/tbody/tr[td//text()[contains(., "Linux")]]/td[2]/a')
+    dls = Nokogiri::HTML(open('https://www.elastic.co/downloads/kibana'))
+    dls
+      .at_css('#preview-release-id')
+      .at_css('.downloads')
+      .xpath('li/a[contains(text(), "RPM") or contains(text(), "DEB")]')
       .each do |anchor|
         filename = artifact(anchor.attr('href'))
-        link = artifact("kibana-snapshot.#{anchor.text}")
-        task anchor.text => link
+        link = artifact("kibana-snapshot.#{anchor.text.split(' ').first.downcase}")
+        task anchor.text.split(' ').first.downcase => link
         file link => filename do
           unless File.exist?(link) and File.symlink?(link) \
               and File.readlink(link) == filename
