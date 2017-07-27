@@ -63,7 +63,7 @@ RSpec.configure do |c|
         scp_to host, artifact(filename), "/tmp/#{filename}"
       end
       c.add_setting :snapshot_version
-      c.snapshot_version = File.readlink(artifact(filename)).match(/kibana-(?<v>.*)-[^.]+[.][a-z]+/)[:v]
+      c.snapshot_version = File.readlink(artifact(filename)).match(/kibana-(?<v>.*)[.][a-z]+/)[:v]
     end
   end
 
