@@ -273,7 +273,7 @@ describe 'kibana', :type => 'class' do
 
           describe 'package_source' do
             describe 'validation' do
-              [{'foo' => 'bar'}, true, 1, []].each do |param|
+              [{'foo' => 'bar'}, true, []].each do |param|
                 context "against #{param.class}" do
                   let(:params) { { :package_source => param } }
                   it { should_not compile.with_all_deps }
