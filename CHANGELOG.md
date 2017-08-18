@@ -2,6 +2,7 @@
 
 #### Features
 * Installation via package files (`.deb`/`.rpm`) now supported. See documentation for the `package_source` parameter for usage.
+* Updated puppetlabs/apt dependency to reflect support for 4.x versions.
 
 ## 5.0.1 (July 19, 2017)
 
