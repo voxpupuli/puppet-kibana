@@ -101,18 +101,7 @@
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    
-<p>rubocop:disable Metrics/AbcSize</p>
 
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div>
 
 
 
@@ -270,7 +259,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#instances-class_method" title="instances (class method)">.<strong>instances</strong>  &#x21d2; Object </a>
+      <a href="#instances-class_method" title="instances (class method)">.<strong>instances</strong>  &#x21d2; Array </a>
     
 
     
@@ -284,7 +273,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Finds and returns all present resources on the host.</p>
+</div></span>
   
 </li>
 
@@ -306,7 +297,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Puppet prefetch boilerplate.</p>
+</div></span>
   
 </li>
 
@@ -314,7 +307,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#present_plugins-class_method" title="present_plugins (class method)">.<strong>present_plugins</strong>  &#x21d2; Object </a>
+      <a href="#present_plugins-class_method" title="present_plugins (class method)">.<strong>present_plugins</strong>  &#x21d2; Array&lt;Hash&gt; </a>
     
 
     
@@ -328,7 +321,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Discovers plugins present on the system.</p>
+</div></span>
   
 </li>
 
@@ -345,7 +340,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create-instance_method" title="#create (instance method)">#<strong>create</strong>  &#x21d2; Object </a>
+      <a href="#create-instance_method" title="#create (instance method)">#<strong>create</strong>  &#x21d2; Symbol </a>
     
 
     
@@ -359,7 +354,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Sets the ensure property in the @property_flush hash.</p>
+</div></span>
   
 </li>
 
@@ -367,7 +364,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#destroy-instance_method" title="#destroy (instance method)">#<strong>destroy</strong>  &#x21d2; Object </a>
+      <a href="#destroy-instance_method" title="#destroy (instance method)">#<strong>destroy</strong>  &#x21d2; Symbol </a>
     
 
     
@@ -381,7 +378,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Set flushed ensure property to absent.</p>
+</div></span>
   
 </li>
 
@@ -403,7 +402,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Determine whether this resource is present on the system.</p>
+</div></span>
   
 </li>
 
@@ -425,7 +426,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Enforce the desired state dictated by the properties to flush from the
+provider.</p>
+</div></span>
   
 </li>
 
@@ -433,7 +437,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#format_url-instance_method" title="#format_url (instance method)">#<strong>format_url</strong>  &#x21d2; Object </a>
+      <a href="#format_url-instance_method" title="#format_url (instance method)">#<strong>format_url</strong>  &#x21d2; Proc </a>
     
 
     
@@ -447,7 +451,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Formats a url for the plugin command-line argument.</p>
+</div></span>
   
 </li>
 
@@ -472,7 +478,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A new instance of ElasticKibana.</p>
+<p>Provider constructor.</p>
 </div></span>
   
 </li>
@@ -481,7 +487,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#plugin_url-instance_method" title="#plugin_url (instance method)">#<strong>plugin_url</strong>  &#x21d2; Object </a>
+      <a href="#plugin_url-instance_method" title="#plugin_url (instance method)">#<strong>plugin_url</strong>  &#x21d2; Array&lt;String&gt; </a>
     
 
     
@@ -495,7 +501,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Helps to format the plugin name for installation.</p>
+</div></span>
   
 </li>
 
@@ -503,7 +511,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#run_plugin-instance_method" title="#run_plugin (instance method)">#<strong>run_plugin</strong>(args)  &#x21d2; Object </a>
+      <a href="#run_plugin-instance_method" title="#run_plugin (instance method)">#<strong>run_plugin</strong>(args)  &#x21d2; String </a>
     
 
     
@@ -517,7 +525,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Wrap the plugin command in some helper functionality to set the right
+uid/gid.</p>
+</div></span>
   
 </li>
 
@@ -539,7 +550,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Repopulates the @property_hash to the on-system state for the provider.</p>
+</div></span>
   
 </li>
 
@@ -547,29 +560,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#version-instance_method" title="#version (instance method)">#<strong>version</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#version=-instance_method" title="#version= (instance method)">#<strong>version=</strong>(new_version)  &#x21d2; Object </a>
+      <a href="#version-instance_method" title="#version (instance method)">#<strong>version</strong>  &#x21d2; String </a>
     
 
     
@@ -584,7 +575,31 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The rest is normal provider boilerplate.</p>
+<p>version property getter.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#version=-instance_method" title="#version= (instance method)">#<strong>version=</strong>(new_version)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>version property setter.</p>
 </div></span>
   
 </li>
@@ -609,7 +624,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of ElasticKibana</p>
+<p>Provider constructor</p>
 
 
   </div>
@@ -623,13 +638,13 @@
       <pre class="lines">
 
 
-103
-104
-105
-106</pre>
+150
+151
+152
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -673,12 +688,12 @@
       <pre class="lines">
 
 
+9
 10
-11
-12</pre>
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_url'>format_url</span>
   <span class='ivar'>@format_url</span>
@@ -716,12 +731,12 @@
       <pre class="lines">
 
 
+5
 6
-7
-8</pre>
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_home_path'>home_path</span>
   <span class='ivar'>@home_path</span>
@@ -759,12 +774,12 @@
       <pre class="lines">
 
 
+6
 7
-8
-9</pre>
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_install_args'>install_args</span>
   <span class='ivar'>@install_args</span>
@@ -802,12 +817,12 @@
       <pre class="lines">
 
 
+7
 8
-9
-10</pre>
+9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_plugin_directory'>plugin_directory</span>
   <span class='ivar'>@plugin_directory</span>
@@ -845,12 +860,12 @@
       <pre class="lines">
 
 
+8
 9
-10
-11</pre>
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_args'>remove_args</span>
   <span class='ivar'>@remove_args</span>
@@ -870,26 +885,55 @@
       <div class="method_details first">
   <h3 class="signature first" id="instances-class_method">
   
-    .<strong>instances</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>instances</strong>  &#x21d2; <tt>Array</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Finds and returns all present resources on the host.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>array of providers</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-89
-90
-91
-92
-93</pre>
+132
+133
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instances'>instances</span>
   <span class='id identifier rubyid_present_plugins'>present_plugins</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plugin'>plugin</span><span class='op'>|</span>
@@ -910,22 +954,53 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Puppet prefetch boilerplate.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>resources</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>collection of resources extant on the system</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-95
-96
-97
-98
-99
-100
-101</pre>
+141
+142
+143
+144
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_prefetch'>prefetch</span><span class='lparen'>(</span><span class='id identifier rubyid_resources'>resources</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_instances'>instances</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_prov'>prov</span><span class='op'>|</span>
@@ -942,35 +1017,67 @@
       <div class="method_details ">
   <h3 class="signature " id="present_plugins-class_method">
   
-    .<strong>present_plugins</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>present_plugins</strong>  &#x21d2; <tt>Array&lt;Hash&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Discovers plugins present on the system. This is essentially the same way
+that the node code does it, so we do it in native ruby to speed up the
+process and grab arbitrary metadata from the plugin json (which
+<em>should</em> always be present).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Hash&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>array of discovered providers on the host.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
 28
 29
-30</pre>
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_present_plugins'>present_plugins</span>
   <span class='const'>Dir</span><span class='lbracket'>[</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_home_path'>home_path</span><span class='comma'>,</span> <span class='id identifier rubyid_plugin_directory'>plugin_directory</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_directory'>directory</span><span class='op'>|</span>
@@ -1000,24 +1107,53 @@
       <div class="method_details first">
   <h3 class="signature first" id="create-instance_method">
   
-    #<strong>create</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>create</strong>  &#x21d2; <tt>Symbol</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sets the ensure property in the @property_flush hash.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>:present</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-71
-72
-73</pre>
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='ivar'>@property_flush</span><span class='lbracket'>[</span><span class='symbol'>:ensure</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:present</span>
@@ -1030,24 +1166,53 @@
       <div class="method_details ">
   <h3 class="signature " id="destroy-instance_method">
   
-    #<strong>destroy</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>destroy</strong>  &#x21d2; <tt>Symbol</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set flushed ensure property to absent.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>:absent</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-79
-80
-81</pre>
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
   <span class='ivar'>@property_flush</span><span class='lbracket'>[</span><span class='symbol'>:ensure</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:absent</span>
@@ -1069,6 +1234,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Determine whether this resource is present on the system.</p>
+
 
   </div>
 </div>
@@ -1094,12 +1261,12 @@
       <pre class="lines">
 
 
-75
-76
-77</pre>
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exists?'>exists?</span>
   <span class='ivar'>@property_hash</span><span class='lbracket'>[</span><span class='symbol'>:ensure</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='symbol'>:present</span>
@@ -1118,28 +1285,58 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Enforce the desired state dictated by the properties to flush from the
+provider.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>nil</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44</pre>
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_flush'>flush</span>
   <span class='kw'>if</span> <span class='ivar'>@property_flush</span><span class='lbracket'>[</span><span class='symbol'>:ensure</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='symbol'>:absent</span>
@@ -1162,24 +1359,56 @@
       <div class="method_details ">
   <h3 class="signature " id="format_url-instance_method">
   
-    #<strong>format_url</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>format_url</strong>  &#x21d2; <tt>Proc</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Formats a url for the plugin command-line argument. Necessary since
+different versions of the Kibana plugin CLI tool accept URL arguments in
+differing ways.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Proc</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a lambda that accepts the URL and scope binding and returns the formatted
+URL.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-13
-14
-15</pre>
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_url'>format_url</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_format_url'>format_url</span> <span class='op'>||=</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_url'>url</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
@@ -1192,30 +1421,60 @@
       <div class="method_details ">
   <h3 class="signature " id="plugin_url-instance_method">
   
-    #<strong>plugin_url</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>plugin_url</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Helps to format the plugin name for installation. That is, if we have a
+URL, pass it in correctly to the CLI tool.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>array of name elements suitable for use in a Puppet::Provider#execute call.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-51
-52
-53
-54
-55
-56
-57
-58
-59</pre>
+75
+76
+77
+78
+79
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_plugin_url'>plugin_url</span>
   <span class='kw'>if</span> <span class='kw'>not</span> <span class='id identifier rubyid_resource'>resource</span><span class='lbracket'>[</span><span class='symbol'>:url</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1234,25 +1493,55 @@
       <div class="method_details ">
   <h3 class="signature " id="run_plugin-instance_method">
   
-    #<strong>run_plugin</strong>(args)  &#x21d2; <tt>Object</tt> 
+    #<strong>run_plugin</strong>(args)  &#x21d2; <tt>String</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Wrap the plugin command in some helper functionality to set the right
+uid/gid.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>debugging command output.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+65
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run_plugin'>run_plugin</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_stdout'>stdout</span> <span class='op'>=</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_command'>command</span><span class='lparen'>(</span><span class='symbol'>:plugin</span><span class='rparen'>)</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='symbol'>:uid</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>kibana</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:gid</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>kibana</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1272,20 +1561,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Repopulates the @property_hash to the on-system state for the provider.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-83
-84
-85
-86
-87</pre>
+123
+124
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_property_hash'>set_property_hash</span>
   <span class='ivar'>@property_hash</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_present_plugins'>present_plugins</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span>
@@ -1300,24 +1600,53 @@
       <div class="method_details ">
   <h3 class="signature " id="version-instance_method">
   
-    #<strong>version</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>version</strong>  &#x21d2; <tt>String</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>version property getter</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>version</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-67
-68
-69</pre>
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_version'>version</span>
   <span class='ivar'>@property_hash</span><span class='lbracket'>[</span><span class='symbol'>:version</span><span class='rbracket'>]</span>
@@ -1330,7 +1659,7 @@
       <div class="method_details ">
   <h3 class="signature " id="version=-instance_method">
   
-    #<strong>version=</strong>(new_version)  &#x21d2; <tt>Object</tt> 
+    #<strong>version=</strong>(new_version)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1339,13 +1668,31 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>The rest is normal provider boilerplate.</p>
+<p>version property setter</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>version</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1353,12 +1700,12 @@
       <pre class="lines">
 
 
-63
-64
-65</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_version='>version=</span><span class='lparen'>(</span><span class='id identifier rubyid_new_version'>new_version</span><span class='rparen'>)</span>
   <span class='ivar'>@property_flush</span><span class='lbracket'>[</span><span class='symbol'>:version</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_new_version'>new_version</span>
@@ -1373,7 +1720,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Apr 26 12:58:07 2017 by
+  Generated on Fri Aug 18 15:50:35 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.3).
 </div>

@@ -164,6 +164,24 @@ number).</p>
   
     <li>
       
+        <span class='name'>package_source</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Local path to package file for file (not repo) based installation</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>manage_repo</span>
       
       
@@ -280,7 +298,6 @@ number).</p>
         <pre class="lines">
 
 
-30
 31
 32
 33
@@ -330,21 +347,34 @@ number).</p>
 77
 78
 79
-80</pre>
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 30</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 31</span>
 
 class kibana (
   $ensure          = &#39;present&#39;,
   $config          = {},
   $manage_repo     = true,
+  $package_source  = undef,
   $repo_key_id     = &#39;46095ACC8548582C1A2699A9D27D666CD88E42B4&#39;,
   $repo_key_source = &#39;https://artifacts.elastic.co/GPG-KEY-elasticsearch&#39;,
   $repo_priority   = undef,
   $repo_proxy      = undef,
   $repo_version    = &#39;5.x&#39;,
 ) {
+
+  anchor {&#39;kibana::begin&#39;: }
 
   validate_string($ensure,
                   $repo_key_id,
@@ -355,6 +385,10 @@ class kibana (
   validate_kibana_config($config)
 
   validate_bool($manage_repo)
+
+  if $package_source != undef {
+    validate_string($package_source)
+  }
 
   if $repo_priority != undef {
     validate_integer($repo_priority)
@@ -375,12 +409,14 @@ class kibana (
   # Catch absent values, otherwise default to present/installed ordering
   case $ensure {
     &#39;absent&#39;: {
-      Class[&#39;::kibana::service&#39;]
+      Anchor[&#39;kibana::begin&#39;]
+        -&gt; Class[&#39;::kibana::service&#39;]
         -&gt; Class[&#39;::kibana::config&#39;]
         -&gt; Class[&#39;::kibana::install&#39;]
     }
     default: {
-      Class[&#39;::kibana::install&#39;]
+      Anchor[&#39;kibana::begin&#39;]
+        -&gt; Class[&#39;::kibana::install&#39;]
         -&gt; Class[&#39;::kibana::config&#39;]
         ~&gt; Class[&#39;::kibana::service&#39;]
     }
@@ -393,7 +429,7 @@ class kibana (
 </div>
 
       <div id="footer">
-  Generated on Wed Apr 26 12:58:07 2017 by
+  Generated on Fri Aug 18 15:50:35 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.3).
 </div>
