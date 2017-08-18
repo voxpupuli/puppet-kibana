@@ -1,4 +1,4 @@
-## x.x.x (Month Day, 2017)
+## 5.1.0 (August 18, 2017)
 
 #### Features
 * Installation via package files (`.deb`/`.rpm`) now supported. See documentation for the `package_source` parameter for usage.
