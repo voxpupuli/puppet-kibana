@@ -1,6 +1,7 @@
 ## x.x.x (Month Day, 2017)
 
 #### Features
+* Added support for service status
 
 ## 5.1.0 (August 18, 2017)
 

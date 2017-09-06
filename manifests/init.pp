@@ -27,6 +27,7 @@
 # @param repo_priority [Integer] Optional repository priority
 # @param repo_proxy [String] Proxy to use for repository access (yum only)
 # @param repo_version [String] Repository major version to use
+# @param status [String] Service status ('enabled', 'disabled', 'running', 'unmanaged')
 #
 class kibana (
   $ensure          = 'present',
@@ -38,6 +39,7 @@ class kibana (
   $repo_priority   = undef,
   $repo_proxy      = undef,
   $repo_version    = '5.x',
+  $status          = 'enabled',
 ) {
 
   anchor {'kibana::begin': }
@@ -66,6 +68,10 @@ class kibana (
 
   if !($repo_version in ['5.x']) and $repo_version !~ /^4\.(1|[4-6])$/ {
     fail('Invalid value for repo_version')
+  }
+
+  if ! ($status in ['enabled', 'disabled', 'running', 'unmanaged']) {
+    fail('Invalid value for status')
   }
 
   class { '::kibana::install': }
