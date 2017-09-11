@@ -7,19 +7,38 @@ require 'spec_utilities'
 
 ENV['PUPPET_INSTALL_TYPE'] = 'agent' if ENV['PUPPET_INSTALL_TYPE'].nil?
 
-# Otherwise puppet defaults to /etc/puppetlabs/code
-configure_defaults_on hosts, 'foss' unless ENV['PUPPET_INSTALL_TYPE'] == 'agent'
+# Set the host to 'aio' in order to adopt the puppet-agent style of
+# installation, and configure paths/etc.
+host[:type] = 'aio'
+configure_defaults_on host, 'aio'
 
-if ENV['PUPPET_INSTALL_TYPE'] == 'gem'
-  install_puppet_from_gem_on(
-    hosts,
-    :version => (
-      ENV['PUPPET_INSTALL_VERSION'] || ENV['PUPPET_VERSION'] || '~> 4.0'
-    )
+# Install Puppet
+#
+# We spawn a thread to print dots periodically while installing puppet to
+# avoid inactivity timeouts in Travis. Don't judge me.
+progress = Thread.new do
+  print 'Installing puppet..'
+  print '.' while sleep 5
+end
+
+case host.name
+when /debian-9/, /opensuse/
+  # A few special cases need to be installed from gems (if the distro is
+  # very new and has no puppet repo package or has no upstream packages).
+  install_puppet_from_gem(
+    host,
+    version: Gem.loaded_specs['puppet'].version
   )
 else
-  run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'
+  # Otherwise, just use the all-in-one agent package.
+  install_puppet_agent_on(
+    host,
+    puppet_agent_version: to_agent_version(Gem.loaded_specs['puppet'].version)
+  )
 end
+# Quit the print thread and include some debugging.
+progress.exit
+puts "done. Installed version #{shell('puppet --version').output}"
 
 # Define server names for API tests
 Infrataster::Server.define(:docker) do |server|
