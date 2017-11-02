@@ -21,7 +21,7 @@ jobs:
      env:
      - TASK=test
      - PUPPET_VERSION='~> 4.5.0'
-     env:
+   - env:
      - TASK=test
    - env:
      - TASK=test

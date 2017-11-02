@@ -36,8 +36,9 @@ shared_examples 'kibana plugin provider' do
 
     context 'with multiple plugins' do
       before do
-        allow(Dir).to receive(:[])
-          .and_return [plugin_one, plugin_two].map { |p| File.join(plugin_path, p[:name]) }
+        allow(Dir)
+          .to(receive(:[]))
+          .and_return([plugin_one, plugin_two].map { |p| File.join(plugin_path, p[:name]) })
         [plugin_one, plugin_two].each do |plugin|
           allow(File).to receive(:read)
             .with(File.join(plugin_path, plugin[:name], 'package.json'))

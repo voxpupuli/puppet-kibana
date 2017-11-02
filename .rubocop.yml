@@ -493,3 +493,9 @@ Style/IfWithSemicolon:
 
 Style/Encoding:
   Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/CommentedKeyword:
+  Enabled: false
