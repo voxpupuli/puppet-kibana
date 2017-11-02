@@ -3,7 +3,8 @@ require 'beaker-rspec/helpers/serverspec'
 require 'beaker/puppet_install_helper'
 require 'infrataster/rspec'
 require 'rspec/retry'
-require 'spec_utilities'
+
+require_relative 'spec_utilities'
 
 ENV['PUPPET_INSTALL_TYPE'] = 'agent' if ENV['PUPPET_INSTALL_TYPE'].nil?
 
@@ -89,6 +90,8 @@ RSpec.configure do |c|
   end
 
   c.around :each, :api do |example|
-    example.run_with_retry retry: 3, retry_wait: 5
+    # The initial optimization startup time of Kibana is _incredibly_ slow,
+    # so we need to be pretty generous with how we retry API call attempts.
+    example.run_with_retry retry: 10, retry_wait: 5
   end
 end
