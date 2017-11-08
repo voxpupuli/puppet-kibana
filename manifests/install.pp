@@ -1,6 +1,7 @@
-# Class: kibana::install
+# This class is called from the kibana class to manage installation.
+# It is not meant to be called directly.
 #
-# This class is called from the ::kibana class to manage installation.
+# @author Tyler Langlois <tyler.langlois@elastic.co>
 #
 class kibana::install {
 
