@@ -3,11 +3,5 @@
   $LOAD_PATH.unshift(File.join(File.dirname(__FILE__),'..','..','..','lib'))
   require 'puppet_x/elastic/hash'
 
-  @config.extend(Puppet_X::Elastic::SortedHash).to_yaml.tap do |yml|
-    unless Puppet::Util::Package.versioncmp(Puppet.version, '4') >= 0
-      yml.gsub!(/^\s{2}/, '')
-      yml.gsub!(/^--- $/, '---')
-      yml << "\n"
-    end
-  end
+  @config.extend(Puppet_X::Elastic::SortedHash).to_yaml
 -%>
