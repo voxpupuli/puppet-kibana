@@ -14,7 +14,7 @@ Puppet 4.5.0 is the new minimum required version of Puppet, which offers better 
 Migrating from Puppet 3 to Puppet 4 is beyond the scope of this guide, but the [official upgrade documentation](https://docs.puppet.com/upgrade/upgrade_steps.html) can help.
 As with any version or module upgrade, remember to restart any agents and master servers as needed.
 
-## x.x.x (Month Day, 2017)
+## 5.2.0 (November 13, 2017)
 
 #### Features
 * Added support for service status
