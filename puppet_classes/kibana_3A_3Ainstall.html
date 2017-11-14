@@ -75,14 +75,30 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>Class: kibana::install</p>
-
-<p>This class is called from the ::kibana class to manage installation.</p>
+<p>This class is called from the kibana class to manage installation. It is
+not meant to be called directly.</p>
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Tyler Langlois <a
+href="mailto:tyler.langlois@elastic.co">tyler.langlois@elastic.co</a></p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -91,7 +107,6 @@
         <pre class="lines">
 
 
-5
 6
 7
 8
@@ -173,10 +188,11 @@
 84
 85
 86
-87</pre>
+87
+88</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/install.pp', line 5</span>
+        <pre class="code"><span class="info file"># File 'manifests/install.pp', line 6</span>
 
 class kibana::install {
 
@@ -188,19 +204,19 @@ class kibana::install {
 
     if $::kibana::repo_version =~ /^4[.]/ {
       $_repo_baseurl = &quot;https://packages.elastic.co/kibana/${::kibana::repo_version}&quot;
-      $_repo_path = $::osfamily ? {
+      $_repo_path = $facts[&#39;os&#39;][&#39;family&#39;] ? {
         &#39;Debian&#39;          =&gt; &#39;debian&#39;,
         /(RedHat|Amazon)/ =&gt; &#39;centos&#39;
       }
     } else {
       $_repo_baseurl = &quot;https://artifacts.elastic.co/packages/${::kibana::repo_version}&quot;
-      $_repo_path = $::osfamily ? {
+      $_repo_path = $facts[&#39;os&#39;][&#39;family&#39;] ? {
         &#39;Debian&#39;          =&gt; &#39;apt&#39;,
         /(RedHat|Amazon)/ =&gt; &#39;yum&#39;
       }
     }
 
-    case $::osfamily {
+    case $facts[&#39;os&#39;][&#39;family&#39;] {
       &#39;Debian&#39;: {
         include ::apt
         Class[&#39;apt::update&#39;] -&gt; Package[&#39;kibana&#39;]
@@ -243,16 +259,16 @@ class kibana::install {
         }
       }
       default: {
-        fail(&quot;unsupported operating system family ${::osfamily}&quot;)
+        fail(&quot;unsupported operating system family ${facts[&#39;os&#39;][&#39;family&#39;]}&quot;)
       }
     }
   }
 
   if $::kibana::package_source != undef {
-    case $::osfamily {
+    case $facts[&#39;os&#39;][&#39;family&#39;] {
       &#39;Debian&#39;: { Package[&#39;kibana&#39;] { provider =&gt; &#39;dpkg&#39; } }
       &#39;RedHat&#39;: { Package[&#39;kibana&#39;] { provider =&gt; &#39;rpm&#39; } }
-      default: { fail(&quot;unsupported parameter &#39;source&#39; set for osfamily ${::osfamily}&quot;) }
+      default: { fail(&quot;unsupported parameter &#39;source&#39; set for osfamily ${facts[&#39;os&#39;][&#39;family&#39;]}&quot;) }
     }
   }
 

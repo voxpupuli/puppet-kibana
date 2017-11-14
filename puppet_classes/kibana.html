@@ -71,14 +71,13 @@
   </dl>
 </div>
 
+  <h2>Summary</h2>
+  The top-level kibana class that declares child classes for managing kibana.
+
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
     
-<p>Class: kibana</p>
-
-<p>The top-level kibana class that declares child classes for managing kibana.</p>
-
   </div>
 </div>
 <div class="tags">
@@ -130,10 +129,8 @@
         <span class='name'>ensure</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Variant[Enum['present', 'absent', 'latest'], Pattern[/^\d([.]\d+)*(-[\d\w]+)?$/]]</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>&#39;present&#39;</tt>)</em>
       
       
         &mdash;
@@ -149,10 +146,8 @@ number).</p>
         <span class='name'>config</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash[String[1], Variant[String[1], Integer, Boolean, Array]]</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>{}</tt>)</em>
       
       
         &mdash;
@@ -167,10 +162,8 @@ number).</p>
         <span class='name'>package_source</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -188,8 +181,6 @@ number).</p>
         <span class='type'>(<tt>Boolean</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>true</tt>)</em>
-      
       
         &mdash;
         <div class='inline'>
@@ -205,8 +196,6 @@ number).</p>
       
         <span class='type'>(<tt>String</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>&#39;46095ACC8548582C1A2699A9D27D666CD88E42B4&#39;</tt>)</em>
       
       
         &mdash;
@@ -224,8 +213,6 @@ number).</p>
         <span class='type'>(<tt>String</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;https://artifacts.elastic.co/GPG-KEY-elasticsearch&#39;</tt>)</em>
-      
       
         &mdash;
         <div class='inline'>
@@ -239,10 +226,8 @@ number).</p>
         <span class='name'>repo_priority</span>
       
       
-        <span class='type'>(<tt>Integer</tt>)</span>
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -257,10 +242,8 @@ number).</p>
         <span class='name'>repo_proxy</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -275,10 +258,8 @@ number).</p>
         <span class='name'>repo_version</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Variant[Enum['5.x', '6.x'], Pattern[/^4\.(1|[4-6])$/]]</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>&#39;5.x&#39;</tt>)</em>
       
       
         &mdash;
@@ -293,22 +274,36 @@ number).</p>
         <span class='name'>status</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Kibana::Status</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>&#39;enabled&#39;</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>Service status (&#39;enabled&#39;, &#39;disabled&#39;, &#39;running&#39;,
-&#39;unmanaged&#39;)</p>
+<p>Service status</p>
 </div>
       
     </li>
   
 </ul>
 
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Tyler Langlois <a
+href="mailto:tyler.langlois@elastic.co">tyler.langlois@elastic.co</a></p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -347,107 +342,39 @@ number).</p>
 59
 60
 61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96</pre>
+62</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 32</span>
 
 class kibana (
-  $ensure          = &#39;present&#39;,
-  $config          = {},
-  $manage_repo     = true,
-  $package_source  = undef,
-  $repo_key_id     = &#39;46095ACC8548582C1A2699A9D27D666CD88E42B4&#39;,
-  $repo_key_source = &#39;https://artifacts.elastic.co/GPG-KEY-elasticsearch&#39;,
-  $repo_priority   = undef,
-  $repo_proxy      = undef,
-  $repo_version    = &#39;5.x&#39;,
-  $status          = &#39;enabled&#39;,
+  Variant[Enum[&#39;present&#39;, &#39;absent&#39;, &#39;latest&#39;], Pattern[/^\d([.]\d+)*(-[\d\w]+)?$/]] $ensure,
+  Hash[String[1], Variant[String[1], Integer, Boolean, Array]] $config,
+  Boolean $manage_repo,
+  Optional[String] $package_source,
+  String $repo_key_id,
+  String $repo_key_source,
+  Optional[Integer] $repo_priority,
+  Optional[String] $repo_proxy,
+  Variant[Enum[&#39;5.x&#39;, &#39;6.x&#39;], Pattern[/^4\.(1|[4-6])$/]] $repo_version,
+  Kibana::Status $status,
 ) {
 
-  anchor {&#39;kibana::begin&#39;: }
-
-  validate_string($ensure,
-                  $repo_key_id,
-                  $repo_key_source,
-                  $repo_proxy,
-                  $repo_version)
-
-  validate_kibana_config($config)
-
-  validate_bool($manage_repo)
-
-  if $package_source != undef {
-    validate_string($package_source)
-  }
-
-  if $repo_priority != undef {
-    validate_integer($repo_priority)
-  }
-
-  if !($ensure in [&#39;present&#39;, &#39;absent&#39;, &#39;latest&#39;]) and $ensure !~ /^\d([.]\d+)*(-[\d\w]+)?$/ {
-    fail(&#39;Invalid value for ensure&#39;)
-  }
-
-  if !($repo_version in [&#39;5.x&#39;]) and $repo_version !~ /^4\.(1|[4-6])$/ {
-    fail(&#39;Invalid value for repo_version&#39;)
-  }
-
-  if ! ($status in [&#39;enabled&#39;, &#39;disabled&#39;, &#39;running&#39;, &#39;unmanaged&#39;]) {
-    fail(&#39;Invalid value for status&#39;)
-  }
-
-  class { &#39;::kibana::install&#39;: }
-  class { &#39;::kibana::config&#39;: }
-  class { &#39;::kibana::service&#39;: }
+  contain ::kibana::install
+  contain ::kibana::config
+  contain ::kibana::service
 
   # Catch absent values, otherwise default to present/installed ordering
   case $ensure {
     &#39;absent&#39;: {
-      Anchor[&#39;kibana::begin&#39;]
-        -&gt; Class[&#39;::kibana::service&#39;]
-        -&gt; Class[&#39;::kibana::config&#39;]
-        -&gt; Class[&#39;::kibana::install&#39;]
+      Class[&#39;::kibana::service&#39;]
+      -&gt; Class[&#39;::kibana::config&#39;]
+      -&gt; Class[&#39;::kibana::install&#39;]
     }
     default: {
-      Anchor[&#39;kibana::begin&#39;]
-        -&gt; Class[&#39;::kibana::install&#39;]
-        -&gt; Class[&#39;::kibana::config&#39;]
-        ~&gt; Class[&#39;::kibana::service&#39;]
+      Class[&#39;::kibana::install&#39;]
+      -&gt; Class[&#39;::kibana::config&#39;]
+      ~&gt; Class[&#39;::kibana::service&#39;]
     }
   }
 }</pre>
