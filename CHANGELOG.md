@@ -1,4 +1,4 @@
-## 6.0.0 (Month Day, Year)
+## 6.0.0 (November 14, 2017)
 
 Major version upgrade with important deprecations:
 
