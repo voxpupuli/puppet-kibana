@@ -38,7 +38,7 @@ class kibana (
   String $repo_key_source,
   Optional[Integer] $repo_priority,
   Optional[String] $repo_proxy,
-  Variant[Enum['5.x'], Pattern[/^4\.(1|[4-6])$/]] $repo_version,
+  Variant[Enum['5.x', '6.x'], Pattern[/^4\.(1|[4-6])$/]] $repo_version,
   Kibana::Status $status,
 ) {
 

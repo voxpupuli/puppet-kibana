@@ -6,7 +6,7 @@ describe 'kibana', :type => 'class' do
   let(:repo_baseurl)    { 'https://artifacts.elastic.co/packages' }
   let(:repo_key_id)     { '46095ACC8548582C1A2699A9D27D666CD88E42B4' }
   let(:repo_key_source) { 'https://artifacts.elastic.co/GPG-KEY-elasticsearch' }
-  let(:repo_version)    { '5.x' }
+  let(:repo_version)    { '6.x' }
 
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
