@@ -90,6 +90,11 @@ desc 'Run the snapshot tests'
 RSpec::Core::RakeTask.new("beaker:snapshot") do |task|
   task.rspec_opts = ['--color']
   task.pattern = 'spec/acceptance/tests/snapshot.rb'
+
+  if Rake::Task.task_defined? 'artifact:snapshot:not_found'
+    puts 'No snapshot artifacts found, skipping snapshot tests.'
+    exit(0)
+  end
 end
 
 beaker_node_sets.each do |node|
@@ -108,24 +113,31 @@ end
 namespace :artifact do
   namespace :snapshot do
     dls = Nokogiri::HTML(open('https://www.elastic.co/downloads/kibana'))
-    dls
-      .at_css('#preview-release-id')
-      .at_css('.downloads')
-      .xpath('li/a[contains(text(), "RPM") or contains(text(), "DEB")]')
-      .each do |anchor|
-        filename = artifact(anchor.attr('href'))
-        link = artifact("kibana-snapshot.#{anchor.text.split(' ').first.downcase}")
-        task anchor.text.split(' ').first.downcase => link
-        file link => filename do
-          unless File.exist?(link) and File.symlink?(link) \
-              and File.readlink(link) == filename
-            File.delete link if File.exist? link
-            File.symlink File.basename(filename), link
+    div = dls.at_css('#preview-release-id')
+
+    if div.nil?
+      puts 'No preview release available; skipping snapshot download'
+      %w[deb rpm].each { |ext| task ext }
+      task 'not_found'
+    else
+      div
+        .at_css('.downloads')
+        .xpath('li/a[contains(text(), "RPM") or contains(text(), "DEB")]')
+        .each do |anchor|
+          filename = artifact(anchor.attr('href'))
+          link = artifact("kibana-snapshot.#{anchor.text.split(' ').first.downcase}")
+          task anchor.text.split(' ').first.downcase => link
+          file link => filename do
+            unless File.exist?(link) and File.symlink?(link) \
+                and File.readlink(link) == filename
+              File.delete link if File.exist? link
+              File.symlink File.basename(filename), link
+            end
           end
-        end
-        file filename do
-          get anchor.attr('href'), filename
-        end
+          file filename do
+            get anchor.attr('href'), filename
+          end
+      end
     end
   end
 end
