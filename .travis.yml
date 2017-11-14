@@ -20,25 +20,17 @@ jobs:
    - stage: intake
      env:
      - TASK=test
-     - PUPPET_GEM_VERSION='~> 4.10'
+     - PUPPET_VERSION='~> 4.5.0'
    - env:
      - TASK=test
-     - PUPPET_GEM_VERSION='~> 3.8'
+   - env:
+     - TASK=test
+     - PUPPET_VERSION='~> 5.0'
    - stage: acceptance
      env:
      - TASK=beaker:amazonlinux-x64
-     env:
-     - TASK=beaker:amazonlinux-x64
-     - PUPPET_INSTALL_TYPE=gem
-     - PUPPET_INSTALL_VERSION='~> 3.8'
    - env:
      - TASK=beaker:centos-6-x64
-     - PUPPET_INSTALL_TYPE=foss
-   - env:
-     - TASK=beaker:centos-6-x64
-   - env:
-     - TASK=beaker:centos-7-x64
-     - PUPPET_INSTALL_TYPE=foss
    - env:
      - TASK=beaker:centos-7-x64
    - env:
@@ -46,13 +38,7 @@ jobs:
    - env:
      - TASK=beaker:debian-8-x64
    - env:
-     - TASK=beaker:debian-8-x64
-     - PUPPET_INSTALL_TYPE=foss
-   - env:
      - TASK=beaker:ubuntu-1404-x64
-   - env:
-     - TASK=beaker:ubuntu-1404-x64
-     - PUPPET_INSTALL_TYPE=foss
    - env:
      - TASK=beaker:ubuntu-1604-x64
    - env:

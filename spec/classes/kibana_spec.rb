@@ -6,16 +6,14 @@ describe 'kibana', :type => 'class' do
   let(:repo_baseurl)    { 'https://artifacts.elastic.co/packages' }
   let(:repo_key_id)     { '46095ACC8548582C1A2699A9D27D666CD88E42B4' }
   let(:repo_key_source) { 'https://artifacts.elastic.co/GPG-KEY-elasticsearch' }
-  let(:repo_version)    { '5.x' }
+  let(:repo_version)    { '6.x' }
 
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
         let(:facts) do
-          facts
+          facts.merge('scenario' => '', 'common' => '')
         end
-
-        it { should contain_anchor('kibana::begin') }
 
         describe 'installation' do
           context 'kibana class without any parameters' do
@@ -26,10 +24,6 @@ describe 'kibana', :type => 'class' do
                 :ensure => 'present',
                 :manage_repo => true
               )
-            end
-            it 'has anchor before install' do
-              is_expected.to contain_class('kibana::install')
-                .that_requires('Anchor[kibana::begin]')
             end
             it 'declares install before config' do
               is_expected.to contain_class('kibana::install')
@@ -63,8 +57,8 @@ describe 'kibana', :type => 'class' do
             end
             it { is_expected.to contain_package('kibana').with_ensure('present') }
 
-            describe "#{facts[:osfamily]} resources" do
-              case facts[:osfamily]
+            describe "#{facts[:os]['family']} resources" do
+              case facts[:os]['family']
               when 'Debian'
                 it 'updates package cache before installing kibana' do
                   is_expected.to contain_class('apt::update')
@@ -117,7 +111,7 @@ describe 'kibana', :type => 'class' do
                     )
                 end
               else
-                pending "no tests for #{facts[:osfamily]}"
+                pending "no tests for #{facts[:os]['family']}"
               end
             end
           end
@@ -135,10 +129,6 @@ describe 'kibana', :type => 'class' do
             is_expected.to contain_class('kibana').with(
               :ensure => 'absent'
             )
-          end
-          it 'has anchor before managing service' do
-            is_expected.to contain_class('kibana::service')
-              .that_requires('Anchor[kibana::begin]')
           end
           it 'manages service before config' do
             is_expected.to contain_class('kibana::service')
@@ -237,7 +227,7 @@ describe 'kibana', :type => 'class' do
 
               it { should contain_file('/opt/kibana/config/kibana.yml') }
 
-              case facts[:osfamily]
+              case facts[:os]['family']
               when 'Debian'
                 it 'installs the 4.x repo apt source' do
                   is_expected
@@ -251,14 +241,14 @@ describe 'kibana', :type => 'class' do
                     .with(:baseurl => "#{repo_baseurl}/#{repo_version}/centos")
                 end
               else
-                pending "no 4.x repo tests for #{facts[:osfamily]}"
+                pending "no 4.x repo tests for #{facts[:os]['family']}"
               end
             end
           end
 
           describe 'manage_repo' do
             let(:params) { { :manage_repo => false } }
-            case facts[:osfamily]
+            case facts[:os]['family']
             when 'Debian'
               it { is_expected.not_to contain_class('apt') }
               it { is_expected.not_to contain_package('apt-transport-https') }
@@ -267,7 +257,7 @@ describe 'kibana', :type => 'class' do
               it { is_expected.not_to contain_yumrepo('kibana') }
               it { is_expected.not_to contain_exec('kibana_yumrepo_yum_clean') }
             else
-              pending "no tests for #{facts[:osfamily]}"
+              pending "no tests for #{facts[:os]['family']}"
             end
           end
 
@@ -281,14 +271,14 @@ describe 'kibana', :type => 'class' do
               end
             end
 
-            describe "on #{facts[:osfamily]}" do
+            describe "on #{facts[:os]['family']}" do
               let(:package_source) { '/tmp/kibana-5.0.0-linux-x86_64.rpm' }
               let(:params) { { :package_source => package_source } }
 
               it { is_expected.to contain_package('kibana')
                 .with_source(package_source) }
 
-              case facts[:osfamily]
+              case facts[:os]['family']
               when 'Debian'
                 it { is_expected.to contain_package('kibana')
                   .with_provider('dpkg') }

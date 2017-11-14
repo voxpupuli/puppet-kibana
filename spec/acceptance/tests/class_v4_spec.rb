@@ -8,7 +8,7 @@ describe 'kibana class v4' do
   let(:version)        { fact('osfamily') == 'RedHat' ? '4.6.4-1' : '4.6.4' }
 
   let(:manifest) do
-    <<-EOS
+    <<-MANIFEST
         class { 'kibana':
           ensure => '#{version}',
           config => {
@@ -23,7 +23,7 @@ describe 'kibana class v4' do
           version      => '#{plugin_version}',
           organization => 'elasticsearch'
         }
-      EOS
+      MANIFEST
   end
 
   include_examples 'class manifests',

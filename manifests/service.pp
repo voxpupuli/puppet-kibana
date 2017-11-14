@@ -1,7 +1,8 @@
-# Class: kibana::service
-#
 # This class is meant to be called from kibana.
 # It ensure the service is running.
+# It is not meant to be called directly.
+#
+# @author Tyler Langlois <tyler.langlois@elastic.co>
 #
 class kibana::service {
 

@@ -1,3 +1,19 @@
+## 6.0.0 (Month Day, Year)
+
+Major version upgrade with important deprecations:
+
+* Puppet version 3 is no longer supported.
+
+The following migration guide is intended to help aid in upgrading this module.
+
+### Migration Guide
+
+#### Puppet 3.x No Longer Supported
+
+Puppet 4.5.0 is the new minimum required version of Puppet, which offers better safety, module metadata, and Ruby features.
+Migrating from Puppet 3 to Puppet 4 is beyond the scope of this guide, but the [official upgrade documentation](https://docs.puppet.com/upgrade/upgrade_steps.html) can help.
+As with any version or module upgrade, remember to restart any agents and master servers as needed.
+
 ## 5.2.0 (November 13, 2017)
 
 #### Features

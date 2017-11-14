@@ -16,11 +16,11 @@ shared_examples 'class manifests' do |plugin_json_file, plugin_upgrade|
 
   context 'removal' do
     let(:manifest) do
-      <<-EOS
+      <<-MANIFEST
         class { 'kibana':
           ensure => absent,
         }
-      EOS
+      MANIFEST
     end
 
     it 'should apply cleanly' do

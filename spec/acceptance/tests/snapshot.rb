@@ -5,7 +5,7 @@ describe 'kibana snapshots' do
   let(:port) { 5602 }
   let(:version) { RSpec.configuration.snapshot_version }
   let(:manifest) do
-    <<~EOS
+    <<~MANIFEST
       class { 'kibana':
         config => {
           'server.host' => '0.0.0.0',
@@ -14,7 +14,7 @@ describe 'kibana snapshots' do
         manage_repo => false,
         package_source => '/tmp/kibana-snapshot.#{RSpec.configuration.pkg_ext}',
       }
-    EOS
+    MANIFEST
   end
 
   include_examples 'basic acceptance'

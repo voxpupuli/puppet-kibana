@@ -1,6 +1,8 @@
-# Class: kibana::config
+# This class is called from kibana to configure the daemon's configuration
+# file.
+# It is not meant to be called directly.
 #
-# This class is called from kibana for service config.
+# @author Tyler Langlois <tyler.langlois@elastic.co>
 #
 class kibana::config {
 

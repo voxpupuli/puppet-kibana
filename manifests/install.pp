@@ -1,6 +1,7 @@
-# Class: kibana::install
+# This class is called from the kibana class to manage installation.
+# It is not meant to be called directly.
 #
-# This class is called from the ::kibana class to manage installation.
+# @author Tyler Langlois <tyler.langlois@elastic.co>
 #
 class kibana::install {
 
@@ -12,19 +13,19 @@ class kibana::install {
 
     if $::kibana::repo_version =~ /^4[.]/ {
       $_repo_baseurl = "https://packages.elastic.co/kibana/${::kibana::repo_version}"
-      $_repo_path = $::osfamily ? {
+      $_repo_path = $facts['os']['family'] ? {
         'Debian'          => 'debian',
         /(RedHat|Amazon)/ => 'centos'
       }
     } else {
       $_repo_baseurl = "https://artifacts.elastic.co/packages/${::kibana::repo_version}"
-      $_repo_path = $::osfamily ? {
+      $_repo_path = $facts['os']['family'] ? {
         'Debian'          => 'apt',
         /(RedHat|Amazon)/ => 'yum'
       }
     }
 
-    case $::osfamily {
+    case $facts['os']['family'] {
       'Debian': {
         include ::apt
         Class['apt::update'] -> Package['kibana']
@@ -67,16 +68,16 @@ class kibana::install {
         }
       }
       default: {
-        fail("unsupported operating system family ${::osfamily}")
+        fail("unsupported operating system family ${facts['os']['family']}")
       }
     }
   }
 
   if $::kibana::package_source != undef {
-    case $::osfamily {
+    case $facts['os']['family'] {
       'Debian': { Package['kibana'] { provider => 'dpkg' } }
       'RedHat': { Package['kibana'] { provider => 'rpm' } }
-      default: { fail("unsupported parameter 'source' set for osfamily ${::osfamily}") }
+      default: { fail("unsupported parameter 'source' set for osfamily ${facts['os']['family']}") }
     }
   }
 
