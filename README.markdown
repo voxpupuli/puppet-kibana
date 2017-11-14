@@ -96,7 +96,7 @@ class { 'kibana': ensure => absent }
 
 Kibana plugins can be managed by this module.
 
-#### Kibana 5.x
+#### Kibana 5.x & 6.x
 
 In the most basic form, official plugins (provided by Elastic) can simply be
 specified by name alone:
@@ -134,7 +134,7 @@ kibana_plugin { 'x-pack': ensure => absent }
 
 #### Kibana 4.x
 
-Plugin operations are similar to 5.x resources, but in keeping with the
+Plugin operations are similar to 6.x resources, but in keeping with the
 `kibana` command-line utility, an organization and version _must_ be specified:
 
 ```puppet
