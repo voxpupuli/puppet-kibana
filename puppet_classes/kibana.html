@@ -264,7 +264,9 @@ number).</p>
       
         &mdash;
         <div class='inline'>
-<p>Repository major version to use</p>
+<p>Repository major version to use. Versions 5.x onward follow the major.minor
+form (i.e., 6.x), while previous versions (for version 4) can be 4.1, 4.4,
+4.5, or 4.6.</p>
 </div>
       
     </li>
@@ -312,8 +314,6 @@ href="mailto:tyler.langlois@elastic.co">tyler.langlois@elastic.co</a></p>
         <pre class="lines">
 
 
-32
-33
 34
 35
 36
@@ -342,10 +342,12 @@ href="mailto:tyler.langlois@elastic.co">tyler.langlois@elastic.co</a></p>
 59
 60
 61
-62</pre>
+62
+63
+64</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 32</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 34</span>
 
 class kibana (
   Variant[Enum[&#39;present&#39;, &#39;absent&#39;, &#39;latest&#39;], Pattern[/^\d([.]\d+)*(-[\d\w]+)?$/]] $ensure,
