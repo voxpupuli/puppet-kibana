@@ -24,7 +24,9 @@
 # @param repo_key_source Source for repo_key_id
 # @param repo_priority Optional repository priority
 # @param repo_proxy Proxy to use for repository access (yum only)
-# @param repo_version Repository major version to use
+# @param repo_version Repository major version to use. Versions 5.x onward
+#   follow the major.minor form (i.e., 6.x), while previous versions (for
+#   version 4) can be 4.1, 4.4, 4.5, or 4.6.
 # @param status Service status
 #
 # @author Tyler Langlois <tyler.langlois@elastic.co>
