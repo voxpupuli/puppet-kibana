@@ -57,6 +57,7 @@ module Puppet_X
           end
         end
       end
+      # rubocop:enable Metrics/PerceivedComplexity
 
       # Override each_pair with a method that yields key/values in
       # sorted order.

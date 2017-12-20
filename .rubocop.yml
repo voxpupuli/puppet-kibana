@@ -208,9 +208,6 @@ Layout/TrailingBlankLines:
 Layout/SpaceInsideBlockBraces:
   Enabled: false
 
-Layout/SpaceInsideBrackets:
-  Enabled: false
-
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 
@@ -497,5 +494,8 @@ Style/Encoding:
 Metrics/BlockLength:
   Enabled: false
 
-Metrics/CommentedKeyword:
+Style/CommentedKeyword:
+  Enabled: false
+
+Style/MixinUsage:
   Enabled: false

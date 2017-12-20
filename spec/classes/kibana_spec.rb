@@ -181,7 +181,7 @@ describe 'kibana', :type => 'class' do
                 'server.host' => 'localhost',
                 'server.port' => 5601,
                 'elasticsearch.ssl.verify' => true,
-                'elasticsearch.requestHeadersWhitelist' => [ 'authorization' ]
+                'elasticsearch.requestHeadersWhitelist' => ['authorization']
               }.each do |key, val|
                 context "'#{val}'" do
                   let(:params) { { :config => { key => val } } }
