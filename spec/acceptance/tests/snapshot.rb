@@ -5,7 +5,7 @@ describe 'kibana snapshots' do
   let(:port) { 5602 }
   let(:version) { RSpec.configuration.snapshot_version }
   let(:manifest) do
-    <<~MANIFEST
+    <<-MANIFEST
       class { 'kibana':
         config => {
           'server.host' => '0.0.0.0',
