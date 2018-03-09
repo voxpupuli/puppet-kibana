@@ -65,11 +65,11 @@ end
 task :spec_unit => :spec_prep
 
 desc 'Run syntax, lint, and spec tests.'
-task :test => %i[
-  lint
-  rubocop
-  validate
-  spec_unit
+task :test => [
+  :lint,
+  :rubocop,
+  :validate,
+  :spec_unit
 ]
 
 desc 'remove outdated module fixtures'
