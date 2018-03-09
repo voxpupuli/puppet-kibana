@@ -21,7 +21,8 @@ group :test do
   gem 'rspec-puppet-facts'
   gem 'rspec-puppet-utils'
   gem 'rspec-retry'
-  gem 'rubocop', '~> 0.43'
+  # Required to test against Ruby 1.9
+  gem 'rubocop', '~> 0.41.2'
   gem 'safe_yaml', '~> 1.0.4'
   gem 'simplecov', '>= 0.11.0'
   gem 'simplecov-console'
