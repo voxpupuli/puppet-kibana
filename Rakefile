@@ -32,8 +32,6 @@ begin
 rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
 
-RuboCop::RakeTask.new
-
 exclude_paths = [
   'coverage/**/*',
   'doc/**/*',
