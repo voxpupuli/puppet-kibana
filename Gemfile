@@ -26,6 +26,7 @@ group :test do
   gem 'safe_yaml', '~> 1.0.4'
   gem 'simplecov', '>= 0.11.0'
   gem 'simplecov-console'
+  gem 'xmlrpc'
 
   gem 'puppet-lint-absolute_classname-check'
   gem 'puppet-lint-classes_and_types_beginning_with_digits-check'
