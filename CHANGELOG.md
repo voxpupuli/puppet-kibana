@@ -1,3 +1,9 @@
+## x.x.x (Month Day, Year)
+
+#### Features
+
+#### Fixes
+
 ## 6.0.1 (March 13, 2018)
 
 #### Fixes
