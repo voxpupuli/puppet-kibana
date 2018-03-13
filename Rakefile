@@ -15,7 +15,9 @@ require_relative 'spec/spec_utilities'
 require 'nokogiri'
 require 'open-uri'
 
-def v(ver) ; Gem::Version.new(ver) ; end
+def v(ver)
+  Gem::Version.new(ver)
+end
 
 if v(Puppet.version) >= v('4.9')
   require 'semantic_puppet'
@@ -29,8 +31,6 @@ begin
   require 'puppet_blacksmith/rake_tasks'
 rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
-
-RuboCop::RakeTask.new
 
 exclude_paths = [
   'coverage/**/*',
@@ -63,11 +63,11 @@ end
 task :spec_unit => :spec_prep
 
 desc 'Run syntax, lint, and spec tests.'
-task :test => %i[
-  lint
-  rubocop
-  validate
-  spec_unit
+task :test => [
+  :lint,
+  :rubocop,
+  :validate,
+  :spec_unit
 ]
 
 desc 'remove outdated module fixtures'
@@ -87,7 +87,7 @@ task :spec_prep => [:spec_prune]
 
 # Plumbing for snapshot tests
 desc 'Run the snapshot tests'
-RSpec::Core::RakeTask.new("beaker:snapshot") do |task|
+RSpec::Core::RakeTask.new('beaker:snapshot') do |task|
   task.rspec_opts = ['--color']
   task.pattern = 'spec/acceptance/tests/snapshot.rb'
 
@@ -124,19 +124,19 @@ namespace :artifact do
         .at_css('.downloads')
         .xpath('li/a[contains(text(), "RPM") or contains(text(), "DEB")]')
         .each do |anchor|
-          filename = artifact(anchor.attr('href'))
-          link = artifact("kibana-snapshot.#{anchor.text.split(' ').first.downcase}")
-          task anchor.text.split(' ').first.downcase => link
-          file link => filename do
-            unless File.exist?(link) and File.symlink?(link) \
-                and File.readlink(link) == filename
-              File.delete link if File.exist? link
-              File.symlink File.basename(filename), link
-            end
+        filename = artifact(anchor.attr('href'))
+        link = artifact("kibana-snapshot.#{anchor.text.split(' ').first.downcase}")
+        task anchor.text.split(' ').first.downcase => link
+        file link => filename do
+          unless File.exist?(link) and File.symlink?(link) \
+              and File.readlink(link) == filename
+            File.delete link if File.exist? link
+            File.symlink File.basename(filename), link
           end
-          file filename do
-            get anchor.attr('href'), filename
-          end
+        end
+        file filename do
+          get anchor.attr('href'), filename
+        end
       end
     end
   end

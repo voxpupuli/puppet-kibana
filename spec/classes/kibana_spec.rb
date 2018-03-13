@@ -159,7 +159,7 @@ describe 'kibana', :type => 'class' do
         describe 'parameter validation for' do
           describe 'ensure' do
             context 'valid parameter' do
-              %w(present absent latest 5.2.1 5.2.2-1 5.2.2-bpo1).each do |param|
+              %w[present absent latest 5.2.1 5.2.2-1 5.2.2-bpo1].each do |param|
                 context param do
                   let(:params) { { :ensure => param } }
                   it { should compile.with_all_deps }
@@ -207,14 +207,14 @@ describe 'kibana', :type => 'class' do
 
           describe 'repo_version' do
             context 'valid parameter' do
-              %w(5.x 4.1 4.4 4.5 4.6).each do |param|
+              %w[5.x 4.1 4.4 4.5 4.6].each do |param|
                 let(:params) { { :repo_version => param } }
                 it { should compile.with_all_deps }
               end
             end
 
             context 'invalid parameter' do
-              %w(foo 6.x 4.x 3.x 4.2 4.3).each do |param|
+              %w[foo 6.x 4.x 3.x 4.2 4.3].each do |param|
                 let(:params) { { :repo_version => param } }
                 it { should_not compile.with_all_deps }
               end
@@ -263,7 +263,7 @@ describe 'kibana', :type => 'class' do
 
           describe 'package_source' do
             describe 'validation' do
-              [{'foo' => 'bar'}, true, []].each do |param|
+              [{ 'foo' => 'bar' }, true, []].each do |param|
                 context "against #{param.class}" do
                   let(:params) { { :package_source => param } }
                   it { should_not compile.with_all_deps }
