@@ -15,8 +15,11 @@
 # @example Setting a configuration file value
 #   class { 'kibana' : config => { 'server.port' => 5602 } }
 #
-# @param ensure State of Kibana on the system (simple present/absent/latest
-#   or version number).
+# @param ensure State of Kibana on the system (present or absent, latest or an
+    explicit version number are deprecated in favor of the version parameter
+    but are still supported)
+# @param version Version number of the package (latest or version number)
+# @param package_name name of the rpm or debian package, defaults to kibana
 # @param config Hash of key-value pairs for Kibana's configuration file
 # @param package_source Local path to package file for file (not repo) based installation
 # @param manage_repo Whether to manage the package manager repository
@@ -28,11 +31,34 @@
 #   follow the major.minor form (i.e., 6.x), while previous versions (for
 #   version 4) can be 4.1, 4.4, 4.5, or 4.6.
 # @param status Service status
+#   The service resource type provider to use when managing elasticsearch instances.
+# @param manage_service, manage the systemd service, defaults to false
+# @param homedir home directory, defaults to /usr/share/kibana
+# @param configdir configuration directory, defaults to /etc/kibana or /opt/kibana/config on 4.x
+# @param datadir data not stored in elasticsearch is stored here, defaults to /var/lib/kibana
+# @param kibana_user user to run the application as, defaults to kibana
+# @param kibana_group group for the kibana user, defaults to kibana
+# @param restart_config_change
+#   Determines if the application should be automatically restarted
+#   whenever the configuration changes. This includes the Kibana
+#   configuration file, any service files, and defaults files.
+#   Disabling automatic restarts on config changes may be desired in an
+#   environment where you need to ensure restarts occur in a controlled/rolling
+#   manner rather than during a Puppet run.
+# @param defaults_location
+#   Absolute path to directory containing init defaults file.
+# @param pid_dir
+#   Directory where the kibana process should write out its PID.
+# @param systemd_service_path
+#   Path to the directory in which to install systemd service units.
 #
 # @author Tyler Langlois <tyler.langlois@elastic.co>
+# @author Joern Ott <joern.ott@ott-consult.de>
 #
 class kibana (
   Variant[Enum['present', 'absent', 'latest'], Pattern[/^\d([.]\d+)*(-[\d\w]+)?$/]] $ensure,
+  String $version = 'latest',
+  String $package_name = 'kibana',
   Hash[String[1], Variant[String[1], Integer, Boolean, Array]] $config,
   Boolean $manage_repo,
   Optional[String] $package_source,
@@ -42,6 +68,16 @@ class kibana (
   Optional[String] $repo_proxy,
   Variant[Enum['5.x', '6.x'], Pattern[/^4\.(1|[4-6])$/]] $repo_version,
   Kibana::Status $status,
+  Enum['init', 'openbsd', 'openrc', 'systemd'] $service_provider,
+  String $homedir = '/usr/share/kibana',
+  Optional[String] $configdir = undef,
+  String $datadir = '/var/lib/kibana',
+  String $kibana_user = 'kibana',
+  String $kibana_group group = 'kibana',
+  Boolean $restart_config_change = false,
+  Optional[Stdlib::Absolutepath] $defaults_location,
+  Optional[Stdlib::Absolutepath] $pid_dir,
+  Stdlib::Absolutepath$systemd_service_path,
 ) {
 
   contain ::kibana::install

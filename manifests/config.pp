@@ -6,9 +6,13 @@
 #
 class kibana::config {
 
-  $_config_dir = $::kibana::repo_version ? {
-    /^4[.]/ => '/opt/kibana/config',
-    default => '/etc/kibana'
+  if $::kibana::configdir {
+    $_config_dir = $::kibana::configdir
+  } else {
+    $_config_dir = $::kibana::repo_version ? {
+      /^4[.]/ => '/opt/kibana/config',
+      default => '/etc/kibana'
+    }
   }
   $_ensure = $::kibana::ensure ? {
     'absent' => $::kibana::ensure,
