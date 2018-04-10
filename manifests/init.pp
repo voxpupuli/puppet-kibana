@@ -16,8 +16,8 @@
 #   class { 'kibana' : config => { 'server.port' => 5602 } }
 #
 # @param ensure State of Kibana on the system (present or absent, latest or an
-    explicit version number are deprecated in favor of the version parameter
-    but are still supported)
+#   explicit version number are deprecated in favor of the version parameter
+#   but are still supported)
 # @param version Version number of the package (latest or version number)
 # @param package_name name of the rpm or debian package, defaults to kibana
 # @param config Hash of key-value pairs for Kibana's configuration file
@@ -73,23 +73,42 @@ class kibana (
   Optional[String] $configdir = undef,
   String $datadir = '/var/lib/kibana',
   String $kibana_user = 'kibana',
-  String $kibana_group group = 'kibana',
+  String $kibana_group = 'kibana',
   Boolean $restart_config_change = false,
   Optional[Stdlib::Absolutepath] $defaults_location,
   Optional[Stdlib::Absolutepath] $pid_dir,
-  Stdlib::Absolutepath$systemd_service_path,
+  Boolean $manage_service = false,
+  Stdlib::Absolutepath $systemd_service_path,
+  String $service_name = 'kibana',
+  Optional[Hash] $init_defaults,
 ) {
 
   contain ::kibana::install
   contain ::kibana::config
-  contain ::kibana::service
+
+  if $manage_service {
+    if $ensure == 'absent' {
+      $service_ensure = 'absent'
+      $service_before = Class['::kibana::config']
+      $service_subscribe = []
+    } else {
+      $service_ensure = 'present'
+      $service_before = []
+      $service_subscribe = Class['::kibana::install']
+    }
+    kibana::service{$service_name:
+      ensure        => $service_ensure,
+      init_defaults => $init_defaults,
+      before        => $service_before,
+      subscribe     => $service_subscribe,
+    }
+  }
 
   # Catch absent values, otherwise default to present/installed ordering
   case $ensure {
     'absent': {
-      Class['::kibana::service']
-      -> Class['::kibana::config']
-      -> Class['::kibana::install']
+        Class['::kibana::config']
+        -> Class['::kibana::install']
     }
     default: {
       Class['::kibana::install']

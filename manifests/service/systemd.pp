@@ -40,7 +40,7 @@ define kibana::service::systemd (
   Enum['absent', 'present'] $ensure             = $kibana::ensure,
   Hash                      $init_defaults      = {},
   Optional[String]          $init_defaults_file = undef,
-  Optional[String]          $init_template      = undef,
+  String                    $init_template      = "${module_name}/etc/systemd/system/kibana.service.erb",
   Kibana::Status            $status             = $kibana::status,
 ) {
 
@@ -73,8 +73,7 @@ define kibana::service::systemd (
       default: { }
     }
   } else {
-    # make sure the service is stopped and disabled (the removal itself will be
-    # done by package.pp)
+    # make sure the service is stopped and disabled
     $service_ensure = 'stopped'
     $service_enable = false
   }
@@ -112,45 +111,28 @@ define kibana::service::systemd (
         notify => $notify_service,
       }
 
-      $kibana_user = $::kibana::kibana_user
-      $kibana_group = $::kibana::kibana_group
-      $homedir = $::kibana::homedir
-      $configdir = $::kibana::configdir
-      file { "${kibana::systemd_service_path}/${name}.service":
-        ensure  => $ensure,
-        content => template("${module_name}/etc/systemd/system/kibana.service.erb"),
-        owner   => 'root',
-        group   => 'root',
-        before  => Service[$name],
-        notify  => $notify_service,
-      }        
-
     } else {
       augeas { "defaults_${name}":
         incl    => "${kibana::defaults_location}/${name}",
         lens    => 'Shellvars.lns',
-        changes => template("${module_name}/etc/sysconfig/defaults.erb"),
+        changes => template($init_template),
         before  => Service[$name],
         notify  => $notify_service,
       }
-
-      file { "${kibana::systemd_service_path}/${name}.service":
-        ensure => $ensure,
-      }        
     }
 
-    # init file from template
-    if ($init_template != undef) {
-
+    $kibana_user = $::kibana::kibana_user
+    $kibana_group = $::kibana::kibana_group
+    $homedir = $::kibana::homedir
+    $configdir = $::kibana::configdir
     file { "${kibana::systemd_service_path}/${name}.service":
-      ensure => $ensure,
-      
-      owner  => 'root',
-      group  => 'root',
-      before => Service[$name],
-      notify => $notify_service,
-    }        
-
+      ensure  => $ensure,
+      content => template("${module_name}/etc/systemd/system/kibana.service.erb"),
+      owner   => 'root',
+      group   => 'root',
+      before  => Service[$name],
+      notify  => $notify_service,
+    }
 
     $service_require = Exec["systemd_reload_${name}"]
 

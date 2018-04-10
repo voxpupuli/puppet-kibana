@@ -41,15 +41,14 @@
 # @author Tyler Langlois <tyler.langlois@elastic.co>
 # @author Joern Ott <joern.ott@ott-consult.de>
 
-define kibana::service {
-  Enum['absent', 'present'] $ensure             = $kibana::ensure,
-  String                    $service_name       = 'kibana',
+define kibana::service (
+  Enum['absent', 'present'] $ensure             = 'present',
   Hash                      $init_defaults      = {},
   Optional[String]          $init_defaults_file = undef,
   Optional[String]          $init_template      = undef,
   Optional[String]          $service_flags      = undef,
   Kibana::Status            $status             = $kibana::status,
-
+){
   case $kibana::service_provider {
 
     'systemd': {
@@ -65,3 +64,4 @@ define kibana::service {
       fail("Unknown service provider ${kibana::service_provider}")
     }
   }
+}
