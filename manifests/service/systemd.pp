@@ -76,7 +76,7 @@ define kibana::service::systemd (
     }
   } else {
     # make sure the service is stopped and disabled
-    $service_ensure = 'stopped'
+    $service_ensure = false
     $service_enable = false
   }
 
