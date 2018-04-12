@@ -31,7 +31,7 @@ describe 'kibana', :type => 'class' do
             end
             it { is_expected.to contain_class('kibana::config') }
             it 'subscribes service to config' do
-              is_expected.to contain_class('kibana::service')
+              is_expected.to contain_kibana__service('kibana')
                 .that_subscribes_to('Class[kibana::config]')
             end
 
@@ -131,7 +131,7 @@ describe 'kibana', :type => 'class' do
             )
           end
           it 'manages service before config' do
-            is_expected.to contain_class('kibana::service')
+            is_expected.to contain_kibana__service('kibana')
               .that_comes_before('Class[kibana::config]')
           end
           it 'manages config before install' do

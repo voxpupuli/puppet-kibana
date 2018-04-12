@@ -106,7 +106,7 @@
 #
 class kibana (
   Kibana::Ensure                 $ensure,
-  String                         $version               = 'latest',
+  String                         $version               = 'present',
   String                         $package_name          = 'kibana',
   Kibana::Config                 $config                = {},
   Boolean                        $manage_repo           = false,
@@ -117,7 +117,7 @@ class kibana (
   Optional[String]               $repo_proxy,
   Kibana::Repoversion            $repo_version,
   Kibana::Status                 $status,
-  Boolean                        $manage_service        = false,
+  Boolean                        $manage_service        = true,
   String                         $service_provider      = 'systemd',
   Stdlib::Absolutepath           $systemd_service_path  = '/etc/systemd/system',
   String                         $service_name          = 'kibana',
