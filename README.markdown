@@ -67,23 +67,54 @@ class { 'kibana':
 ```
 
 The `kibana` class also supports additional values for the `ensure` parameter
-that will be passed along to the `package` resource for Kibana.
-For example, to ensure the latest version of Kibana is always installed:
+that will be passed along to the `package` resource for Kibana. This behaviour
+is deprecated in favour of using the `version` paramater, which was introduced
+to be consistent with the elastic/elasticsearch module.
+
+Old example, to ensure the latest version of Kibana is always installed:
 
 ```puppet
 class { 'kibana': ensure => latest }
 ```
 
+Recommended behaviour:
+```puppet
+class { 'kibana':
+  ensure  => present,
+  version => 'latest',
+}
+```
+
 In order to explicitly ensure that version 5.2.0 of Kibana is installed:
 
+Deprecated:
 ```puppet
 class { 'kibana': ensure => '5.2.0' }
 ```
 
-Package revisions are supported too:
-
+New:
 ```puppet
-class { 'kibana': ensure => '5.2.2-1' }
+class { 'kibana':
+  ensure  => present,
+  version => '6.2.3',
+} 
+```
+
+Package revisions are supported too:
+```puppet
+class { 'kibana':
+  ensure  => present,
+  version => '5.2.2-1'
+}
+```
+
+
+As are custom built rpms:
+```puppet
+class { 'kibana':
+  ensure  => present,
+  version => '5.2.2_oc-1'
+}
 ```
 
 The `kibana` class also supports removal through use of `ensure => absent`:
@@ -155,6 +186,41 @@ kibana plugin --install elasticsearch/marvel/2.4.4
 
 For you.
 Removal through the use of `ensure => absent` is the same as for 5.x plugins.
+
+### Service management
+
+The service (currently only systemd services are supported) can also be created
+and managed. It allows for specifying the name of the service, which allows for
+multiple kibana instances. The user and group to run the service as as well as
+the PID file can be specified and the name of the defaults file:
+```puppet
+class { 'kibana':
+  ensure                => present,
+  version               => 'latest',
+  manage_service        => true,
+  service_provider      => 'systemd',
+  systemd_service_path  => '/etc/systemd/system',
+  service_name          => 'kibana',
+  defaults_location     => '/etc/default',
+  init_defaults         => {},
+  pid_dir               => '/var/run/kibana/kibana.pid',
+  restart_config_change => false,
+}
+```
+
+### Custom directories
+
+To allow for custom locations (e.g. when using your own package or multiple
+instances, you can specify the directories:
+```puppet
+class { 'kibana':
+  ensure    => present,
+  version   => 'latest',
+  homedir   => '/usr/share/kibana',
+  configdir => '/etc/kibana',
+  datadir   => '/var/lib/kibana',
+}
+```
 
 ## Reference
 

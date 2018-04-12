@@ -95,4 +95,11 @@ class kibana::install {
     ensure => $_ensure,
     source => $::kibana::package_source,
   }
+
+  file{ "${::kibana::homedir}/optimize/.babelcache":
+    ensure => file,
+    owner  => $::kibana::kibana_user,
+    group  => $::kibana::kibana_group,
+    mode   => '0664',
+  }
 }

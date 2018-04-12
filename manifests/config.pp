@@ -23,8 +23,8 @@ class kibana::config {
   file { "${_config_dir}/kibana.yml":
     ensure  => $_ensure,
     content => template("${module_name}/etc/kibana/kibana.yml.erb"),
-    owner   => 'kibana',
-    group   => 'kibana',
+    owner   => $::kibana::kibana_user,
+    group   => $::kibana::kibana_user,
     mode    => '0660',
   }
 }

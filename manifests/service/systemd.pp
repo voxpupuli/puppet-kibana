@@ -112,17 +112,20 @@ define kibana::service::systemd (
       }
 
     } else {
+
       augeas { "defaults_${name}":
         incl    => "${kibana::defaults_location}/${name}",
         lens    => 'Shellvars.lns',
-        changes => template($init_template),
+        changes => template("${module_name}/etc/sysconfig/defaults.erb"),
         before  => Service[$name],
         notify  => $notify_service,
       }
+
     }
 
     $kibana_user = $::kibana::kibana_user
     $kibana_group = $::kibana::kibana_group
+debugmsg{"==== Kibana User ${kibana_user} Group ${kibana_group}":}
     $homedir = $::kibana::homedir
     $configdir = $::kibana::configdir
     file { "${kibana::systemd_service_path}/${name}.service":
