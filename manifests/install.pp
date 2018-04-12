@@ -5,12 +5,24 @@
 #
 class kibana::install {
 
-  if $::kibana::manage_repo {
-    $_ensure = $::kibana::ensure ? {
-      'absent' => $::kibana::ensure,
-      default  => 'present',
+  case $::kibana::ensure {
+    'present': {
+      $_ensure = $::kibana::version
+      $repo_ensure = 'present'
     }
+    'absent': {
+      # Handle absent and latest
+      $_ensure = $::kibana::ensure
+      $repo_ensure = $::kibana::ensure
+    }
+    default: {
+      # Handle version number
+      $_ensure = $::kibana::ensure
+      $repo_ensure = 'present'
+    }
+  }
 
+  if $::kibana::manage_repo {
     if $::kibana::repo_version =~ /^4[.]/ {
       $_repo_baseurl = "https://packages.elastic.co/kibana/${::kibana::repo_version}"
       $_repo_path = $facts['os']['family'] ? {
@@ -31,7 +43,7 @@ class kibana::install {
         Class['apt::update'] -> Package[$::kibana::package_name]
 
         apt::source { 'kibana':
-          ensure   => $_ensure,
+          ensure   => $repo_ensure,
           location => "${_repo_baseurl}/${_repo_path}",
           release  => 'stable',
           repos    => 'main',
@@ -49,7 +61,7 @@ class kibana::install {
       }
       'RedHat', 'Amazon': {
         yumrepo { 'kibana':
-          ensure   => $_ensure,
+          ensure   => $repo_ensure,
           descr    => "Elastic ${::kibana::repo_version} repository",
           baseurl  => "${_repo_baseurl}/${_repo_path}",
           gpgcheck => 1,
@@ -81,15 +93,6 @@ class kibana::install {
     }
   }
 
-  case $::kibana::ensure {
-    'present': {
-      $_ensure = $::kibana::version
-    }
-    default: {
-      # Handle absent and old deprecated behaviour
-      $_ensure = $::kibana::ensure
-    }
-  }
 
   package { $::kibana::package_name:
     ensure => $_ensure,
