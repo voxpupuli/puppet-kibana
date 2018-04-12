@@ -4,6 +4,13 @@
 
 #### Fixes
 
+## 6.1.0 (April 12, 2018)
+
+#### Features
+* Create and modify systemd service file
+* Specify alternative directories
+* Allow for different user/group
+
 ## 6.0.1 (March 13, 2018)
 
 #### Fixes
