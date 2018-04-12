@@ -143,7 +143,7 @@ class kibana (
     } else {
       $service_ensure = 'present'
       $service_before = []
-      $service_subscribe = Class['::kibana::install']
+      $service_subscribe = Class['::kibana::config']
     }
     kibana::service{$service_name:
       ensure        => $service_ensure,
