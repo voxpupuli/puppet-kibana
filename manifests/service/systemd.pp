@@ -125,7 +125,6 @@ define kibana::service::systemd (
 
     $kibana_user = $::kibana::kibana_user
     $kibana_group = $::kibana::kibana_group
-debugmsg{"==== Kibana User ${kibana_user} Group ${kibana_group}":}
     $homedir = $::kibana::homedir
     $configdir = $::kibana::configdir
     file { "${kibana::systemd_service_path}/${name}.service":
