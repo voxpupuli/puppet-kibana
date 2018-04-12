@@ -41,7 +41,7 @@ define kibana::service::systemd (
   Hash                      $init_defaults      = {},
   Optional[String]          $init_defaults_file = undef,
   String                    $init_template      = "${module_name}/etc/systemd/system/kibana.service.erb",
-  Kibana::Status            $status             = $kibana::status,
+  Kibana::Status            $status             = $::kibana::status,
 ) {
 
   #### Service management
@@ -51,17 +51,17 @@ define kibana::service::systemd (
     case $status {
       # make sure service is currently running, start it on boot
       'enabled': {
-        $service_ensure = 'running'
+        $service_ensure = true
         $service_enable = true
       }
       # make sure service is currently stopped, do not start it on boot
       'disabled': {
-        $service_ensure = 'stopped'
+        $service_ensure = false
         $service_enable = false
       }
       # make sure service is currently running, do not start it on boot
       'running': {
-        $service_ensure = 'running'
+        $service_ensure = true
         $service_enable = false
       }
       # do not start service on boot, do not care whether currently running
@@ -70,7 +70,9 @@ define kibana::service::systemd (
         $service_ensure = undef
         $service_enable = false
       }
-      default: { }
+      default: {
+        fail('Invalid value for status')
+      }
     }
   } else {
     # make sure the service is stopped and disabled
