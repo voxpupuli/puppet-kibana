@@ -28,7 +28,7 @@ class kibana::install {
     case $facts['os']['family'] {
       'Debian': {
         include ::apt
-        Class['apt::update'] -> Package['kibana']
+        Class['apt::update'] -> Package[$::kibana::package_name]
 
         apt::source { 'kibana':
           ensure   => $_ensure,
@@ -44,7 +44,7 @@ class kibana::install {
             'deb' => true,
           },
           pin      => $::kibana::repo_priority,
-          before   => Package['kibana'],
+          before   => Package[$::kibana::package_name],
         }
       }
       'RedHat', 'Amazon': {
@@ -57,14 +57,14 @@ class kibana::install {
           enabled  => 1,
           proxy    => $::kibana::repo_proxy,
           priority => $::kibana::repo_priority,
-          before   => Package['kibana'],
+          before   => Package[$::kibana::package_name],
         }
         ~> exec { 'kibana_yumrepo_yum_clean':
           command     => 'yum clean metadata expire-cache --disablerepo="*" --enablerepo="kibana"',
           path        => [ '/bin', '/usr/bin' ],
           refreshonly => true,
           returns     => [0, 1],
-          before      => Package['kibana'],
+          before      => Package[$::kibana::package_name],
         }
       }
       default: {
@@ -75,14 +75,31 @@ class kibana::install {
 
   if $::kibana::package_source != undef {
     case $facts['os']['family'] {
-      'Debian': { Package['kibana'] { provider => 'dpkg' } }
-      'RedHat': { Package['kibana'] { provider => 'rpm' } }
+      'Debian': { Package[$::kibana::package_name] { provider => 'dpkg' } }
+      'RedHat': { Package[$::kibana::package_name] { provider => 'rpm' } }
       default: { fail("unsupported parameter 'source' set for osfamily ${facts['os']['family']}") }
     }
   }
 
-  package { 'kibana':
-    ensure => $::kibana::ensure,
+  case $::kibana::ensure {
+    'present': {
+      $_ensure = $::kibana::version
+    }
+    default: {
+      # Handle absent and old deprecated behaviour
+      $_ensure = $::kibana::ensure
+    }
+  }
+
+  package { $::kibana::package_name:
+    ensure => $_ensure,
     source => $::kibana::package_source,
+  }
+
+  file{ "${::kibana::homedir}/optimize/.babelcache":
+    ensure => file,
+    owner  => $::kibana::kibana_user,
+    group  => $::kibana::kibana_group,
+    mode   => '0664',
   }
 }

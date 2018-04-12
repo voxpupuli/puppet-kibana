@@ -6,9 +6,13 @@
 #
 class kibana::config {
 
-  $_config_dir = $::kibana::repo_version ? {
-    /^4[.]/ => '/opt/kibana/config',
-    default => '/etc/kibana'
+  if $::kibana::configdir {
+    $_config_dir = $::kibana::configdir
+  } else {
+    $_config_dir = $::kibana::repo_version ? {
+      /^4[.]/ => '/opt/kibana/config',
+      default => '/etc/kibana'
+    }
   }
   $_ensure = $::kibana::ensure ? {
     'absent' => $::kibana::ensure,
@@ -19,8 +23,8 @@ class kibana::config {
   file { "${_config_dir}/kibana.yml":
     ensure  => $_ensure,
     content => template("${module_name}/etc/kibana/kibana.yml.erb"),
-    owner   => 'kibana',
-    group   => 'kibana',
+    owner   => $::kibana::kibana_user,
+    group   => $::kibana::kibana_user,
     mode    => '0660',
   }
 }
