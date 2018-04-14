@@ -15,7 +15,7 @@ group :test do
   gem 'infrataster'
   gem 'metadata-json-lint'
   gem 'puppet-strings'
-  gem 'puppetlabs_spec_helper'
+  gem 'puppetlabs_spec_helper', '>= 2.7.0'
   gem 'rspec', '~> 3.5'
   gem 'rspec-puppet', '>=2.3.0'
   gem 'rspec-puppet-facts'
