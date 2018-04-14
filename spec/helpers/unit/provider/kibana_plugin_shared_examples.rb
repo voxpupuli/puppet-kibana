@@ -63,9 +63,9 @@ shared_examples 'kibana plugin provider' do
 
   describe 'flush' do
     before do
-      described_class
-        .stubs(:command).with(:plugin)
-        .returns executable
+      allow(described_class)
+        .to receive(:command).with(:plugin)
+        .and_return executable
       @install_name = if resource[:organization].nil?
                         resource[:name]
                       else
