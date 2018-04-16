@@ -9,7 +9,7 @@
   "issues_url": "https://github.com/elastic/puppet-kibana/issues",
   "data_provider": "hiera",
   "dependencies": [
-    {"name": "puppetlabs/apt","version_requirement": ">= 2.0.0 < 5.0.0"}
+    {"name": "puppetlabs/apt","version_requirement": ">= 2.0.0 < 5.0.0"},
     {"name": "puppetlabs/stdlib","version_requirement": ">= 4.21.0 < 5.0.0"}
   ],
   "operatingsystem_support": [
