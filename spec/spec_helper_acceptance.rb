@@ -71,7 +71,7 @@ RSpec.configure do |c|
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module and dependencies
-    ['kibana', (%w[apt stdlib] if c.pkg_ext == 'deb')].flatten.compact.each do |mod|
+    ['kibana', 'stdlib', (%w[apt] if c.pkg_ext == 'deb')].flatten.compact.each do |mod|
       install_dev_puppet_module(
         :module_name => mod,
         :source      => "spec/fixtures/modules/#{mod}"
