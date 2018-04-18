@@ -99,8 +99,8 @@ class kibana::install {
     source => $::kibana::package_source,
   }
   
-  if ${::kibana::homedir} {
-    $homedir = $::kibana_homedir
+  if $::kibana::homedir {
+    $homedir = $::kibana::homedir
   } else {
     if $::kibana::repo_version =~ /^4[.]/  {
       $homedir = '/opt/kibana'
