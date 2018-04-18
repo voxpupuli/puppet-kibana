@@ -99,6 +99,13 @@ class kibana::install {
     source => $::kibana::package_source,
   }
 
+  file{ "${::kibana::homedir}/optimize":
+    ensure => directory,
+    owner  => $::kibana::kibana_user,
+    group  => $::kibana::kibana_group,
+    mode   => '0775',
+  }
+
   file{ "${::kibana::homedir}/optimize/.babelcache":
     ensure => file,
     owner  => $::kibana::kibana_user,
