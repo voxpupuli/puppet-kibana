@@ -98,8 +98,19 @@ class kibana::install {
     ensure => $_ensure,
     source => $::kibana::package_source,
   }
+  
+  if ${::kibana::homedir} {
+    $homedir = $::kibana_homedir
+  } else {
+    if $::kibana::repo_version =~ /^4[.]/  {
+      $homedir = '/opt/kibana'
+    } else {
+      $homedir = '/usr/share/kibana'
+    }
+  }
 
-  file{ "${::kibana::homedir}/optimize":
+
+  file{ "${homedir}/optimize":
     ensure  => directory,
     owner   => $::kibana::kibana_user,
     group   => $::kibana::kibana_group,
@@ -107,11 +118,11 @@ class kibana::install {
     require => Package[$::kibana::package_name],
   }
 
-  file{ "${::kibana::homedir}/optimize/.babelcache":
+  file{ "${homedir}/optimize/.babelcache":
     ensure  => file,
     owner   => $::kibana::kibana_user,
     group   => $::kibana::kibana_group,
     mode    => '0664',
-    require => File["${::kibana::homedir}/optimize"],
+    require => File["${homedir}/optimize"],
   }
 }

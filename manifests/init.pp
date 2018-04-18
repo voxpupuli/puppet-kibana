@@ -127,10 +127,12 @@ class kibana (
   Boolean             $restart_config_change = false,
   String              $kibana_user           = 'kibana',
   String              $kibana_group          = 'kibana',
-  String              $homedir               = '/usr/share/kibana',
+  Optional[String]    $homedir               = undef,
   Optional[String]    $configdir             = undef,
-  String              $datadir               = '/var/lib/kibana',
+  Optional[String]    $datadir               = undef,
 ) {
+
+  if $homedir
 
   contain ::kibana::install
   contain ::kibana::config
