@@ -100,16 +100,18 @@ class kibana::install {
   }
 
   file{ "${::kibana::homedir}/optimize":
-    ensure => directory,
-    owner  => $::kibana::kibana_user,
-    group  => $::kibana::kibana_group,
-    mode   => '0775',
+    ensure  => directory,
+    owner   => $::kibana::kibana_user,
+    group   => $::kibana::kibana_group,
+    mode    => '0775',
+    require => Package[$::kibana::package_name],
   }
 
   file{ "${::kibana::homedir}/optimize/.babelcache":
-    ensure => file,
-    owner  => $::kibana::kibana_user,
-    group  => $::kibana::kibana_group,
-    mode   => '0664',
+    ensure  => file,
+    owner   => $::kibana::kibana_user,
+    group   => $::kibana::kibana_group,
+    mode    => '0664',
+    require => File["${::kibana::homedir}/optimize"],
   }
 }
