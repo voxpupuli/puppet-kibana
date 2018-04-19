@@ -127,8 +127,25 @@ define kibana::service::systemd (
 
     $kibana_user = $::kibana::kibana_user
     $kibana_group = $::kibana::kibana_group
-    $homedir = $::kibana::homedir
-    $configdir = $::kibana::configdir
+    if $::kibana::homedir {
+      $homedir = $::kibana::homedir
+    } else {
+      if $::kibana::repo_version =~ /^4[.]/  {
+        $homedir = '/opt/kibana'
+      } else {
+        $homedir = '/usr/share/kibana'
+      }
+    }
+    if $::kibana::configdir {
+      $configdir = $::kibana::configdir
+    } else {
+      if $::kibana::repo_version =~ /^4[.]/  {
+        $configdir = '/opt/kibana/config'
+      } else {
+        $configdir = '/etc/kibana'
+      }
+    }
+
     file { "${kibana::systemd_service_path}/${name}.service":
       ensure  => $ensure,
       content => template("${module_name}/etc/systemd/system/kibana.service.erb"),
