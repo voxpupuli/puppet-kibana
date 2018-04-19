@@ -98,7 +98,7 @@ class kibana::install {
     ensure => $_ensure,
     source => $::kibana::package_source,
   }
-  
+
   if $::kibana::homedir {
     $homedir = $::kibana::homedir
   } else {
