@@ -132,8 +132,6 @@ class kibana (
   Optional[String]    $datadir               = undef,
 ) {
 
-  if $homedir
-
   contain ::kibana::install
   contain ::kibana::config
 
