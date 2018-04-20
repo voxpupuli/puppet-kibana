@@ -138,5 +138,6 @@ class kibana::install {
     owner  => $::kibana::kibana_user,
     group  => $::kibana::kibana_group,
     mode   => '0775',
+    force  => true,
   }
 }
