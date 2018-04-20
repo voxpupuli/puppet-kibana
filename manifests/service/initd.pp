@@ -154,8 +154,6 @@ define kibana::service::initd (
       before  => Service[$name],
     }
 
-    $service_require = Exec["systemd_reload_${name}"]
-
   } else { # absent
 
     file { "${kibana::initd_service_path}/${name}":
@@ -168,13 +166,11 @@ define kibana::service::initd (
       subscribe => Service[$name],
     }
 
-    $service_require = undef
   }
 
   # action
   service { $name:
     ensure  => $service_ensure,
     enable  => $service_enable,
-    require => $service_require,
   }
 }
