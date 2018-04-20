@@ -167,7 +167,7 @@ define kibana::service::systemd (
       notify    => Exec["systemd_reload_${name}"],
     }
 
-    file { $defaults_file":
+    file { $defaults_file:
       ensure    => 'absent',
       subscribe => Service[$name],
       notify    => Exec["systemd_reload_${name}"],

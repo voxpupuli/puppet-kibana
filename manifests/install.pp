@@ -132,6 +132,7 @@ class kibana::install {
     require => File["${homedir}/optimize"],
   }
 
+  $pid_dir = $::kibana::pid_dir
   file{ $pid_dir:
     ensure => $dir_ensure,
     owner  => $::kibana::kibana_user,
