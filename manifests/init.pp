@@ -124,7 +124,7 @@ class kibana (
   Kibana::Repoversion $repo_version,
   Kibana::Status      $status,
   Boolean             $manage_service        = true,
-  String              $service_provider      = undef,
+  Optional[String]    $service_provider      = undef,
   String              $systemd_service_path  = '/etc/systemd/system',
   String              $initd_service_path    = '/etc/init.d/',
   String              $service_name          = 'kibana',
