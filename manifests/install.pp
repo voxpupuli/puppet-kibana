@@ -11,6 +11,7 @@ class kibana::install {
       $repo_ensure = 'present'
       $dir_ensure = 'directory'
       $file_ensure = 'file'
+      $optimize_require = Package[$::kibana::package_name]
     }
     'absent': {
       # Handle absent and latest
@@ -18,6 +19,7 @@ class kibana::install {
       $repo_ensure = $::kibana::ensure
       $dir_ensure = $::kibana::ensure
       $file_ensure = $::kibana::ensure
+      $optimize_ensure = undef
     }
     default: {
       # Handle version number
@@ -25,6 +27,7 @@ class kibana::install {
       $repo_ensure = 'present'
       $dir_ensure = 'directory'
       $file_ensure = 'file'
+      $optimize_require = Package[$::kibana::package_name]
     }
   }
 
@@ -121,7 +124,8 @@ class kibana::install {
     owner   => $::kibana::kibana_user,
     group   => $::kibana::kibana_group,
     mode    => '0775',
-    require => Package[$::kibana::package_name],
+    force   => true,
+    require => $optimize_require,
   }
 
   file{ "${homedir}/optimize/.babelcache":
