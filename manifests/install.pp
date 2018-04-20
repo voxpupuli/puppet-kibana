@@ -19,7 +19,7 @@ class kibana::install {
       $repo_ensure = $::kibana::ensure
       $dir_ensure = $::kibana::ensure
       $file_ensure = $::kibana::ensure
-      $optimize_ensure = undef
+      $optimize_require = undef
     }
     default: {
       # Handle version number
