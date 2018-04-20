@@ -118,18 +118,20 @@ class kibana (
   Kibana::Repoversion $repo_version,
   Kibana::Status      $status,
   Boolean             $manage_service        = true,
-  String              $service_provider      = 'systemd',
+  String              $service_provider      = undef,
   String              $systemd_service_path  = '/etc/systemd/system',
+  String              $initd_service_path    = '/etc/init.d/',
   String              $service_name          = 'kibana',
   Optional[String]    $defaults_location     = '/etc/default',
   Optional[Hash]      $init_defaults         = {},
-  Optional[String]    $pid_dir               = '/var/run/kibana/kibana.pid',
+  Optional[String]    $pid_dir               = '/var/run/kibana',
   Boolean             $restart_config_change = false,
   String              $kibana_user           = 'kibana',
   String              $kibana_group          = 'kibana',
   Optional[String]    $homedir               = undef,
   Optional[String]    $configdir             = undef,
   Optional[String]    $datadir               = undef,
+  Optional[String]    $logdir                = undef,
 ) {
 
   contain ::kibana::install

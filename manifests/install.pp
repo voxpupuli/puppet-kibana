@@ -131,4 +131,11 @@ class kibana::install {
     mode    => '0664',
     require => File["${homedir}/optimize"],
   }
+
+  file{ $pid_dir:
+    ensure => $dir_ensure,
+    owner   => $::kibana::kibana_user,
+    group   => $::kibana::kibana_group,
+    mode    => '0775',
+  }
 }

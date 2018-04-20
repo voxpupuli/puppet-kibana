@@ -36,11 +36,11 @@
 # @author Richard Pijnenburg <richard.pijnenburg@elasticsearch.com>
 # @author Tyler Langlois <tyler.langlois@elastic.co>
 #
-define kibana::service::systemd (
+define kibana::service::initd (
   Enum['absent', 'present'] $ensure             = $kibana::ensure,
   Hash                      $init_defaults      = {},
   Optional[String]          $init_defaults_file = undef,
-  String                    $init_template      = "${module_name}/etc/systemd/system/kibana.service.erb",
+  String                    $init_template      = "${module_name}/etc/init.d/kibana.erb",
   Kibana::Status            $status             = $::kibana::status,
 ) {
 
@@ -94,13 +94,7 @@ define kibana::service::systemd (
     $init_defaults
   )
 
-  $notify_service = $kibana::restart_config_change ? {
-    true  => [ Exec["systemd_reload_${name}"], Service[$name] ],
-    false => Exec["systemd_reload_${name}"]
-  }
-
   $defaults_file = "${kibana::defaults_location}/${name}"
-
   if ($ensure == 'present') {
 
     # Defaults file, either from file source or from hash to augeas commands
@@ -129,6 +123,7 @@ define kibana::service::systemd (
 
     $kibana_user = $::kibana::kibana_user
     $kibana_group = $::kibana::kibana_group
+    $pid_dir = $::kibana::pid_dir
     if $::kibana::homedir {
       $homedir = $::kibana::homedir
     } else {
@@ -147,10 +142,15 @@ define kibana::service::systemd (
         $configdir = '/etc/kibana'
       }
     }
+    if $::kibana::logdir {
+      $logdir = $::kibana::logdir
+    } else {
+      $logdir = '/var/log/kibana'
+    }
 
-    file { "${kibana::systemd_service_path}/${name}.service":
+    file { "${kibana::initd_service_path}/${name}":
       ensure  => $ensure,
-      content => template("${module_name}/etc/systemd/system/kibana.service.erb"),
+      content => template($init_template),
       owner   => 'root',
       group   => 'root',
       before  => Service[$name],
@@ -161,31 +161,23 @@ define kibana::service::systemd (
 
   } else { # absent
 
-    file { "${kibana::systemd_service_path}/${name}.service":
+    file { "${kibana::initd_service_path}/${name}":
       ensure    => 'absent',
       subscribe => Service[$name],
-      notify    => Exec["systemd_reload_${name}"],
     }
 
-    file { $defaults_file":
+    file { $defaults_file:
       ensure    => 'absent',
       subscribe => Service[$name],
-      notify    => Exec["systemd_reload_${name}"],
     }
 
     $service_require = undef
-  }
-
-  exec { "systemd_reload_${name}":
-    command     => '/bin/systemctl daemon-reload',
-    refreshonly => true,
   }
 
   # action
   service { $name:
     ensure   => $service_ensure,
     enable   => $service_enable,
-    provider => 'systemd',
     require  => $service_require,
   }
 }

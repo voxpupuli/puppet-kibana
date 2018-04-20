@@ -49,10 +49,34 @@ define kibana::service (
   Optional[String]          $service_flags      = undef,
   Kibana::Status            $status             = $kibana::status,
 ){
-  case $kibana::service_provider {
+
+  if $::kibana::service_provider {
+    $service_provider = $::kibana::service_provider
+  } else {
+    $os= "${facts['os']['name']}${$facts['os']['release']['major']}"
+    case $os {
+      'RedHat5', 'RedHat6', 'CentOS5', 'CentOS6', 'Debian6', 'Debian7', 'Amazon4': {
+        $service_provider = 'initd'
+      }
+      default: {
+        $service_provider = 'systemd'
+      }
+    }
+  }
+
+  case $service_provider {
 
     'systemd': {
       kibana::service::systemd { $name:
+        ensure             => $ensure,
+        status             => $status,
+        init_defaults_file => $init_defaults_file,
+        init_defaults      => $init_defaults,
+        init_template      => $init_template,
+      }
+    }
+    'initd': {
+      kibana::service::initd { $name:
         ensure             => $ensure,
         status             => $status,
         init_defaults_file => $init_defaults_file,
