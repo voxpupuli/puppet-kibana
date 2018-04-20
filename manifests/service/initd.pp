@@ -106,7 +106,6 @@ define kibana::service::initd (
         group  => '0',
         mode   => '0644',
         before => Service[$name],
-        notify => $notify_service,
       }
 
     } else {
@@ -116,7 +115,6 @@ define kibana::service::initd (
         lens    => 'Shellvars.lns',
         changes => template("${module_name}/etc/sysconfig/defaults.erb"),
         before  => Service[$name],
-        notify  => $notify_service,
       }
 
     }
@@ -154,7 +152,6 @@ define kibana::service::initd (
       owner   => 'root',
       group   => 'root',
       before  => Service[$name],
-      notify  => $notify_service,
     }
 
     $service_require = Exec["systemd_reload_${name}"]
@@ -176,8 +173,8 @@ define kibana::service::initd (
 
   # action
   service { $name:
-    ensure   => $service_ensure,
-    enable   => $service_enable,
-    require  => $service_require,
+    ensure  => $service_ensure,
+    enable  => $service_enable,
+    require => $service_require,
   }
 }

@@ -65,6 +65,9 @@
 # @param systemd_service_path
 #   Path to the directory in which to install systemd service units.
 #
+# @param initd_service_path
+#   Path to the directory in which to install the init script.
+#
 # @param service_name
 #   Name of the systemd service or init script. This allows running different
 #   instances of kibana. Defaults to kibana.
@@ -93,13 +96,16 @@
 #   Group for the kibana user, defaults to kibana
 #
 # @param homedir
-#   Home directory, defaults to /usr/share/kibana.
+#   Home directory, defaults to /usr/share/kibana or /opt/kibana on 4.x.
 #
 # @param configdir
 #   Configuration directory, defaults to /etc/kibana or /opt/kibana/config on 4.x.
 #
 # @param datadir
 #   Data not stored in elasticsearch is stored here, defaults to /var/lib/kibana.
+#
+# @param logdir
+#   Directory for logs (used my initd service), defaults to /var/lib/kibana.
 #
 # @author Tyler Langlois <tyler.langlois@elastic.co>
 # @author Joern Ott <joern.ott@ott-consult.de>

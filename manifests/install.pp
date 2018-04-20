@@ -134,8 +134,8 @@ class kibana::install {
 
   file{ $pid_dir:
     ensure => $dir_ensure,
-    owner   => $::kibana::kibana_user,
-    group   => $::kibana::kibana_group,
-    mode    => '0775',
+    owner  => $::kibana::kibana_user,
+    group  => $::kibana::kibana_group,
+    mode   => '0775',
   }
 }
