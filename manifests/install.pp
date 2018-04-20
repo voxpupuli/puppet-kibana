@@ -138,10 +138,11 @@ class kibana::install {
 
   $pid_dir = $::kibana::pid_dir
   file{ $pid_dir:
-    ensure => $dir_ensure,
-    owner  => $::kibana::kibana_user,
-    group  => $::kibana::kibana_group,
-    mode   => '0775',
-    force  => true,
+    ensure  => $dir_ensure,
+    owner   => $::kibana::kibana_user,
+    group   => $::kibana::kibana_group,
+    mode    => '0775',
+    force   => true,
+    require => $optimize_require,
   }
 }

@@ -151,6 +151,7 @@ define kibana::service::initd (
       content => template($init_template),
       owner   => 'root',
       group   => 'root',
+      mode    => '0755',
       before  => Service[$name],
     }
 
