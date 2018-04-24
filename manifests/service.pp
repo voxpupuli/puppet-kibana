@@ -55,14 +55,13 @@ define kibana::service (
   } else {
     $os= "${facts['os']['name']}${$facts['os']['release']['major']}"
     case $os {
-      'RedHat5', 'RedHat6', 'CentOS5', 'CentOS6', 'Debian6', 'Debian7', 'Ubuntu14.04', 'Amazon2': {
+      'RedHat5', 'RedHat6', 'CentOS5', 'CentOS6', 'Debian6', 'Debian7', 'Ubuntu14.04', 'Amazon2016', 'Amazon2017': {
         $service_provider = 'initd'
       }
       default: {
         $service_provider = 'systemd'
       }
     }
-    notify{"Running ${os}": }
   }
 
   case $service_provider {
