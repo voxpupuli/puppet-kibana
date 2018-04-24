@@ -62,6 +62,7 @@ define kibana::service (
         $service_provider = 'systemd'
       }
     }
+    notify{"Running ${os}": }
   }
 
   case $service_provider {
