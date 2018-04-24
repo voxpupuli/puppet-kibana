@@ -55,7 +55,7 @@ define kibana::service (
   } else {
     $os= "${facts['os']['name']}${$facts['os']['release']['major']}"
     case $os {
-      'RedHat5', 'RedHat6', 'CentOS5', 'CentOS6', 'Debian6', 'Debian7', 'Amazon4': {
+      'RedHat5', 'RedHat6', 'CentOS5', 'CentOS6', 'Debian6', 'Debian7', 'Ubuntu14.04', 'Amazon4': {
         $service_provider = 'initd'
       }
       default: {
