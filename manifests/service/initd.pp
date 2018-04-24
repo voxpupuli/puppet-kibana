@@ -157,10 +157,7 @@ define kibana::service::initd (
 
   } else { # absent
 
-    file { "${kibana::initd_service_path}/${name}":
-      ensure    => 'absent',
-      subscribe => Service[$name],
-    }
+    # Leaving file "${kibana::initd_service_path}/${name}" behind to make this idempotent
 
     file { $defaults_file:
       ensure    => 'absent',
