@@ -1,6 +1,9 @@
 ## x.x.x (Month Day, Year)
 
+This release deprecates Kibana 4.x, which is end-of-life.
+
 #### Features
+* Support for 6.3 style repositories using elastic_stack module
 
 #### Fixes
 

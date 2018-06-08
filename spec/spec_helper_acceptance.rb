@@ -71,7 +71,7 @@ RSpec.configure do |c|
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module and dependencies
-    ['kibana', (%w[apt stdlib] if c.pkg_ext == 'deb')].flatten.compact.each do |mod|
+    ['kibana', 'elastic_stack', (%w[apt stdlib] if c.pkg_ext == 'deb')].flatten.compact.each do |mod|
       install_dev_puppet_module(
         :module_name => mod,
         :source      => "spec/fixtures/modules/#{mod}"
@@ -85,7 +85,10 @@ RSpec.configure do |c|
         scp_to host, artifact(filename), "/tmp/#{filename}"
       end
       c.add_setting :snapshot_version
-      c.snapshot_version = File.readlink(artifact(filename)).match(/kibana-(?<v>.*)[.][a-z]+/)[:v]
+      c.snapshot_version = File.readlink(artifact(filename)).match(/kibana(?:-oss)?-(?<v>.*)[.][a-z]+/)[:v]
+
+      c.add_setting :oss
+      c.oss = (not File.readlink(artifact(filename)).match(/-oss/).nil?)
     end
   end
 
