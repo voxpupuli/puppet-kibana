@@ -1,4 +1,4 @@
-shared_examples 'basic acceptance' do
+shared_examples 'basic acceptance' do |root_uri|
   context 'example manifest' do
     it { apply_manifest(manifest, :catch_failures => true) }
     it { apply_manifest(manifest, :catch_changes  => true) }
@@ -15,7 +15,7 @@ shared_examples 'basic acceptance' do
     describe port(5602) { it { should be_listening } }
 
     describe server :container do
-      describe http('http://localhost:5602') do
+      describe http("http://localhost:5602#{root_uri}") do
         it('returns OK', :api) { expect(response.status).to eq(200) }
         it('is live', :api) { expect(response['kbn-name']).to eq('kibana') }
         it 'installs the correct version', :api do

@@ -28,6 +28,14 @@ Puppet::Type.newtype(:kibana_plugin) do
     self[:ensure] != :absent ? 'kibana' : []
   end
 
+  autobefore(:package) do
+    self[:ensure] == :absent ? 'kibana' : []
+  end
+
+  autonotify(:service) do
+    'kibana'
+  end
+
   validate do
     if self[:ensure] != :absent and !self[:organization].nil? and self[:version].nil?
       raise Puppet::Error, 'version must be set if organization is set'

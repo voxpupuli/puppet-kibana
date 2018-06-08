@@ -28,5 +28,6 @@ describe 'kibana class v4' do
 
   include_examples 'class manifests',
                    '/opt/kibana/installedPlugins/marvel/package.json',
-                   '2.4.4'
+                   '2.4.4',
+                   '/app/kibana'
 end
