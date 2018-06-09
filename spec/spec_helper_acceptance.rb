@@ -78,8 +78,12 @@ RSpec.configure do |c|
       )
     end
 
+    c.add_setting :is_snapshot
+    c.is_snapshot = false
+
     # Copy over the snapshot package if we're running snapshot tests
     if c.files_to_run.any? { |fn| fn.include? 'snapshot' } and !c.pkg_ext.nil?
+      c.is_snapshot = true
       filename = "kibana-snapshot.#{c.pkg_ext}"
       hosts.each do |host|
         scp_to host, artifact(filename), "/tmp/#{filename}"

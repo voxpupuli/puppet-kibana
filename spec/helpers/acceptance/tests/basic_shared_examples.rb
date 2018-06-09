@@ -1,6 +1,6 @@
 shared_examples 'basic acceptance' do
   context 'example manifest' do
-    request_path = if RSpec.configuration.snapshot_version and not RSpec.configuration.oss
+    request_path = if RSpec.configuration.is_snapshot and not RSpec.configuration.oss
                      '/login'
                    else
                      ''
