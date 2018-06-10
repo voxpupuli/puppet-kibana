@@ -68,6 +68,9 @@ RSpec.configure do |c|
                 'rpm'
               end
 
+  c.add_setting :is_snapshot
+  c.is_snapshot = c.files_to_run.any? { |fn| fn.include? 'snapshot' }
+
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module and dependencies
@@ -78,12 +81,8 @@ RSpec.configure do |c|
       )
     end
 
-    c.add_setting :is_snapshot
-    c.is_snapshot = false
-
     # Copy over the snapshot package if we're running snapshot tests
-    if c.files_to_run.any? { |fn| fn.include? 'snapshot' } and !c.pkg_ext.nil?
-      c.is_snapshot = true
+    if c.is_snapshot and !c.pkg_ext.nil?
       filename = "kibana-snapshot.#{c.pkg_ext}"
       hosts.each do |host|
         scp_to host, artifact(filename), "/tmp/#{filename}"
