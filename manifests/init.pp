@@ -18,6 +18,7 @@
 # @param ensure State of Kibana on the system (simple present/absent/latest
 #   or version number).
 # @param config Hash of key-value pairs for Kibana's configuration file
+# @param oss whether to manage OSS packages
 # @param package_source Local path to package file for file (not repo) based installation
 # @param manage_repo Whether to manage the package manager repository
 # @param status Service status
@@ -28,6 +29,7 @@ class kibana (
   Variant[Enum['present', 'absent', 'latest'], Pattern[/^\d([.]\d+)*(-[\d\w]+)?$/]] $ensure,
   Hash[String[1], Variant[String[1], Integer, Boolean, Array]] $config,
   Boolean $manage_repo,
+  Boolean oss,
   Optional[String] $package_source,
   Kibana::Status $status,
 ) {
@@ -35,6 +37,11 @@ class kibana (
   contain ::kibana::install
   contain ::kibana::config
   contain ::kibana::service
+
+  $_package_name = $oss ? {
+    true    => 'kibana-oss',
+    default => 'kibana',
+  }
 
   if $manage_repo {
     contain ::elastic_stack::repo

@@ -71,6 +71,9 @@ RSpec.configure do |c|
   c.add_setting :is_snapshot
   c.is_snapshot = c.files_to_run.any? { |fn| fn.include? 'snapshot' }
 
+  c.add_setting :oss
+  c.oss = false
+
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module and dependencies
@@ -90,7 +93,6 @@ RSpec.configure do |c|
       c.add_setting :snapshot_version
       c.snapshot_version = File.readlink(artifact(filename)).match(/kibana(?:-oss)?-(?<v>.*)[.][a-z]+/)[:v]
 
-      c.add_setting :oss
       c.oss = (not File.readlink(artifact(filename)).match(/-oss/).nil?)
     end
   end
