@@ -9,7 +9,7 @@ shared_examples 'basic acceptance' do
     it { apply_manifest(manifest, :catch_failures => true) }
     it { apply_manifest(manifest, :catch_changes  => true) }
 
-    describe package('kibana') do
+    describe package("kibana#{RSpec.configuration.oss ? '-oss' : ''}") do
       it { is_expected.to be_installed }
     end
 

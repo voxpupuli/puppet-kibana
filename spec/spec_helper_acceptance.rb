@@ -72,7 +72,6 @@ RSpec.configure do |c|
   c.is_snapshot = c.files_to_run.any? { |fn| fn.include? 'snapshot' }
 
   c.add_setting :oss
-  c.oss = false
 
   # Configure all nodes in nodeset
   c.before :suite do
@@ -94,6 +93,8 @@ RSpec.configure do |c|
       c.snapshot_version = File.readlink(artifact(filename)).match(/kibana(?:-oss)?-(?<v>.*)[.][a-z]+/)[:v]
 
       c.oss = (not File.readlink(artifact(filename)).match(/-oss/).nil?)
+    else
+      c.oss = false
     end
   end
 

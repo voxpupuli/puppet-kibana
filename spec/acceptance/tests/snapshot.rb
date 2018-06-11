@@ -12,6 +12,7 @@ describe 'kibana snapshots' do
           'server.port' => #{port},
         },
         manage_repo => false,
+        oss => #{RSpec.configuration.oss},
         package_source => '/tmp/kibana-snapshot.#{RSpec.configuration.pkg_ext}',
       }
     MANIFEST
