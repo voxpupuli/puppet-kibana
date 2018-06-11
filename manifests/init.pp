@@ -38,7 +38,7 @@ class kibana (
   contain ::kibana::config
   contain ::kibana::service
 
-  $_package_name = $oss ? {
+  $_package_name = $::kibana::oss ? {
     true    => 'kibana-oss',
     default => 'kibana',
   }
