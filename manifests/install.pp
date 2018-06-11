@@ -20,9 +20,14 @@ class kibana::install {
     }
   }
 
+  $_package_name = $::kibana::oss ? {
+    true    => 'kibana-oss',
+    default => 'kibana',
+  }
+
   package { 'kibana':
     ensure => $::kibana::ensure,
-    name   => $::kibana::_package_name,
+    name   => $_package_name,
     source => $::kibana::package_source,
   }
 }

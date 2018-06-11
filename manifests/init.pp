@@ -29,7 +29,7 @@ class kibana (
   Variant[Enum['present', 'absent', 'latest'], Pattern[/^\d([.]\d+)*(-[\d\w]+)?$/]] $ensure,
   Hash[String[1], Variant[String[1], Integer, Boolean, Array]] $config,
   Boolean $manage_repo,
-  Boolean oss,
+  Boolean $oss,
   Optional[String] $package_source,
   Kibana::Status $status,
 ) {
@@ -37,11 +37,6 @@ class kibana (
   contain ::kibana::install
   contain ::kibana::config
   contain ::kibana::service
-
-  $_package_name = $::kibana::oss ? {
-    true    => 'kibana-oss',
-    default => 'kibana',
-  }
 
   if $manage_repo {
     contain ::elastic_stack::repo
