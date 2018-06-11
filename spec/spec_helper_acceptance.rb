@@ -73,6 +73,19 @@ RSpec.configure do |c|
 
   c.add_setting :oss
 
+  # Copy over the snapshot package if we're running snapshot tests
+  if c.is_snapshot and !c.pkg_ext.nil?
+    c.add_setting :snapshot_file
+    c.snapshot_file = "kibana-snapshot.#{c.pkg_ext}"
+
+    c.add_setting :snapshot_version
+    c.snapshot_version = File.readlink(artifact(c.snapshot_file)).match(/kibana(?:-oss)?-(?<v>.*)[.][a-z]+/)[:v]
+
+    c.oss = (not File.readlink(artifact(c.snapshot_file)).match(/-oss/).nil?)
+  else
+    c.oss = false
+  end
+
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module and dependencies
@@ -83,18 +96,10 @@ RSpec.configure do |c|
       )
     end
 
-    # Copy over the snapshot package if we're running snapshot tests
-    if c.is_snapshot and !c.pkg_ext.nil?
-      filename = "kibana-snapshot.#{c.pkg_ext}"
+    if c.is_snapshot
       hosts.each do |host|
-        scp_to host, artifact(filename), "/tmp/#{filename}"
+        scp_to host, artifact(c.snapshot_file), "/tmp/#{c.snapshot_file}"
       end
-      c.add_setting :snapshot_version
-      c.snapshot_version = File.readlink(artifact(filename)).match(/kibana(?:-oss)?-(?<v>.*)[.][a-z]+/)[:v]
-
-      c.oss = (not File.readlink(artifact(filename)).match(/-oss/).nil?)
-    else
-      c.oss = false
     end
   end
 
