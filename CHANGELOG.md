@@ -1,6 +1,15 @@
 ## x.x.x (Month Day, Year)
 
+This release deprecates Kibana 4.x, which is end-of-life.
+
+### Migration Guide
+
+* Support for 4.x has been deprecated, so consider upgrading to Kibana 5 or later before upgrading this module since only versions 5 and later are supported.
+* The module defaults to the upstream package repositories, which now include X-Pack bundled by default. To preserve previous behavior which does _not_ include X-Pack, follow the `README` instructions to configure `oss`-only repositories/packages.
+* Use of the `elastic_stack::repo` class for managing package repositories may mean that leftover yum/apt/etc. repositories named `kibana` may persist after upgrade.
+
 #### Features
+* Support for 6.3 style repositories using elastic_stack module
 
 #### Fixes
 
