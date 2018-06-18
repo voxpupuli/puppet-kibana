@@ -6,7 +6,7 @@
 <title>
   Puppet Class: kibana::install
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -134,62 +134,7 @@ href="mailto:tyler.langlois@elastic.co">tyler.langlois@elastic.co</a></p>
 30
 31
 32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88</pre>
+33</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/install.pp', line 6</span>
@@ -197,70 +142,9 @@ href="mailto:tyler.langlois@elastic.co">tyler.langlois@elastic.co</a></p>
 class kibana::install {
 
   if $::kibana::manage_repo {
-    $_ensure = $::kibana::ensure ? {
-      &#39;absent&#39; =&gt; $::kibana::ensure,
-      default  =&gt; &#39;present&#39;,
-    }
-
-    if $::kibana::repo_version =~ /^4[.]/ {
-      $_repo_baseurl = &quot;https://packages.elastic.co/kibana/${::kibana::repo_version}&quot;
-      $_repo_path = $facts[&#39;os&#39;][&#39;family&#39;] ? {
-        &#39;Debian&#39;          =&gt; &#39;debian&#39;,
-        /(RedHat|Amazon)/ =&gt; &#39;centos&#39;
-      }
-    } else {
-      $_repo_baseurl = &quot;https://artifacts.elastic.co/packages/${::kibana::repo_version}&quot;
-      $_repo_path = $facts[&#39;os&#39;][&#39;family&#39;] ? {
-        &#39;Debian&#39;          =&gt; &#39;apt&#39;,
-        /(RedHat|Amazon)/ =&gt; &#39;yum&#39;
-      }
-    }
-
-    case $facts[&#39;os&#39;][&#39;family&#39;] {
-      &#39;Debian&#39;: {
-        include ::apt
-        Class[&#39;apt::update&#39;] -&gt; Package[&#39;kibana&#39;]
-
-        apt::source { &#39;kibana&#39;:
-          ensure   =&gt; $_ensure,
-          location =&gt; &quot;${_repo_baseurl}/${_repo_path}&quot;,
-          release  =&gt; &#39;stable&#39;,
-          repos    =&gt; &#39;main&#39;,
-          key      =&gt; {
-            &#39;id&#39;     =&gt; $::kibana::repo_key_id,
-            &#39;source&#39; =&gt; $::kibana::repo_key_source,
-          },
-          include  =&gt; {
-            &#39;src&#39; =&gt; false,
-            &#39;deb&#39; =&gt; true,
-          },
-          pin      =&gt; $::kibana::repo_priority,
-          before   =&gt; Package[&#39;kibana&#39;],
-        }
-      }
-      &#39;RedHat&#39;, &#39;Amazon&#39;: {
-        yumrepo { &#39;kibana&#39;:
-          ensure   =&gt; $_ensure,
-          descr    =&gt; &quot;Elastic ${::kibana::repo_version} repository&quot;,
-          baseurl  =&gt; &quot;${_repo_baseurl}/${_repo_path}&quot;,
-          gpgcheck =&gt; 1,
-          gpgkey   =&gt; $::kibana::repo_key_source,
-          enabled  =&gt; 1,
-          proxy    =&gt; $::kibana::repo_proxy,
-          priority =&gt; $::kibana::repo_priority,
-          before   =&gt; Package[&#39;kibana&#39;],
-        }
-        ~&gt; exec { &#39;kibana_yumrepo_yum_clean&#39;:
-          command     =&gt; &#39;yum clean metadata expire-cache --disablerepo=&quot;*&quot; --enablerepo=&quot;kibana&quot;&#39;,
-          path        =&gt; [ &#39;/bin&#39;, &#39;/usr/bin&#39; ],
-          refreshonly =&gt; true,
-          returns     =&gt; [0, 1],
-          before      =&gt; Package[&#39;kibana&#39;],
-        }
-      }
-      default: {
-        fail(&quot;unsupported operating system family ${facts[&#39;os&#39;][&#39;family&#39;]}&quot;)
-      }
+    if $facts[&#39;os&#39;][&#39;family&#39;] == &#39;Debian&#39; {
+      include ::apt
+      Class[&#39;apt::update&#39;] -&gt; Package[&#39;kibana&#39;]
     }
   }
 
@@ -272,8 +156,14 @@ class kibana::install {
     }
   }
 
+  $_package_name = $::kibana::oss ? {
+    true    =&gt; &#39;kibana-oss&#39;,
+    default =&gt; &#39;kibana&#39;,
+  }
+
   package { &#39;kibana&#39;:
     ensure =&gt; $::kibana::ensure,
+    name   =&gt; $_package_name,
     source =&gt; $::kibana::package_source,
   }
 }</pre>

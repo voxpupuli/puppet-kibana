@@ -6,7 +6,7 @@
 <title>
   Class: Puppet::Provider::ElasticKibana
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -101,7 +101,18 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Parent class for Kibana plugin providers.</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -638,13 +649,13 @@ uid/gid.</p>
       <pre class="lines">
 
 
-150
 151
 152
-153</pre>
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 150</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 151</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -688,12 +699,12 @@ uid/gid.</p>
       <pre class="lines">
 
 
-9
 10
-11</pre>
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_url'>format_url</span>
   <span class='ivar'>@format_url</span>
@@ -731,12 +742,12 @@ uid/gid.</p>
       <pre class="lines">
 
 
-5
 6
-7</pre>
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_home_path'>home_path</span>
   <span class='ivar'>@home_path</span>
@@ -774,12 +785,12 @@ uid/gid.</p>
       <pre class="lines">
 
 
-6
 7
-8</pre>
+8
+9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_install_args'>install_args</span>
   <span class='ivar'>@install_args</span>
@@ -817,12 +828,12 @@ uid/gid.</p>
       <pre class="lines">
 
 
-7
 8
-9</pre>
+9
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_plugin_directory'>plugin_directory</span>
   <span class='ivar'>@plugin_directory</span>
@@ -860,12 +871,12 @@ uid/gid.</p>
       <pre class="lines">
 
 
-8
 9
-10</pre>
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_args'>remove_args</span>
   <span class='ivar'>@remove_args</span>
@@ -926,14 +937,14 @@ uid/gid.</p>
       <pre class="lines">
 
 
-132
 133
 134
 135
-136</pre>
+136
+137</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 133</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instances'>instances</span>
   <span class='id identifier rubyid_present_plugins'>present_plugins</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plugin'>plugin</span><span class='op'>|</span>
@@ -991,16 +1002,16 @@ uid/gid.</p>
       <pre class="lines">
 
 
-141
 142
 143
 144
 145
 146
-147</pre>
+147
+148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_prefetch'>prefetch</span><span class='lparen'>(</span><span class='id identifier rubyid_resources'>resources</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_instances'>instances</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_prov'>prov</span><span class='op'>|</span>
@@ -1061,7 +1072,6 @@ process and grab arbitrary metadata from the plugin json (which
       <pre class="lines">
 
 
-28
 29
 30
 31
@@ -1074,10 +1084,11 @@ process and grab arbitrary metadata from the plugin json (which
 38
 39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_present_plugins'>present_plugins</span>
   <span class='const'>Dir</span><span class='lbracket'>[</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_home_path'>home_path</span><span class='comma'>,</span> <span class='id identifier rubyid_plugin_directory'>plugin_directory</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_directory'>directory</span><span class='op'>|</span>
@@ -1148,12 +1159,12 @@ process and grab arbitrary metadata from the plugin json (which
       <pre class="lines">
 
 
-104
 105
-106</pre>
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='ivar'>@property_flush</span><span class='lbracket'>[</span><span class='symbol'>:ensure</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:present</span>
@@ -1207,12 +1218,12 @@ process and grab arbitrary metadata from the plugin json (which
       <pre class="lines">
 
 
-118
 119
-120</pre>
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
   <span class='ivar'>@property_flush</span><span class='lbracket'>[</span><span class='symbol'>:ensure</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:absent</span>
@@ -1261,12 +1272,12 @@ process and grab arbitrary metadata from the plugin json (which
       <pre class="lines">
 
 
-111
 112
-113</pre>
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exists?'>exists?</span>
   <span class='ivar'>@property_hash</span><span class='lbracket'>[</span><span class='symbol'>:ensure</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='symbol'>:present</span>
@@ -1321,7 +1332,6 @@ provider.</p>
       <pre class="lines">
 
 
-47
 48
 49
 50
@@ -1333,10 +1343,11 @@ provider.</p>
 56
 57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_flush'>flush</span>
   <span class='kw'>if</span> <span class='ivar'>@property_flush</span><span class='lbracket'>[</span><span class='symbol'>:ensure</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='symbol'>:absent</span>
@@ -1403,12 +1414,12 @@ URL.</p>
       <pre class="lines">
 
 
-18
 19
-20</pre>
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_url'>format_url</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_format_url'>format_url</span> <span class='op'>||=</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_url'>url</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
@@ -1463,7 +1474,6 @@ URL, pass it in correctly to the CLI tool.</p>
       <pre class="lines">
 
 
-75
 76
 77
 78
@@ -1471,10 +1481,11 @@ URL, pass it in correctly to the CLI tool.</p>
 80
 81
 82
-83</pre>
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_plugin_url'>plugin_url</span>
   <span class='kw'>if</span> <span class='kw'>not</span> <span class='id identifier rubyid_resource'>resource</span><span class='lbracket'>[</span><span class='symbol'>:url</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1535,13 +1546,13 @@ uid/gid.</p>
       <pre class="lines">
 
 
-65
 66
 67
-68</pre>
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run_plugin'>run_plugin</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_stdout'>stdout</span> <span class='op'>=</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_command'>command</span><span class='lparen'>(</span><span class='symbol'>:plugin</span><span class='rparen'>)</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='symbol'>:uid</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>kibana</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:gid</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>kibana</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1578,14 +1589,14 @@ uid/gid.</p>
       <pre class="lines">
 
 
-123
 124
 125
 126
-127</pre>
+127
+128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_property_hash'>set_property_hash</span>
   <span class='ivar'>@property_hash</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_present_plugins'>present_plugins</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span>
@@ -1641,12 +1652,12 @@ uid/gid.</p>
       <pre class="lines">
 
 
-97
 98
-99</pre>
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_version'>version</span>
   <span class='ivar'>@property_hash</span><span class='lbracket'>[</span><span class='symbol'>:version</span><span class='rbracket'>]</span>
@@ -1700,12 +1711,12 @@ uid/gid.</p>
       <pre class="lines">
 
 
-90
 91
-92</pre>
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet/provider/elastic_kibana.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_version='>version=</span><span class='lparen'>(</span><span class='id identifier rubyid_new_version'>new_version</span><span class='rparen'>)</span>
   <span class='ivar'>@property_flush</span><span class='lbracket'>[</span><span class='symbol'>:version</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_new_version'>new_version</span>

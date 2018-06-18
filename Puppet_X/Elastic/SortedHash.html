@@ -6,7 +6,7 @@
 <title>
   Module: Puppet_X::Elastic::SortedHash
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -192,7 +192,7 @@ Puppet/Ruby&#39;s yaml implementation.</p>
 <p>Upon extension, modify the hash appropriately to render sorted yaml
 dependent upon whichever way is supported for this version of
 Puppet/Ruby&#39;s yaml implementation. rubocop:disable
-Metrics/PerceivedComplexity</p>
+Metrics/CyclomaticComplexity rubocop:disable Metrics/PerceivedComplexity</p>
 
 
   </div>
@@ -206,7 +206,6 @@ Metrics/PerceivedComplexity</p>
       <pre class="lines">
 
 
-11
 12
 13
 14
@@ -254,10 +253,11 @@ Metrics/PerceivedComplexity</p>
 56
 57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet_x/elastic/hash.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet_x/elastic/hash.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_extended'>extended</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='const'>RUBY_VERSION</span> <span class='op'>&gt;=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.9</span><span class='tstring_end'>&#39;</span></span>
@@ -345,14 +345,14 @@ Metrics/PerceivedComplexity</p>
       <pre class="lines">
 
 
-63
-64
-65
 66
-67</pre>
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/puppet_x/elastic/hash.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/puppet_x/elastic/hash.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_pair'>each_pair</span>
   <span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_sort'>sort</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>

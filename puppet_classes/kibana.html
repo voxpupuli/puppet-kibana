@@ -6,7 +6,7 @@
 <title>
   Puppet Class: kibana
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -159,6 +159,22 @@ number).</p>
   
     <li>
       
+        <span class='name'>oss</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to manage OSS packages</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>package_source</span>
       
       
@@ -185,88 +201,6 @@ number).</p>
         &mdash;
         <div class='inline'>
 <p>Whether to manage the package manager repository</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>repo_key_id</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Trusted GPG Key ID for package repository</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>repo_key_source</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Source for repo_key_id</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>repo_priority</span>
-      
-      
-        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Optional repository priority</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>repo_proxy</span>
-      
-      
-        <span class='type'>(<tt>Optional[String]</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Proxy to use for repository access (yum only)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>repo_version</span>
-      
-      
-        <span class='type'>(<tt>Variant[Enum['5.x', '6.x'], Pattern[/^4\.(1|[4-6])$/]]</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Repository major version to use. Versions 5.x onward follow the major.minor
-form (i.e., 6.x), while previous versions (for version 4) can be 4.1, 4.4,
-4.5, or 4.6.</p>
 </div>
       
     </li>
@@ -314,6 +248,12 @@ href="mailto:tyler.langlois@elastic.co">tyler.langlois@elastic.co</a></p>
         <pre class="lines">
 
 
+28
+29
+30
+31
+32
+33
 34
 35
 36
@@ -341,30 +281,30 @@ href="mailto:tyler.langlois@elastic.co">tyler.langlois@elastic.co</a></p>
 58
 59
 60
-61
-62
-63
-64</pre>
+61</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 34</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 28</span>
 
 class kibana (
   Variant[Enum[&#39;present&#39;, &#39;absent&#39;, &#39;latest&#39;], Pattern[/^\d([.]\d+)*(-[\d\w]+)?$/]] $ensure,
   Hash[String[1], Variant[String[1], Integer, Boolean, Array]] $config,
   Boolean $manage_repo,
+  Boolean $oss,
   Optional[String] $package_source,
-  String $repo_key_id,
-  String $repo_key_source,
-  Optional[Integer] $repo_priority,
-  Optional[String] $repo_proxy,
-  Variant[Enum[&#39;5.x&#39;, &#39;6.x&#39;], Pattern[/^4\.(1|[4-6])$/]] $repo_version,
   Kibana::Status $status,
 ) {
 
   contain ::kibana::install
   contain ::kibana::config
   contain ::kibana::service
+
+  if $manage_repo {
+    contain ::elastic_stack::repo
+
+    Class[&#39;::elastic_stack::repo&#39;]
+    -&gt; Class[&#39;::kibana::install&#39;]
+  }
 
   # Catch absent values, otherwise default to present/installed ordering
   case $ensure {

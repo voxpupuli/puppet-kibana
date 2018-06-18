@@ -6,7 +6,7 @@
 <title>
   Puppet Class: kibana::config
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -122,28 +122,20 @@ href="mailto:tyler.langlois@elastic.co">tyler.langlois@elastic.co</a></p>
 19
 20
 21
-22
-23
-24
-25
-26</pre>
+22</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 7</span>
 
 class kibana::config {
 
-  $_config_dir = $::kibana::repo_version ? {
-    /^4[.]/ =&gt; &#39;/opt/kibana/config&#39;,
-    default =&gt; &#39;/etc/kibana&#39;
-  }
   $_ensure = $::kibana::ensure ? {
     &#39;absent&#39; =&gt; $::kibana::ensure,
     default  =&gt; &#39;file&#39;,
   }
   $config = $::kibana::config
 
-  file { &quot;${_config_dir}/kibana.yml&quot;:
+  file { &#39;/etc/kibana/kibana.yml&#39;:
     ensure  =&gt; $_ensure,
     content =&gt; template(&quot;${module_name}/etc/kibana/kibana.yml.erb&quot;),
     owner   =&gt; &#39;kibana&#39;,

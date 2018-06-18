@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -119,8 +119,6 @@ distributions).</p>
 <p><code>/etc/kibana/kibana.yml</code></p>
 </li><li>
 <p><code>/usr/share/kibana/plugins/*</code></p>
-</li><li>
-<p><code>/opt/kibana</code> (if using Kibana 4.x)</p>
 </li></ul>
 
 <h3 id="label-Setup+Requirements">Setup Requirements</h3>
@@ -165,6 +163,37 @@ version of Kibana is always installed:</p>
 <code>ensure =&gt; absent</code>:</p>
 
 <pre class="code ruby"><code class="ruby">class { &#39;kibana&#39;: ensure =&gt; absent }</code></pre>
+
+<h3 id="label-OSS+Packages+and+Repository+Management">OSS Packages and Repository Management</h3>
+
+<p>This module uses the <a
+href="https://forge.puppet.com/elastic/elastic_stack">elastic/elastic_stack</a>
+module to manage the elastic package repositories. In order to control
+which major version of package repository to manage, declare the associated
+repository version in the <code>elastic_stack::repo</code> class. For
+example, to explicitly set the repository version to 5 instead of the
+default (which, at the time of this writing, is 6):</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;elastic_stack::repo&#39;:
+  version =&gt; 5,
+}
+
+class { &#39;kibana&#39;:
+  ensure =&gt; latest
+}</code></pre>
+
+<p>This module defaults to the upstream package repositories, which as of 6.3,
+includes X-Pack. In order to use the purely OSS (open source) package and
+repository, the appropriate <code>oss</code> flag must be set on the
+<code>elastic_stack::repo</code> and <code>kibana</code> classes:</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;elastic_stack::repo&#39;:
+  oss =&gt; true,
+}
+
+class { &#39;kibana&#39;:
+  oss =&gt; true,
+}</code></pre>
 
 <h3 id="label-Plugins">Plugins</h3>
 
