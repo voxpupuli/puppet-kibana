@@ -1,3 +1,9 @@
+## x.x.x (Month Day, Year)
+
+#### Features
+
+#### Fixes
+
 ## 6.3.0 (June 18, 2018)
 
 This release deprecates Kibana 4.x, which is end-of-life.
