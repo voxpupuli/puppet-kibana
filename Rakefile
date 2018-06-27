@@ -124,9 +124,15 @@ namespace :artifact do
   end
 
   namespace :snapshot do
-    catalog = JSON.parse(
-      open('https://artifacts-api.elastic.co/v1/branches/6.x').read
-    )['latest']
+    begin
+      retries ||= 0
+      catalog = JSON.parse(
+        open('https://artifacts-api.app.elstc.co/v1/branches/6.x/builds/latest').read
+      )['build']
+    rescue
+      retry if (retries += 1) < 3
+    end
+
     ENV['snapshot_version'] = catalog['version']
 
     downloads = catalog['projects']['kibana']['packages'].select do |pkg, _|
