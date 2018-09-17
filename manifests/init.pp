@@ -128,7 +128,7 @@ class kibana (
   String              $repo_key_source       = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
   Optional[Integer]   $repo_priority         = undef,
   Optional[String]    $repo_proxy            = undef,
-  Kibana::Repoversion $repo_version          = undef,
+  Kibana::Repoversion $repo_version          = '6.x',
   Kibana::Status      $status,
   Boolean             $manage_service        = true,
   Optional[String]    $service_provider      = undef,
