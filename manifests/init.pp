@@ -126,7 +126,6 @@ class kibana (
   Optional[String]    $package_source,
   String              $repo_key_id           = 'D27D666CD88E42B4',
   String              $repo_key_source       = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
-  Optional[String]    $package_source,
   Optional[Integer]   $repo_priority,
   Optional[String]    $repo_proxy,
   Kibana::Repoversion $repo_version,
