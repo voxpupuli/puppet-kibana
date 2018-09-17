@@ -32,6 +32,12 @@
 # @param package_source
 #   Local path to package file for file (not repo) based installation
 #
+# @param oss 
+#   Whether to manage OSS packages
+#
+# @param package_source
+#   Local path to package file for file (not repo) based installation
+#
 # @param manage_repo
 #   Whether to manage the package manager repository
 #
@@ -116,6 +122,8 @@ class kibana (
   String              $package_name          = 'kibana',
   Kibana::Config      $config                = {},
   Boolean             $manage_repo           = false,
+  Boolean             $oss,
+  Optional[String]    $package_source,
   String              $repo_key_id           = 'D27D666CD88E42B4',
   String              $repo_key_source       = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
   Optional[String]    $package_source,
@@ -159,6 +167,13 @@ class kibana (
       before        => $service_before,
       subscribe     => $service_subscribe,
     }
+  }
+
+  if $manage_repo {
+    contain ::elastic_stack::repo
+
+    Class['::elastic_stack::repo']
+    -> Class['::kibana::install']
   }
 
   # Catch absent values, otherwise default to present/installed ordering

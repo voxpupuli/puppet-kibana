@@ -20,7 +20,7 @@ class kibana::config {
   }
   $config = $::kibana::config
 
-  file { "${_config_dir}/kibana.yml":
+  file { '/etc/kibana/kibana.yml':
     ensure  => $_ensure,
     content => template("${module_name}/etc/kibana/kibana.yml.erb"),
     owner   => $::kibana::kibana_user,
