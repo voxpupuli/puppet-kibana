@@ -108,7 +108,7 @@ class kibana::install {
   }
 
   package { 'kibana':
-    ensure => $::kibana::ensure,
+    ensure => $_ensure,
     name   => $_package_name,
     source => $::kibana::package_source,
   }
