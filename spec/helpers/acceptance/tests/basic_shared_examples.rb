@@ -28,7 +28,7 @@ shared_examples 'basic acceptance' do
         # to confirm whether Kibana is replying with proper HTTP response codes
         # is sufficient (earlier versions return 200 in most cases, later
         # versions pass through ES unavailability as 503's).
-        it('returns OK', :api) { expect(response.status).to be_in([200, 503]) }
+        it('returns OK', :api) { expect(response.status).to eq(200).or(eq(503)) }
       end
     end
   end
