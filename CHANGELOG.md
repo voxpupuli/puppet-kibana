@@ -1,6 +1,4 @@
-## x.x.x (Month Day, Year)
-
-#### Features
+## 6.3.1 (October 19, 2018)
 
 #### Fixes
 * This module no longer requires or enforces a version of the puppetlabs/apt module, which is transitively handled through the `elastic/elastic_stack` dependency.
