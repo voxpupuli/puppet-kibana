@@ -4,6 +4,27 @@
 
 #### Fixes
 
+## 6.3.1 (October 19, 2018)
+
+#### Fixes
+* This module no longer requires or enforces a version of the puppetlabs/apt module, which is transitively handled through the `elastic/elastic_stack` dependency.
+* Permit hashes to be passed as configuration parameter values.
+
+## 6.3.0 (June 18, 2018)
+
+This release deprecates Kibana 4.x, which is end-of-life.
+
+### Migration Guide
+
+* Support for 4.x has been deprecated, so consider upgrading to Kibana 5 or later before upgrading this module since only versions 5 and later are supported.
+* The module defaults to the upstream package repositories, which now include X-Pack bundled by default. To preserve previous behavior which does _not_ include X-Pack, follow the `README` instructions to configure `oss`-only repositories/packages.
+* Use of the `elastic_stack::repo` class for managing package repositories may mean that leftover yum/apt/etc. repositories named `kibana` may persist after upgrade.
+
+#### Features
+* Support for 6.3 style repositories using elastic_stack module
+
+#### Fixes
+
 ## 6.0.1 (March 13, 2018)
 
 #### Fixes

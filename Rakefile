@@ -15,6 +15,8 @@ require_relative 'spec/spec_utilities'
 require 'nokogiri'
 require 'open-uri'
 
+oss_package = ENV['OSS_PACKAGE'] and ENV['OSS_PACKAGE'] == 'true'
+
 def v(ver)
   Gem::Version.new(ver)
 end
@@ -111,22 +113,50 @@ beaker_node_sets.each do |node|
 end
 
 namespace :artifact do
-  namespace :snapshot do
-    dls = Nokogiri::HTML(open('https://www.elastic.co/downloads/kibana'))
-    div = dls.at_css('#preview-release-id')
+  desc 'Fetch specific installation artifacts'
+  task :fetch, [:version] do |_t, args|
+    [
+      "https://artifacts.elastic.co/downloads/kibana/kibana-#{args[:version]}.rpm",
+      "https://artifacts.elastic.co/downloads/kibana/kibana-#{args[:version]}.deb"
+    ].each do |package|
+      get package, artifact(package)
+    end
+  end
 
-    if div.nil?
-      puts 'No preview release available; skipping snapshot download'
+  namespace :snapshot do
+    snapshot_version = JSON.parse(http_retry('https://artifacts-api.elastic.co/v1/versions'))['versions'].reject do |version|
+      version.include? 'alpha'
+    end.last
+
+    ENV['snapshot_version'] = snapshot_version
+
+    downloads = JSON.parse(http_retry("https://artifacts-api.elastic.co/v1/search/#{snapshot_version}/kibana"))['packages'].select do |pkg, _|
+      pkg =~ /(?:deb|rpm)/ and (oss_package ? pkg =~ /oss/ : pkg !~ /oss/)
+    end.map do |package, urls|
+      [package.split('.').last, urls]
+    end.to_h
+
+    # We end up with something like:
+    # {
+    #   'rpm' => {'url' => 'https://...', 'sha_url' => 'https://...'},
+    #   'deb' => {'url' => 'https://...', 'sha_url' => 'https://...'}
+    # }
+    # Note that checksums are currently broken on the Elastic unified release
+    # side; once they start working we can verify them.
+
+    if downloads.empty?
+      puts 'No snapshot release available; skipping snapshot download'
       %w[deb rpm].each { |ext| task ext }
       task 'not_found'
     else
-      div
-        .at_css('.downloads')
-        .xpath('li/a[contains(text(), "RPM") or contains(text(), "DEB")]')
-        .each do |anchor|
-        filename = artifact(anchor.attr('href'))
-        link = artifact("kibana-snapshot.#{anchor.text.split(' ').first.downcase}")
-        task anchor.text.split(' ').first.downcase => link
+      # Download snapshot files
+      downloads.each_pair do |extension, urls|
+        filename = artifact urls['url']
+        checksum = artifact urls['sha_url']
+        link = artifact "kibana-snapshot.#{extension}"
+        FileUtils.rm link if File.exist? link
+
+        task extension => link
         file link => filename do
           unless File.exist?(link) and File.symlink?(link) \
               and File.readlink(link) == filename
@@ -134,10 +164,22 @@ namespace :artifact do
             File.symlink File.basename(filename), link
           end
         end
+
+        # file filename => checksum do
         file filename do
-          get anchor.attr('href'), filename
+          get urls['url'], filename
+        end
+
+        task checksum do
+          File.delete checksum if File.exist? checksum
+          get urls['sha_url'], checksum
         end
       end
     end
+  end
+
+  desc 'Purge fetched artifacts'
+  task :clean do
+    FileUtils.rm_rf(Dir.glob('spec/fixtures/artifacts/*'))
   end
 end

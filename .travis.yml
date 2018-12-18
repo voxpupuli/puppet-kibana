@@ -42,13 +42,17 @@ jobs:
    - env:
      - TASK=beaker:ubuntu-1604-x64
    - env:
-     - TASK=beaker:fedora-24-x64
-   - env:
-     - TASK=beaker:fedora-25-x64
+     - TASK=beaker:fedora-28-x64
    - stage: snapshots
      env:
      - TASK=beaker:ubuntu-1604-x64:snapshot
    - env:
+     - OSS_PACKAGE=true
+     - TASK=beaker:ubuntu-1604-x64:snapshot
+   - env:
+     - TASK=beaker:centos-7-x64:snapshot
+   - env:
+     - OSS_PACKAGE=true
      - TASK=beaker:centos-7-x64:snapshot
 
 notifications:
