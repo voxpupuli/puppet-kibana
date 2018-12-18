@@ -4,12 +4,19 @@
 
 #### Fixes
 
-## 6.3.1 (September 17, 2018)
+## 6.3.2 (September 17, 2018)
 
 #### Features
 * Create and modify systemd service file
 * Specify alternative directories
 * Allow for different user/group
+
+## 6.3.1 (October 19, 2018)
+
+#### Fixes
+* This module no longer requires or enforces a version of the puppetlabs/apt module, which is transitively handled through the `elastic/elastic_stack` dependency.
+* Permit hashes to be passed as configuration parameter values.
+
 ## 6.3.0 (June 18, 2018)
 
 This release deprecates Kibana 4.x, which is end-of-life.

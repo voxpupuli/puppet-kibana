@@ -117,6 +117,7 @@
 # @author Joern Ott <joern.ott@ott-consult.de>
 #
 class kibana (
+<<<<<<< HEAD
   Kibana::Ensure      $ensure,
   String              $version               = 'present',
   String              $package_name          = 'kibana',
