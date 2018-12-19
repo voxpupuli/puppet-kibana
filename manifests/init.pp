@@ -125,7 +125,7 @@ class kibana (
   String              $package_name          = 'kibana',
   Kibana::Config      $config                = {},
   Boolean             $manage_repo           = false,
-  Optional[String]    $package_source, 
+  Optional[String]    $package_source,
   String              $repo_key_id           = 'D27D666CD88E42B4',
   String              $repo_key_source       = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
   Optional[Integer]   $repo_priority         = undef,
