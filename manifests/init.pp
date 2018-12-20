@@ -117,7 +117,6 @@
 # @author Joern Ott <joern.ott@ott-consult.de>
 #
 class kibana (
-<<<<<<< HEAD
   Kibana::Ensure      $ensure,
   Kibana::Status      $status,
   Boolean             $oss,
