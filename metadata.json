@@ -7,7 +7,6 @@
   "source": "https://github.com/elastic/puppet-kibana",
   "project_page": "https://github.com/elastic/puppet-kibana",
   "issues_url": "https://github.com/elastic/puppet-kibana/issues",
-  "data_provider": "hiera",
   "dependencies": [
     {
       "name": "elastic/elastic_stack",
@@ -59,7 +58,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.5.0 < 6.0.0"
+      "version_requirement": ">= 4.10.0 < 6.0.0"
     }
   ]
 }
