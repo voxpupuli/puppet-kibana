@@ -1,5 +1,11 @@
 ## x.x.x (Month Day, Year)
 
+### Migration Guide
+
+#### Puppet < 4.10 No Longer Supported
+
+Puppet 4.10.0 is the new minimum required version of Puppet.
+
 #### Features
 
 #### Fixes
