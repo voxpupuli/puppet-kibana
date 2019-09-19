@@ -111,7 +111,7 @@ describe 'kibana', :type => 'class' do
         describe 'parameter validation for' do
           describe 'ensure' do
             context 'valid parameter' do
-              %w[present absent latest 5.2.1 5.2.2-1 5.2.2-bpo1].each do |param|
+              %w[present absent latest 4.5.4-2.el7 5.2.1 5.2.2-1 5.2.2-bpo1].each do |param|
                 context param do
                   let(:params) { { :ensure => param } }
                   it { should compile.with_all_deps }

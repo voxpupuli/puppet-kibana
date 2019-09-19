@@ -26,7 +26,7 @@
 # @author Tyler Langlois <tyler.langlois@elastic.co>
 #
 class kibana (
-  Variant[Enum['present', 'absent', 'latest'], Pattern[/^\d([.]\d+)*(-[\d\w]+)?$/]] $ensure,
+  Variant[Enum['present', 'absent', 'latest'], Pattern[/^\d([.]\d+)*(-[\d\w.]+)?$/]] $ensure,
   Hash[String[1], Variant[String[1], Integer, Boolean, Array, Hash]] $config,
   Boolean $manage_repo,
   Boolean $oss,
