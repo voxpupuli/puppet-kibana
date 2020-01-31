@@ -9,6 +9,7 @@ Puppet 4.10.0 is the new minimum required version of Puppet.
 #### Features
 
 #### Fixes
+* Sensitize kibana.yaml configuration file to avoid leaking `elasticsearch.password` if present
 
 ## 6.3.1 (October 19, 2018)
 
