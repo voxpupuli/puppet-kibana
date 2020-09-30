@@ -217,3 +217,7 @@ Run acceptance tests against a platform (requires Docker):
 ```shell
 $ bundle exec rake beaker:centos-7-x64
 ```
+
+## Support
+
+Need help? Join us in [#Kibana](https://webchat.freenode.net/#kibana) on Freenode IRC or on the https://discuss.elastic.co/c/kibana discussion forum.
