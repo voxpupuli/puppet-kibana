@@ -61,9 +61,9 @@ describe 'kibana', type: 'class' do
                 that_comes_before('Class[kibana::install]')
             end
 
-            describe "#{facts[:os]['family']} resources" do
-              case facts[:os]['family']
-              when 'Debian'
+            case facts[:os]['family']
+            when 'Debian'
+              describe "#{facts[:os]['family']} resources" do
                 it 'updates package cache before installing kibana' do
                   expect(subject).to contain_class('apt::update').
                     that_comes_before('Package[kibana]')

@@ -68,18 +68,21 @@ shared_examples 'kibana plugin provider' do
       allow(described_class).
         to receive(:command).with(:plugin).
         and_return executable
-      @install_name = if resource[:organization].nil?
-                        resource[:name]
-                      else
-                        [resource[:organization], resource[:name], resource[:version]].join('/')
-                      end
+    end
+
+    let(:install_name) do
+      if resource[:organization].nil?
+        resource[:name]
+      else
+        [resource[:organization], resource[:name], resource[:version]].join('/')
+      end
     end
 
     it 'installs plugins' do
-      expect(provider).to(
+      allow(provider).to(
         receive(:execute).
           with(
-            [executable] + install_args + [@install_name],
+            [executable] + install_args + [install_name],
             uid: 'kibana', gid: 'kibana'
           ).
           and_return(
@@ -89,10 +92,17 @@ shared_examples 'kibana plugin provider' do
       resource[:ensure] = :present
       provider.create
       provider.flush
+      expect(provider).to(
+        have_received(:execute).
+          with(
+            [executable] + install_args + [install_name],
+            uid: 'kibana', gid: 'kibana'
+          )
+      )
     end
 
     it 'removes plugins' do
-      expect(provider).to(
+      allow(provider).to(
         receive(:execute).
           with(
             [executable] + remove_args + [resource[:name]],
@@ -105,20 +115,27 @@ shared_examples 'kibana plugin provider' do
       resource[:ensure] = :absent
       provider.destroy
       provider.flush
+      expect(provider).to(
+        have_received(:execute).
+          with(
+            [executable] + remove_args + [resource[:name]],
+            uid: 'kibana', gid: 'kibana'
+          )
+      )
     end
 
     it 'updates plugins' do
-      expect(provider).to(
+      allow(provider).to(
         receive(:execute).
           with(
-            [executable] + install_args + [@install_name],
+            [executable] + install_args + [install_name],
             uid: 'kibana', gid: 'kibana'
           ).
           and_return(
             Puppet::Util::Execution::ProcessOutput.new('success', 0)
           )
       )
-      expect(provider).to(
+      allow(provider).to(
         receive(:execute).
           with(
             [executable] + remove_args + [resource[:name]],
@@ -131,16 +148,31 @@ shared_examples 'kibana plugin provider' do
       resource[:ensure] = :present
       provider.version = plugin_one[:version]
       provider.flush
+      expect(provider).to(
+        have_received(:execute).
+          with(
+            [executable] + install_args + [install_name],
+            uid: 'kibana', gid: 'kibana'
+          )
+      )
+      expect(provider).to(
+        have_received(:execute).
+          with(
+            [executable] + remove_args + [resource[:name]],
+            uid: 'kibana', gid: 'kibana'
+          )
+      )
     end
   end
 
   describe 'command execution' do
     it 'causes catalog failures' do
-      expect(provider).to receive(:execute).and_return(
+      allow(provider).to receive(:execute).and_return(
         Puppet::Util::Execution::ProcessOutput.new('failed', 70)
       )
       resource[:ensure] = :present
       expect { provider.flush }.to raise_error(Puppet::Error)
+      expect(provider).to have_received(:execute)
     end
   end
 end

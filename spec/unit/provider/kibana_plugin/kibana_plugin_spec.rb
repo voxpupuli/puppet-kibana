@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'helpers/unit/provider/kibana_plugin_shared_examples'
 
+# rubocop:disable RSpec/MultipleMemoizedHelpers
 describe Puppet::Type.type(:kibana_plugin).provider(:kibana_plugin) do
   let(:executable)   { "#{home_path}/bin/kibana-plugin" }
   let(:home_path)    { '/usr/share/kibana' }
@@ -44,7 +45,7 @@ describe Puppet::Type.type(:kibana_plugin).provider(:kibana_plugin) do
 
     it 'passes it through to the install command' do
       url = 'https://some.sample.url/directory'
-      expect(provider).to(
+      allow(provider).to(
         receive(:execute).
           with(
             [executable] + install_args + [url],
@@ -57,6 +58,14 @@ describe Puppet::Type.type(:kibana_plugin).provider(:kibana_plugin) do
       resource[:url] = url
       provider.create
       provider.flush
+      expect(provider).to(
+        have_received(:execute).
+          with(
+            [executable] + install_args + [url],
+            uid: 'kibana', gid: 'kibana'
+          )
+      )
     end
   end
 end
+# rubocop:enable RSpec/MultipleMemoizedHelpers

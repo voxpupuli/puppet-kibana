@@ -48,19 +48,20 @@ describe Puppet::Type.type(:kibana_plugin) do
   end
 
   describe 'autorequire' do
-    before do
-      @kibana_pkg = Puppet::Type.type(:package).new(name: 'kibana', ensure: :present)
-      @catalog = Puppet::Resource::Catalog.new
-      @catalog.add_resource @kibana_pkg
+    let(:kibana_pkg) { Puppet::Type.type(:package).new(name: 'kibana', ensure: :present) }
+    let(:catalog) do
+      res = Puppet::Resource::Catalog.new
+      res.add_resource kibana_pkg
+      res
     end
 
     it 'autorequires the kibana package' do
-      @resource = described_class.new(name: 'x-pack')
-      @catalog.add_resource @resource
-      req = @resource.autorequire
+      resource = described_class.new(name: 'x-pack')
+      catalog.add_resource resource
+      req = resource.autorequire
       expect(req.size).to eq(1)
-      expect(req[0].target).to eq(@resource)
-      expect(req[0].source).to eq(@kibana_pkg)
+      expect(req[0].target).to eq(resource)
+      expect(req[0].source).to eq(kibana_pkg)
     end
   end
 end

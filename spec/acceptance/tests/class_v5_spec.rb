@@ -3,6 +3,7 @@
 require 'spec_helper_acceptance'
 require 'helpers/acceptance/tests/class_shared_examples'
 
+# rubocop:disable RSpec/MultipleMemoizedHelpers
 describe 'kibana class v5' do
   let(:plugin)         { 'health_metric_vis' }
   let(:plugin_version) { '0.3.4' }
@@ -39,3 +40,4 @@ describe 'kibana class v5' do
                    '/usr/share/kibana/plugins/health_metric_vis/package.json',
                    '0.3.5'
 end
+# rubocop:enable RSpec/MultipleMemoizedHelpers

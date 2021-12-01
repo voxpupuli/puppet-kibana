@@ -25,10 +25,11 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
   #
   # @return [Array<Hash>] array of discovered providers on the host.
   def self.present_plugins
-    Dir[File.join(home_path, plugin_directory, '*')].select do |directory|
+    plugins = Dir[File.join(home_path, plugin_directory, '*')].select do |directory|
       !File.basename(directory).start_with? '.' \
         and File.exist? File.join(directory, 'package.json')
-    end.map do |plugin|
+    end
+    plugins.map do |plugin|
       j = JSON.parse(File.read(File.join(plugin, 'package.json')))
       {
         name: File.basename(plugin),
