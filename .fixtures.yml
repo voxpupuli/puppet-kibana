@@ -1,13 +1,6 @@
 fixtures:
-  forge_modules:
-    apt:
-      repo: puppetlabs/apt
-      ref: 2.0.0
-    elastic_stack:
-      repo: elastic/elastic_stack
-      ref: 6.1.0
-    stdlib:
-      repo: puppetlabs/stdlib
-      ref: 4.21.0
-  symlinks:
-    kibana: "#{source_dir}"
+  repositories:
+    apt: https://github.com/puppetlabs/puppetlabs-apt.git
+    elastic_stack: https://github.com/voxpupuli/puppet-elastic-stack.git
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
+    yumrepo_core: https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
