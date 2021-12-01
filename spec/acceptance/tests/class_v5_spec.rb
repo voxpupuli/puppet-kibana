@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
-require 'helpers/acceptance/tests/class_shared_examples.rb'
+require 'helpers/acceptance/tests/class_shared_examples'
 
 describe 'kibana class v5' do
   let(:plugin)         { 'health_metric_vis' }
@@ -26,7 +28,7 @@ describe 'kibana class v5' do
           url     => '#{plugin_url}',
           version => '#{plugin_version}',
         }
-      MANIFEST
+    MANIFEST
   end
 
   let(:plugin_url) do

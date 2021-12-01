@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 require 'helpers/acceptance/tests/basic_shared_examples'
 

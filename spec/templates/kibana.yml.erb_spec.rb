@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'yaml'
 
@@ -8,7 +10,7 @@ class String
   end
 
   def unindent
-    gsub(/^#{scan(/^\s*/).min_by(&:length)}/, '')
+    gsub(%r{^#{scan(%r{^\s*}).min_by(&:length)}}, '')
   end
 end
 

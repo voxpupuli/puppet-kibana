@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 
 def to_agent_version(puppet_version)
@@ -54,6 +56,6 @@ end
 def http_retry(url)
   retries ||= 0
   open(url).read
-rescue
+rescue StandardError
   retry if (retries += 1) < 3
 end
