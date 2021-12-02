@@ -1,3 +1,7 @@
 ---
+Gemfile:
+  optional:
+    ':system_tests':
+      - gem: rspec-retry
 spec/spec_helper_acceptance.rb:
   unmanaged: false
