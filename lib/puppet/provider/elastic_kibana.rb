@@ -1,13 +1,11 @@
+# frozen_string_literal: true
+
 require 'json'
 
 # Parent class for Kibana plugin providers.
 class Puppet::Provider::ElasticKibana < Puppet::Provider
   class << self
-    attr_accessor :home_path
-    attr_accessor :install_args
-    attr_accessor :plugin_directory
-    attr_accessor :remove_args
-    attr_accessor :format_url
+    attr_accessor :home_path, :install_args, :plugin_directory, :remove_args, :format_url
   end
 
   # Formats a url for the plugin command-line argument.
@@ -17,7 +15,7 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
   # @return [Proc] a lambda that accepts the URL and scope binding and returns
   #   the formatted URL.
   def format_url
-    self.class.format_url ||= lambda { |url, _| [url] }
+    self.class.format_url ||= ->(url, _) { [url] }
   end
 
   # Discovers plugins present on the system.
@@ -27,16 +25,17 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
   #
   # @return [Array<Hash>] array of discovered providers on the host.
   def self.present_plugins
-    Dir[File.join(home_path, plugin_directory, '*')].select do |directory|
-      not File.basename(directory).start_with? '.' \
+    plugins = Dir[File.join(home_path, plugin_directory, '*')].select do |directory|
+      !File.basename(directory).start_with? '.' \
         and File.exist? File.join(directory, 'package.json')
-    end.map do |plugin|
+    end
+    plugins.map do |plugin|
       j = JSON.parse(File.read(File.join(plugin, 'package.json')))
       {
-        :name => File.basename(plugin),
-        :ensure => :present,
-        :provider => name,
-        :version => j['version']
+        name: File.basename(plugin),
+        ensure: :present,
+        provider: name,
+        version: j['version']
       }
     end
   end
@@ -50,9 +49,7 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
       # Simply remove the plugin if it should be gone
       run_plugin self.class.remove_args + [resource[:name]]
     else
-      unless @property_flush[:version].nil?
-        run_plugin self.class.remove_args + [resource[:name]]
-      end
+      run_plugin self.class.remove_args + [resource[:name]] unless @property_flush[:version].nil?
       run_plugin self.class.install_args + plugin_url
     end
 
@@ -64,7 +61,7 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
   #
   # @return [String] debugging command output.
   def run_plugin(args)
-    stdout = execute([command(:plugin)] + args, :uid => 'kibana', :gid => 'kibana')
+    stdout = execute([command(:plugin)] + args, uid: 'kibana', gid: 'kibana')
     stdout.exitstatus.zero? ? debug(stdout) : raise(Puppet::Error, stdout)
   end
 
@@ -74,9 +71,9 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
   # @return [Array<String>] array of name elements suitable for use in a
   #   Puppet::Provider#execute call.
   def plugin_url
-    if not resource[:url].nil?
+    if !resource[:url].nil?
       format_url.call resource[:url], binding
-    elsif not resource[:organization].nil?
+    elsif !resource[:organization].nil?
       [[resource[:organization], resource[:name], resource[:version]].join('/')]
     else
       [resource[:name]]
@@ -122,7 +119,7 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
 
   # Repopulates the @property_hash to the on-system state for the provider.
   def set_property_hash
-    @property_hash = self.class.present_plugins.detect do |p|
+    @property_hash = self.class.present_plugins.find do |p|
       p[:name] == resource[:name]
     end
   end

@@ -5,12 +5,11 @@
 # @author Tyler Langlois <tyler.langlois@elastic.co>
 #
 class kibana::config {
-
-  $_ensure = $::kibana::ensure ? {
-    'absent' => $::kibana::ensure,
+  $_ensure = $kibana::ensure ? {
+    'absent' => $kibana::ensure,
     default  => 'file',
   }
-  $config = $::kibana::config
+  $config = $kibana::config
 
   file { '/etc/kibana/kibana.yml':
     ensure  => $_ensure,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Puppet::Type.newtype(:kibana_plugin) do
   @doc = 'Manages Kibana plugins.'
 
@@ -8,7 +10,7 @@ Puppet::Type.newtype(:kibana_plugin) do
     defaultto :present
   end
 
-  newparam(:name, :namevar => true) do
+  newparam(:name, namevar: true) do
     desc 'Simple name of the Kibana plugin (not a URL or file path).'
   end
 
@@ -25,12 +27,10 @@ Puppet::Type.newtype(:kibana_plugin) do
   end
 
   autorequire(:package) do
-    self[:ensure] != :absent ? 'kibana' : []
+    self[:ensure] == :absent ? [] : 'kibana'
   end
 
   validate do
-    if self[:ensure] != :absent and !self[:organization].nil? and self[:version].nil?
-      raise Puppet::Error, 'version must be set if organization is set'
-    end
+    raise Puppet::Error, 'version must be set if organization is set' if (self[:ensure] != :absent) && !self[:organization].nil? && self[:version].nil?
   end
 end

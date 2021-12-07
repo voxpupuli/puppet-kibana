@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 
 def to_agent_version(puppet_version)
@@ -49,11 +51,4 @@ def get(url, file_path)
     end
   end
   File.open(file_path, 'w+') { |fh| fh.write res.body }
-end
-
-def http_retry(url)
-  retries ||= 0
-  open(url).read
-rescue
-  retry if (retries += 1) < 3
 end
