@@ -42,7 +42,7 @@ Dependencies are fairly standard (such as stdlib).
 
 In addition to basic puppet settings (such as pluginsync), ensure that the
 required dependencies for the module are met (these are listed in
-`metadata.json` and listed in the Puppet Forge). 
+`metadata.json` and listed in the Puppet Forge).
 
 ### Beginning with kibana
 
