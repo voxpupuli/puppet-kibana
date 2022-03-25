@@ -1,9 +1,13 @@
 # Kibana Puppet Module
 
-[![Puppet Forge Endorsed](https://img.shields.io/puppetforge/e/elastic/kibana.svg)](https://forge.puppetlabs.com/elastic/kibana)
-[![Puppet Forge Version](https://img.shields.io/puppetforge/v/elastic/kibana.svg)](https://forge.puppetlabs.com/elastic/kibana)
-[![Puppet Forge Downloads](https://img.shields.io/puppetforge/dt/elastic/kibana.svg)](https://forge.puppetlabs.com/elastic/kibana)
-[![Build Status](https://travis-ci.org/elastic/puppet-kibana.svg?branch=master)](https://travis-ci.org/elastic/puppet-kibana)
+[![Build Status](https://github.com/voxpupuli/puppet-kibana/workflows/CI/badge.svg)](https://github.com/voxpupuli/puppet-kibana/actions?query=workflow%3ACI)
+[![Release](https://github.com/voxpupuli/puppet-kibana/actions/workflows/release.yml/badge.svg)](https://github.com/voxpupuli/puppet-kibana/actions/workflows/release.yml)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/kibana.svg)](https://forge.puppetlabs.com/puppet/kibana)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/kibana.svg)](https://forge.puppetlabs.com/puppet/kibana)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/kibana.svg)](https://forge.puppetlabs.com/puppet/kibana)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/kibana.svg)](https://forge.puppetlabs.com/puppet/kibana)
+[![puppetmodule.info docs](http://www.puppetmodule.info/images/badge.png)](http://www.puppetmodule.info/m/puppet-kibana)
+[![Apache-2.0 License](https://img.shields.io/github/license/voxpupuli/puppet-kibana.svg)](LICENSE)
 
 #### Table of Contents
 
