@@ -159,7 +159,7 @@ describe 'kibana', type: 'class' do
 
             context 'with bad parameters' do
               {
-                'server.basePath' => '',
+                'server.basePath' => 4.2,
                 5601 => :undef,
                 '' => :undef
               }.each do |key, val|
