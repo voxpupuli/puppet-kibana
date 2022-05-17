@@ -96,7 +96,7 @@ class { 'kibana': ensure => absent }
 
 ### OSS Packages and Repository Management
 
-This module uses the [elastic/elastic_stack](https://forge.puppet.com/elastic/elastic_stack) module to manage the elastic package repositories.
+This module uses the [puppet/elastic_stack](https://forge.puppet.com/puppet/elastic_stack) module to manage the elastic package repositories.
 In order to control which major version of package repository to manage, declare the associated repository version in the `elastic_stack::repo` class.
 For example, to explicitly set the repository version to 5 instead of the default (which, at the time of this writing, is 6):
 
