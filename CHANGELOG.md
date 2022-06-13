@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.0.1](https://github.com/voxpupuli/puppet-kibana/tree/v7.0.1) (2022-06-13)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-kibana/compare/v7.0.0...v7.0.1)
+
+**Fixed bugs:**
+
+- Allow empty string values in kibana::config [\#44](https://github.com/voxpupuli/puppet-kibana/pull/44) ([smokris](https://github.com/smokris))
+- Crossport hash.rb from elastic/puppet-elasticsearch [\#41](https://github.com/voxpupuli/puppet-kibana/pull/41) ([baurmatt](https://github.com/baurmatt))
+
+**Closed issues:**
+
+- Module dependency for elastic-elastick\_stack [\#57](https://github.com/voxpupuli/puppet-kibana/issues/57)
+
+**Merged pull requests:**
+
+- Remove .ruby-version and .tool-versions [\#60](https://github.com/voxpupuli/puppet-kibana/pull/60) ([root-expert](https://github.com/root-expert))
+- Update module name [\#59](https://github.com/voxpupuli/puppet-kibana/pull/59) ([luoymu](https://github.com/luoymu))
+- elastic/elastic\_stack deprecation [\#58](https://github.com/voxpupuli/puppet-kibana/pull/58) ([anesterova](https://github.com/anesterova))
+
 ## [v7.0.0](https://github.com/voxpupuli/puppet-kibana/tree/v7.0.0) (2022-03-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-kibana/compare/6.3.1...v7.0.0)
