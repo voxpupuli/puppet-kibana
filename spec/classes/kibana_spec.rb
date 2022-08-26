@@ -173,13 +173,13 @@ describe 'kibana', type: 'class' do
           end
 
           describe 'kibana_user' do
-            let(:params) { { :kibana_user => 'testuser' } }
+            let(:params) { { kibana_user: 'testuser' } }
 
             it { is_expected.to contain_file('/etc/kibana/kibana.yml').with(owner: 'testuser') }
           end
 
           describe 'kibana_group' do
-            let(:params) { { :kibana_group => 'testgroup' } }
+            let(:params) { { kibana_group: 'testgroup' } }
 
             it { is_expected.to contain_file('/etc/kibana/kibana.yml').with(group: 'testgroup') }
           end
