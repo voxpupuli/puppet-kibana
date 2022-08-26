@@ -1,6 +1,8 @@
 ---
 kibana::ensure: present
 kibana::config: {}
+kibana::kibana_user: kibana
+kibana::kibana_group: kibana
 kibana::manage_repo: true
 kibana::oss: false
 kibana::package_source: ~

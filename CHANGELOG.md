@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## Unreleased
+
+- Add parameters kibana_user, kibana_group
+
 ## [v7.0.1](https://github.com/voxpupuli/puppet-kibana/tree/v7.0.1) (2022-06-13)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-kibana/compare/v7.0.0...v7.0.1)
