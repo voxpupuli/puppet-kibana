@@ -184,6 +184,17 @@ describe 'kibana', type: 'class' do
             it { is_expected.to contain_file('/etc/kibana/kibana.yml').with(group: 'testgroup') }
           end
 
+          describe 'kibana_service' do
+            let(:params) { { service_name: 'kibana-custom' } }
+
+            it 'enables and starts the custom service' do
+              expect(subject).to contain_service('kibana-custom').with(
+                ensure: true,
+                enable: true
+              )
+            end
+          end
+
           describe 'manage_repo' do
             let(:params) { { manage_repo: false } }
 
