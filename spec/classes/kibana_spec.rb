@@ -184,6 +184,17 @@ describe 'kibana', type: 'class' do
             it { is_expected.to contain_file('/etc/kibana/kibana.yml').with(group: 'testgroup') }
           end
 
+          describe 'kibana_service' do
+            let(:params) { { service_name: 'kibana-custom' } }
+
+            it 'enables and starts the custom service' do
+              expect(subject).to contain_service('kibana-custom').with(
+                ensure: true,
+                enable: true
+              )
+            end
+          end
+
           describe 'manage_repo' do
             let(:params) { { manage_repo: false } }
 
@@ -225,6 +236,15 @@ describe 'kibana', type: 'class' do
                 it { is_expected.not_to compile.with_all_deps }
               end
             end
+          end
+
+          describe 'kibana_package_name' do
+            let(:params) { { package_name: 'kibana-custom' } }
+
+            it {
+              expect(subject).to contain_package('kibana').
+                with_name('kibana-custom')
+            }
           end
         end
       end

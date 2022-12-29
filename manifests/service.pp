@@ -38,7 +38,7 @@ class kibana::service {
     $_enable = false
   }
 
-  service { 'kibana':
+  service { $kibana::service_name:
     ensure => $_ensure,
     enable => $_enable,
   }
