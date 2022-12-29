@@ -237,6 +237,15 @@ describe 'kibana', type: 'class' do
               end
             end
           end
+
+          describe 'kibana_package_name' do
+            let(:params) { { package_name: 'kibana-custom' } }
+
+            it {
+              expect(subject).to contain_package('kibana').
+                with_name('kibana-custom')
+            }
+          end
         end
       end
     end
