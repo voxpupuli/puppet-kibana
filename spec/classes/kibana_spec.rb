@@ -41,10 +41,10 @@ describe 'kibana', type: 'class' do
                   group: 'kibana',
                   mode: '0660'
                 ).
-                with_content(%r{
-                # Managed by Puppet..
-                ---.
-                }xm)
+                with_content(sensitive(%r{
+                  # Managed by Puppet..
+                  ---.
+                  }xm))
             end
 
             it 'enables and starts the service' do
