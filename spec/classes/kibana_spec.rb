@@ -41,10 +41,10 @@ describe 'kibana', type: 'class' do
                   group: 'kibana',
                   mode: '0660'
                 ).
-                with_content(%r{
-                # Managed by Puppet..
-                ---.
-                }xm)
+                with_content(sensitive(%r{
+                  # Managed by Puppet..
+                  ---.
+                  }xm))
             end
 
             it 'enables and starts the service' do
@@ -245,6 +245,12 @@ describe 'kibana', type: 'class' do
               expect(subject).to contain_package('kibana').
                 with_name('kibana-custom')
             }
+          end
+
+          describe 'kibana_plugindir' do
+            let(:params) { { plugindir: '/usr/local/kibana/plugins' } }
+
+            it { is_expected.to contain_file('/usr/local/kibana/plugins').with(mode: '0755') }
           end
         end
       end
