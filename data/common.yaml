@@ -4,4 +4,5 @@ kibana::config: {}
 kibana::manage_repo: true
 kibana::oss: false
 kibana::package_source: ~
+kibana::plugindir: /usr/share/kibana/plugins
 kibana::status: enabled

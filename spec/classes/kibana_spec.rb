@@ -176,12 +176,14 @@ describe 'kibana', type: 'class' do
             let(:params) { { kibana_user: 'testuser' } }
 
             it { is_expected.to contain_file('/etc/kibana/kibana.yml').with(owner: 'testuser') }
+            it { is_expected.to contain_file('/usr/share/kibana/plugins').with(owner: 'testuser') }
           end
 
           describe 'kibana_group' do
             let(:params) { { kibana_group: 'testgroup' } }
 
             it { is_expected.to contain_file('/etc/kibana/kibana.yml').with(group: 'testgroup') }
+            it { is_expected.to contain_file('/usr/share/kibana/plugins').with(owner: 'testgroup') }
           end
 
           describe 'manage_repo' do
@@ -225,6 +227,21 @@ describe 'kibana', type: 'class' do
                 it { is_expected.not_to compile.with_all_deps }
               end
             end
+          end
+
+          describe 'kibana_package_name' do
+            let(:params) { { package_name: 'kibana-custom' } }
+
+            it {
+              expect(subject).to contain_package('kibana').
+                with_name('kibana-custom')
+            }
+          end
+
+          describe 'kibana_plugindir' do
+            let(:params) { { plugindir: '/usr/local/kibana/plugins' } }
+
+            it { is_expected.to contain_file('/usr/local/kibana/plugins').with(mode: 'o+Xr') }
           end
         end
       end

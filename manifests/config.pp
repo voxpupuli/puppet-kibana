@@ -18,4 +18,11 @@ class kibana::config {
     group   => $kibana::kibana_group,
     mode    => '0660',
   }
+
+  file { $kibana::plugindir:
+    ensure => 'directory',
+    owner  => $kibana::kibana_user,
+    group  => $kibana::kibana_group,
+    mode   => 'o+Xr',
+  }
 }
