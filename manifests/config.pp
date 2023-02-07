@@ -9,11 +9,10 @@ class kibana::config {
     'absent' => $kibana::ensure,
     default  => 'file',
   }
-  $config = $kibana::config
 
   file { '/etc/kibana/kibana.yml':
     ensure  => $_ensure,
-    content => Sensitive(template("${module_name}/etc/kibana/kibana.yml.erb")),
+    content => Sensitive(kibana::hash2yaml($kibana::config)),
     owner   => $kibana::kibana_user,
     group   => $kibana::kibana_group,
     mode    => '0660',
