@@ -246,6 +246,12 @@ describe 'kibana', type: 'class' do
                 with_name('kibana-custom')
             }
           end
+
+          describe 'kibana_plugindir' do
+            let(:params) { { plugindir: '/usr/local/kibana/plugins' } }
+
+            it { is_expected.to contain_file('/usr/local/kibana/plugins').with(mode: '0755') }
+          end
         end
       end
     end

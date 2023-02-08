@@ -24,6 +24,9 @@
 # @param status Service status
 # @param service_name Service name
 # @param package_name Package name
+# @param plugindir
+#   Directory containing kibana plugins.
+#   Use this setting if you want to manage the directory
 # @param kibana_user owner of kibana.yml
 # @param kibana_group group of kibana.yml
 #
@@ -36,6 +39,7 @@ class kibana (
   Boolean $oss,
   Optional[String] $package_source,
   Kibana::Status $status,
+  Optional[Stdlib::Absolutepath] $plugindir = undef,
   String[1] $service_name = 'kibana',
   String[1] $package_name = 'kibana',
   String[1] $kibana_user = 'kibana',
