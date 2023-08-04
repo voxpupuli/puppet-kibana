@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.0.0](https://github.com/voxpupuli/puppet-kibana/tree/v8.0.0) (2023-08-04)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-kibana/compare/v7.0.1...v8.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 6 support [\#74](https://github.com/voxpupuli/puppet-kibana/pull/74) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add Puppet 8 support [\#76](https://github.com/voxpupuli/puppet-kibana/pull/76) ([bastelfreak](https://github.com/bastelfreak))
+- Remove template erb and puppet\_x folder [\#72](https://github.com/voxpupuli/puppet-kibana/pull/72) ([phaedriel](https://github.com/phaedriel))
+- Add optional parameter plugindir \(Directory containing kibana plugins\) [\#71](https://github.com/voxpupuli/puppet-kibana/pull/71) ([phaedriel](https://github.com/phaedriel))
+- Add sensitive for kibana config [\#68](https://github.com/voxpupuli/puppet-kibana/pull/68) ([phaedriel](https://github.com/phaedriel))
+- Add service\_name and package\_name parameters [\#66](https://github.com/voxpupuli/puppet-kibana/pull/66) ([phaedriel](https://github.com/phaedriel))
+- Allow to change `kibana.yml` ownership [\#64](https://github.com/voxpupuli/puppet-kibana/pull/64) ([phaedriel](https://github.com/phaedriel))
+
+**Closed issues:**
+
+- Support alternative package & service name for Kibana [\#16](https://github.com/voxpupuli/puppet-kibana/issues/16)
+
 ## [v7.0.1](https://github.com/voxpupuli/puppet-kibana/tree/v7.0.1) (2022-06-13)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-kibana/compare/v7.0.0...v7.0.1)

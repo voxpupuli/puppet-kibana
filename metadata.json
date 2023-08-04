@@ -1,6 +1,6 @@
 {
   "name": "puppet-kibana",
-  "version": "7.0.2-rc0",
+  "version": "8.0.0",
   "author": "Vox Pupuli",
   "summary": "Module for installing, configuring, and managing Kibana.",
   "license": "Apache-2.0",
@@ -10,7 +10,7 @@
   "dependencies": [
     {
       "name": "puppet/elastic_stack",
-      "version_requirement": ">= 6.1.0 < 9.0.0"
+      "version_requirement": ">= 6.1.0 < 10.0.0"
     }
   ],
   "operatingsystem_support": [
