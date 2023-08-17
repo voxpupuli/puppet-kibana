@@ -50,5 +50,5 @@ def get(url, file_path)
       found = true
     end
   end
-  File.open(file_path, 'w+') { |fh| fh.write res.body }
+  File.write(file_path, res.body)
 end
