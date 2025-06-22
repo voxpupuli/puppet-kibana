@@ -21,6 +21,12 @@
       ]
     },
     {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "9"
+      ]
+    },
+    {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "8",
