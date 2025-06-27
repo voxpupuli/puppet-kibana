@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v9.0.0](https://github.com/voxpupuli/puppet-kibana/tree/v9.0.0) (2025-06-27)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-kibana/compare/v8.0.0...v9.0.0)
+
+**Breaking changes:**
+
+- Drop Ubuntu 18.04 and 20.04 [\#104](https://github.com/voxpupuli/puppet-kibana/pull/104) ([h-haaks](https://github.com/h-haaks))
+- Drop Amazon 2017.03 [\#99](https://github.com/voxpupuli/puppet-kibana/pull/99) ([h-haaks](https://github.com/h-haaks))
+- Drop Debian 10 [\#98](https://github.com/voxpupuli/puppet-kibana/pull/98) ([h-haaks](https://github.com/h-haaks))
+- Drop CentOS 7 and 8 [\#97](https://github.com/voxpupuli/puppet-kibana/pull/97) ([h-haaks](https://github.com/h-haaks))
+- Drop Redhat 7 [\#96](https://github.com/voxpupuli/puppet-kibana/pull/96) ([h-haaks](https://github.com/h-haaks))
+- Drop Fedora 34 and 35 [\#95](https://github.com/voxpupuli/puppet-kibana/pull/95) ([h-haaks](https://github.com/h-haaks))
+
+**Implemented enhancements:**
+
+- Add Debian 12 [\#106](https://github.com/voxpupuli/puppet-kibana/pull/106) ([h-haaks](https://github.com/h-haaks))
+- Allow puppet/elastic\_stack 10.x [\#105](https://github.com/voxpupuli/puppet-kibana/pull/105) ([h-haaks](https://github.com/h-haaks))
+- Add RedHat 9 [\#103](https://github.com/voxpupuli/puppet-kibana/pull/103) ([h-haaks](https://github.com/h-haaks))
+- Add CentOS 9 [\#102](https://github.com/voxpupuli/puppet-kibana/pull/102) ([h-haaks](https://github.com/h-haaks))
+- Add AlmaLinux 8 and 9 [\#101](https://github.com/voxpupuli/puppet-kibana/pull/101) ([h-haaks](https://github.com/h-haaks))
+- Add Rocky 8 and 9 [\#100](https://github.com/voxpupuli/puppet-kibana/pull/100) ([h-haaks](https://github.com/h-haaks))
+- Add Ubuntu 22.04 and 24.04 [\#94](https://github.com/voxpupuli/puppet-kibana/pull/94) ([h-haaks](https://github.com/h-haaks))
+- metadata.json: Add OpenVox [\#90](https://github.com/voxpupuli/puppet-kibana/pull/90) ([jstraw](https://github.com/jstraw))
+
 ## [v8.0.0](https://github.com/voxpupuli/puppet-kibana/tree/v8.0.0) (2023-08-04)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-kibana/compare/v7.0.1...v8.0.0)
@@ -20,10 +44,6 @@ These should not affect the functionality of the module.
 - Add sensitive for kibana config [\#68](https://github.com/voxpupuli/puppet-kibana/pull/68) ([phaedriel](https://github.com/phaedriel))
 - Add service\_name and package\_name parameters [\#66](https://github.com/voxpupuli/puppet-kibana/pull/66) ([phaedriel](https://github.com/phaedriel))
 - Allow to change `kibana.yml` ownership [\#64](https://github.com/voxpupuli/puppet-kibana/pull/64) ([phaedriel](https://github.com/phaedriel))
-
-**Closed issues:**
-
-- Support alternative package & service name for Kibana [\#16](https://github.com/voxpupuli/puppet-kibana/issues/16)
 
 ## [v7.0.1](https://github.com/voxpupuli/puppet-kibana/tree/v7.0.1) (2022-06-13)
 
