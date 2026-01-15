@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v10.0.0](https://github.com/voxpupuli/puppet-kibana/tree/v10.0.0) (2026-01-15)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-kibana/compare/v9.0.0...v10.0.0)
+
+**Breaking changes:**
+
+- Drop puppet, update openvox minimum version to 8.19 [\#108](https://github.com/voxpupuli/puppet-kibana/pull/108) ([TheMeier](https://github.com/TheMeier))
+
+**Merged pull requests:**
+
+- allow puppet/elastic\_stack 11.x [\#114](https://github.com/voxpupuli/puppet-kibana/pull/114) ([marcusdots](https://github.com/marcusdots))
+
 ## [v9.0.0](https://github.com/voxpupuli/puppet-kibana/tree/v9.0.0) (2025-06-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-kibana/compare/v8.0.0...v9.0.0)
