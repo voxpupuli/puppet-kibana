@@ -1,6 +1,6 @@
 {
   "name": "puppet-kibana",
-  "version": "9.0.1-rc0",
+  "version": "10.0.0",
   "author": "Vox Pupuli",
   "summary": "Module for installing, configuring, and managing Kibana.",
   "license": "Apache-2.0",
