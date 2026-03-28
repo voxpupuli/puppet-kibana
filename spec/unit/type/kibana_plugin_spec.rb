@@ -31,8 +31,8 @@ describe Puppet::Type.type(:kibana_plugin) do
 
     describe 'validate' do
       it 'requires version when organization is set' do
-        expect { described_class.new(name: 'marvel', organization: 'elasticsearch') }.
-          to raise_error(Puppet::Error, %r{version must be set if organization is set})
+        expect { described_class.new(name: 'marvel', organization: 'elasticsearch') }
+          .to raise_error(Puppet::Error, %r{version must be set if organization is set})
       end
 
       it 'does not require version when organization is set when ensure is absent' do
@@ -40,7 +40,7 @@ describe Puppet::Type.type(:kibana_plugin) do
           described_class.new(
             name: 'marvel',
             ensure: 'absent',
-            organization: 'elasticsearch'
+            organization: 'elasticsearch',
           )
         end.not_to raise_error
       end

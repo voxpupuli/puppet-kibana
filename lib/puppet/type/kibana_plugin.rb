@@ -27,7 +27,7 @@ Puppet::Type.newtype(:kibana_plugin) do
   end
 
   autorequire(:package) do
-    self[:ensure] == :absent ? [] : 'kibana'
+    (self[:ensure] == :absent) ? [] : 'kibana'
   end
 
   validate do

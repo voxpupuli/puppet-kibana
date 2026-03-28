@@ -9,7 +9,7 @@ Puppet::Type.type(:kibana_plugin).provide(
   home_path: File.join(%w[/ opt kibana]),
   install_args: ['plugin', '--install'],
   plugin_directory: 'installedPlugins',
-  remove_args: ['plugin', '--remove']
+  remove_args: ['plugin', '--remove'],
 ) do
   desc 'Native command-line provider for Kibana v4 plugins.'
 
