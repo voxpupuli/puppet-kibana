@@ -32,8 +32,11 @@ describe 'kibana class v5' do
     MANIFEST
   end
 
-  let(:plugin_url) do
-    "https://github.com/DeanF/#{plugin}/releases/download/v#{plugin_version}/#{plugin}-#{version.split('-').first}.zip"
+  let(:plugin_url) { "file:///tmp/#{plugin}-#{plugin_version}.zip" }
+
+  before do
+    source = "https://github.com/DeanF/#{plugin}/releases/download/v#{plugin_version}/#{plugin}-#{version.split('-').first}.zip"
+    on default, "curl -fsSL -o /tmp/#{plugin}-#{plugin_version}.zip #{source}"
   end
 
   include_examples 'class manifests',
