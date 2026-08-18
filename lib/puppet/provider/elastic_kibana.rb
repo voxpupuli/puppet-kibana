@@ -35,7 +35,7 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
         name: File.basename(plugin),
         ensure: :present,
         provider: name,
-        version: j['version']
+        version: j['version'],
       }
     end
   end
@@ -146,7 +146,7 @@ class Puppet::Provider::ElasticKibana < Puppet::Provider
 
   # Provider constructor
   def initialize(value = {})
-    super(value)
+    super
     @property_flush = {}
   end
 end

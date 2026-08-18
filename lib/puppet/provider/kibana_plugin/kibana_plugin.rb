@@ -8,7 +8,7 @@ Puppet::Type.type(:kibana_plugin).provide(
   home_path: File.join(%w[/ usr share kibana]),
   install_args: ['install'],
   plugin_directory: 'plugins',
-  remove_args: ['remove']
+  remove_args: ['remove'],
 ) do
   desc 'Native command-line provider for Kibana v5 plugins.'
 
