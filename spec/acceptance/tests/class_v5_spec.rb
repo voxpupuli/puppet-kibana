@@ -37,7 +37,7 @@ describe 'kibana class v5' do
   end
 
   include_examples 'class manifests',
-                   "/usr/share/kibana/plugins/#{plugin}/package.json",
+                   '/usr/share/kibana/plugins/enhanced-table/package.json',
                    '1.1.0'
 end
 # rubocop:enable RSpec/MultipleMemoizedHelpers
