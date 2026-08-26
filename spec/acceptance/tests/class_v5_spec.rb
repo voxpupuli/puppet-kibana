@@ -5,10 +5,10 @@ require 'helpers/acceptance/tests/class_shared_examples'
 
 # rubocop:disable RSpec/MultipleMemoizedHelpers
 describe 'kibana class v5' do
-  let(:plugin)         { 'health_metric_vis' }
-  let(:plugin_version) { '0.3.4' }
+  let(:plugin)         { 'enhanced-table' }
+  let(:plugin_version) { '1.0.0' }
   let(:port)           { 5602 }
-  let(:version)        { fact('osfamily') == 'RedHat' ? '5.2.0-1' : '5.2.0' }
+  let(:version)        { fact('osfamily') == 'RedHat' ? '5.6.16-1' : '5.6.16' }
 
   let(:manifest) do
     <<-MANIFEST
@@ -33,11 +33,11 @@ describe 'kibana class v5' do
   end
 
   let(:plugin_url) do
-    "https://github.com/DeanF/#{plugin}/releases/download/v#{plugin_version}/#{plugin}-#{version.split('-').first}.zip"
+    "https://github.com/fbaligand/kibana-#{plugin}/releases/download/v#{plugin_version}/#{plugin}-#{plugin_version}_#{version.split('-').first}.zip"
   end
 
   include_examples 'class manifests',
-                   '/usr/share/kibana/plugins/health_metric_vis/package.json',
-                   '0.3.5'
+                   '/usr/share/kibana/plugins/enhanced-table/package.json',
+                   '1.1.0'
 end
 # rubocop:enable RSpec/MultipleMemoizedHelpers
