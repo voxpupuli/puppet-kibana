@@ -28,7 +28,7 @@ shared_examples 'class manifests' do |plugin_json_file, plugin_upgrade|
     it 'applies cleanly' do
       apply_manifest(
         "kibana_plugin { '#{plugin}': ensure => absent } ->" + manifest,
-        catch_failures: true
+        catch_failures: true,
       )
     end
 

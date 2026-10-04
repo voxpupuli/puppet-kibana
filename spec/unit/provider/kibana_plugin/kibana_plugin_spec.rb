@@ -15,14 +15,14 @@ describe Puppet::Type.type(:kibana_plugin).provider(:kibana_plugin) do
   let(:plugin_one) do
     {
       name: 'x-pack',
-      version: '5.2.1'
+      version: '5.2.1',
     }
   end
 
   let(:plugin_two) do
     {
       name: 'logtrail',
-      version: '5.2.0'
+      version: '5.2.0',
     }
   end
 
@@ -30,7 +30,7 @@ describe Puppet::Type.type(:kibana_plugin).provider(:kibana_plugin) do
     Puppet::Type.type(:kibana_plugin).new(
       name: plugin_one[:name],
       provider: provider,
-      version: plugin_one[:version]
+      version: plugin_one[:version],
     )
   end
 
@@ -38,32 +38,32 @@ describe Puppet::Type.type(:kibana_plugin).provider(:kibana_plugin) do
 
   describe 'url' do
     before do
-      allow(described_class).
-        to receive(:command).with(:plugin).
-        and_return executable
+      allow(described_class)
+        .to receive(:command).with(:plugin)
+        .and_return executable
     end
 
     it 'passes it through to the install command' do
       url = 'https://some.sample.url/directory'
       allow(provider).to(
-        receive(:execute).
-          with(
+        receive(:execute)
+          .with(
             [executable] + install_args + [url],
-            uid: 'kibana', gid: 'kibana'
-          ).
-          and_return(
-            Puppet::Util::Execution::ProcessOutput.new('success', 0)
+            uid: 'kibana', gid: 'kibana',
           )
+          .and_return(
+            Puppet::Util::Execution::ProcessOutput.new('success', 0),
+          ),
       )
       resource[:url] = url
       provider.create
       provider.flush
       expect(provider).to(
-        have_received(:execute).
-          with(
+        have_received(:execute)
+          .with(
             [executable] + install_args + [url],
-            uid: 'kibana', gid: 'kibana'
-          )
+            uid: 'kibana', gid: 'kibana',
+          ),
       )
     end
   end

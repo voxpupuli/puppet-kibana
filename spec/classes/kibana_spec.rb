@@ -17,31 +17,31 @@ describe 'kibana', type: 'class' do
             it 'sets expected defaults' do
               expect(subject).to contain_class('kibana').with(
                 ensure: 'present',
-                manage_repo: true
+                manage_repo: true,
               )
             end
 
             it 'declares install before config' do
-              expect(subject).to contain_class('kibana::install').
-                that_comes_before('Class[kibana::config]')
+              expect(subject).to contain_class('kibana::install')
+                .that_comes_before('Class[kibana::config]')
             end
 
             it { is_expected.to contain_class('kibana::config') }
 
             it 'subscribes service to config' do
-              expect(subject).to contain_class('kibana::service').
-                that_subscribes_to('Class[kibana::config]')
+              expect(subject).to contain_class('kibana::service')
+                .that_subscribes_to('Class[kibana::config]')
             end
 
             it 'installs the kibana config file' do
-              expect(subject).to contain_file('/etc/kibana/kibana.yml').
-                with(
+              expect(subject).to contain_file('/etc/kibana/kibana.yml')
+                .with(
                   ensure: 'file',
                   owner: 'kibana',
                   group: 'kibana',
-                  mode: '0660'
-                ).
-                with_content(sensitive(%r{
+                  mode: '0660',
+                )
+                .with_content(sensitive(%r{
                   # Managed by Puppet..
                   ---.
                   }xm))
@@ -50,23 +50,23 @@ describe 'kibana', type: 'class' do
             it 'enables and starts the service' do
               expect(subject).to contain_service('kibana').with(
                 ensure: true,
-                enable: true
+                enable: true,
               )
             end
 
             it { is_expected.to contain_package('kibana').with_ensure('present') }
 
             it do
-              expect(subject).to contain_class('elastic_stack::repo').
-                that_comes_before('Class[kibana::install]')
+              expect(subject).to contain_class('elastic_stack::repo')
+                .that_comes_before('Class[kibana::install]')
             end
 
             case facts[:os]['family']
             when 'Debian'
               describe "#{facts[:os]['family']} resources" do
                 it 'updates package cache before installing kibana' do
-                  expect(subject).to contain_class('apt::update').
-                    that_comes_before('Package[kibana]')
+                  expect(subject).to contain_class('apt::update')
+                    .that_comes_before('Package[kibana]')
                 end
               end
             end
@@ -76,7 +76,7 @@ describe 'kibana', type: 'class' do
         describe 'removal' do
           let :params do
             {
-              ensure: 'absent'
+              ensure: 'absent',
             }
           end
 
@@ -84,33 +84,33 @@ describe 'kibana', type: 'class' do
 
           it 'sets expected defaults' do
             expect(subject).to contain_class('kibana').with(
-              ensure: 'absent'
+              ensure: 'absent',
             )
           end
 
           it 'manages service before config' do
-            expect(subject).to contain_class('kibana::service').
-              that_comes_before('Class[kibana::config]')
+            expect(subject).to contain_class('kibana::service')
+              .that_comes_before('Class[kibana::config]')
           end
 
           it 'manages config before install' do
-            expect(subject).to contain_class('kibana::config').
-              that_comes_before('Class[kibana::install]')
+            expect(subject).to contain_class('kibana::config')
+              .that_comes_before('Class[kibana::install]')
           end
 
           it { is_expected.to contain_class('kibana::install') }
 
           it 'stops and disables the service' do
-            expect(subject).to contain_service('kibana').
-              with(
+            expect(subject).to contain_service('kibana')
+              .with(
                 ensure: false,
-                enable: false
+                enable: false,
               )
           end
 
           it 'removes the kibana config file' do
-            expect(subject).to contain_file('/etc/kibana/kibana.yml').
-              with(ensure: 'absent')
+            expect(subject).to contain_file('/etc/kibana/kibana.yml')
+              .with(ensure: 'absent')
           end
 
           it { is_expected.to contain_package('kibana').with_ensure('absent') }
@@ -126,8 +126,8 @@ describe 'kibana', type: 'class' do
                   it { is_expected.to compile.with_all_deps }
 
                   it {
-                    expect(subject).to contain_package('kibana').
-                      with_ensure(param)
+                    expect(subject).to contain_package('kibana')
+                      .with_ensure(param)
                   }
                 end
               end
@@ -147,7 +147,7 @@ describe 'kibana', type: 'class' do
                 'server.port' => 5601,
                 'elasticsearch.ssl.verify' => true,
                 'elasticsearch.requestHeadersWhitelist' => ['authorization'],
-                'tilemap' => { 'url' => 'https://test' }
+                'tilemap' => { 'url' => 'https://test' },
               }.each do |key, val|
                 context "'#{val}'" do
                   let(:params) { { config: { key => val } } }
@@ -161,7 +161,7 @@ describe 'kibana', type: 'class' do
               {
                 'server.basePath' => 4.2,
                 5601 => :undef,
-                '' => :undef
+                '' => :undef,
               }.each do |key, val|
                 context "'#{val}'" do
                   let(:params) { { config: { key => val } } }
@@ -190,7 +190,7 @@ describe 'kibana', type: 'class' do
             it 'enables and starts the custom service' do
               expect(subject).to contain_service('kibana-custom').with(
                 ensure: true,
-                enable: true
+                enable: true,
               )
             end
           end
@@ -217,20 +217,20 @@ describe 'kibana', type: 'class' do
               let(:params) { { package_source: package_source } }
 
               it {
-                expect(subject).to contain_package('kibana').
-                  with_source(package_source)
+                expect(subject).to contain_package('kibana')
+                  .with_source(package_source)
               }
 
               case facts[:os]['family']
               when 'Debian'
                 it {
-                  expect(subject).to contain_package('kibana').
-                    with_provider('dpkg')
+                  expect(subject).to contain_package('kibana')
+                    .with_provider('dpkg')
                 }
               when 'RedHat'
                 it {
-                  expect(subject).to contain_package('kibana').
-                    with_provider('rpm')
+                  expect(subject).to contain_package('kibana')
+                    .with_provider('rpm')
                 }
               else
                 it { is_expected.not_to compile.with_all_deps }
@@ -242,8 +242,8 @@ describe 'kibana', type: 'class' do
             let(:params) { { package_name: 'kibana-custom' } }
 
             it {
-              expect(subject).to contain_package('kibana').
-                with_name('kibana-custom')
+              expect(subject).to contain_package('kibana')
+                .with_name('kibana-custom')
             }
           end
 

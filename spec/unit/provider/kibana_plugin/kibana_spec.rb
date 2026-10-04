@@ -15,14 +15,14 @@ describe Puppet::Type.type(:kibana_plugin).provider(:kibana) do
   let(:plugin_one) do
     {
       name: 'marvel',
-      version: '2.4.4'
+      version: '2.4.4',
     }
   end
 
   let(:plugin_two) do
     {
       name: 'graph',
-      version: '2.4.1'
+      version: '2.4.1',
     }
   end
 
@@ -31,7 +31,7 @@ describe Puppet::Type.type(:kibana_plugin).provider(:kibana) do
       name: plugin_one[:name],
       organization: 'elasticsearch',
       provider: provider,
-      version: '2.4.4'
+      version: '2.4.4',
     )
   end
 
@@ -39,32 +39,32 @@ describe Puppet::Type.type(:kibana_plugin).provider(:kibana) do
 
   describe 'url' do
     before do
-      allow(described_class).
-        to receive(:command).with(:plugin).
-        and_return executable
+      allow(described_class)
+        .to receive(:command).with(:plugin)
+        .and_return executable
     end
 
     it 'causes --url to be passed to install' do
       url = 'https://some.sample.url/directory'
       allow(provider).to(
-        receive(:execute).
-          with(
+        receive(:execute)
+          .with(
             [executable] + install_args + [resource[:name], '--url', url],
-            uid: 'kibana', gid: 'kibana'
-          ).
-          and_return(
-            Puppet::Util::Execution::ProcessOutput.new('success', 0)
+            uid: 'kibana', gid: 'kibana',
           )
+          .and_return(
+            Puppet::Util::Execution::ProcessOutput.new('success', 0),
+          ),
       )
       resource[:url] = url
       provider.create
       provider.flush
       expect(provider).to(
-        have_received(:execute).
-          with(
+        have_received(:execute)
+          .with(
             [executable] + install_args + [resource[:name], '--url', url],
-            uid: 'kibana', gid: 'kibana'
-          )
+            uid: 'kibana', gid: 'kibana',
+          ),
       )
     end
   end

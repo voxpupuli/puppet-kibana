@@ -16,7 +16,7 @@ Puppet::Functions.create_function(:'kibana::hash2yaml') do
 
   def yaml(input, options = {})
     settings = {
-      'header' => '# File managed by Puppet.'
+      'header' => '# File managed by Puppet.',
     }
 
     settings.merge!(options)
